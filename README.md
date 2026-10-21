@@ -4,7 +4,7 @@
 
 The forecast is generated at about 06:00 CT by a scheduled GitHub Action and committed to this repo. The market closes at 10:00 CT. ERCOT publishes the cleared prices at about 13:30 CT, and an afternoon run scores the call against ERCOT's official settlement file. The evidence sits outside the code. Each forecast is produced inside a GitHub Actions run, and GitHub records that run's start time and logs (the run link is saved in every forecast file). The file is pushed to this public repo minutes later. Commit dates alone could be faked; GitHub writes the run records and push times, and the author cannot edit them. A repo admin could delete a run, and GitHub keeps run logs for 90 days by default, so the run link is also copied into each forecast file.
 
-**[Live dashboard →](https://AAaali2292.github.io/ercot-forecast/)**
+**[Live dashboard →](https://aaaali2292.github.io/ercot-forecast-updated/)**
 
 ---
 
