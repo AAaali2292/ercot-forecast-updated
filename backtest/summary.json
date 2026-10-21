@@ -1,0 +1,39 @@
+{
+  "generated_at_ct": "2026-10-21T12:26:47-05:00",
+  "label": "SIMULATED BACKTEST",
+  "requested_days": 60,
+  "method": "Walk-forward backtest of the hybrid model. SIMULATED - never mixed with the live record.",
+  "status": "ok",
+  "n_days": 60,
+  "first_date": "2026-08-22",
+  "last_date": "2026-10-20",
+  "training_weather": "Open-Meteo previous-day forecasts",
+  "mae_atc": {
+    "hybrid": 5.1,
+    "persistence": 7.19,
+    "seasonal": 10.6
+  },
+  "mae_peak": {
+    "hybrid": 8.53,
+    "persistence": 11.03,
+    "seasonal": 16.52
+  },
+  "mae_hourly": {
+    "hybrid": 6.82,
+    "persistence": 8.74,
+    "seasonal": 12.85
+  },
+  "bias_atc_hybrid": -1.84,
+  "interval_coverage_pct": 70.0,
+  "direction_hit_pct": 75.9,
+  "days_beat_persistence": 41,
+  "skill_vs_persistence_atc_pct": 29.1,
+  "skill_vs_persistence_hourly_pct": 22.0,
+  "feeds": {
+    "Open-Meteo previous-day forecasts": {
+      "status": "OK",
+      "detail": "5256 hours, 2026-03-16 to 2026-10-21",
+      "rows": 5256
+    }
+  }
+}
