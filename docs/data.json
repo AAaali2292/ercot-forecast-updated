@@ -1,5 +1,5 @@
 {
- "generated_at_ct": "2026-10-21T12:04:20-05:00",
+ "generated_at_ct": "2026-10-21T12:20:02-05:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": null,
  "summary_live": {
@@ -11,5 +11,5 @@
  "scorecard": [],
  "detail": {},
  "backtest": {},
- "history_days": 0
+ "history_days": 294
 }
