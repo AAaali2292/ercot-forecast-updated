@@ -160,3 +160,18 @@ def test_spring_forward_dashboard_label_does_not_kill_the_feed():
                     "timestamp": ts.strftime("%Y-%m-%d %H:%M:%S%z")})
     out = sources.parse_dashboard_prices({"rtSppData": [], "damSppData": dam})
     assert len(out["dam"]) == 23
+
+
+def test_open_meteo_batched_request_parses_location_list(monkeypatch):
+    calls = []
+
+    def fake(url, params=None, **kw):
+        calls.append(params)
+        n = len(params["latitude"].split(","))
+        times = [f"2026-10-21T{h:02d}:00" for h in range(24)]
+        return [{"hourly": {"time": times, params["hourly"]: [70.0 + i] * 24}} for i in range(n)]
+    monkeypatch.setattr(sources, "http_json", fake)
+    wx = sources._fetch_all_sites("https://x", {"past_days": 1})
+    assert len(calls) == 3                                  # one request per variable
+    assert len(calls[0]["latitude"].split(",")) == 8
+    assert wx["temp_f"].notna().all()
