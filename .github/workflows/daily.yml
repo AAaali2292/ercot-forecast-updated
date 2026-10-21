@@ -75,6 +75,7 @@ jobs:
           GITHUB_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
           PYTHONUNBUFFERED: "1"
+          PYTHONDONTWRITEBYTECODE: "1"
         run: |
           case "${{ steps.pick.outputs.cmd }}" in
             backup)  python -m src.run forecast --if-missing ;;
@@ -85,10 +86,13 @@ jobs:
       # Commit whatever was produced, even if a step above failed, so a partial run
       # (e.g. capture worked, forecast failed) still keeps its evidence.
       - name: Commit results
+        id: commit
         if: always()
         run: |
           git config user.name  "ercot-daily-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Never commit Python cache files (they break merges between runs).
+          git rm -r -q --cached --ignore-unmatch src/__pycache__ tests/__pycache__ || true
           git add -A
           if git diff --staged --quiet; then
             echo "nothing to commit"
@@ -121,8 +125,8 @@ jobs:
 
       # Last resort: if the push never succeeded, keep this run's outputs downloadable.
       - name: Keep outputs if push failed
-        if: failure()
-        uses: actions/upload-artifact@v4
+        if: always() && steps.commit.outcome == 'failure'
+        uses: actions/upload-artifact@v6
         with:
           name: ercot-outputs-${{ github.run_id }}
           path: |
