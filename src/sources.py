@@ -229,7 +229,7 @@ def _om_site(url: str, lat: float, lon: float, var: str, params: dict) -> pd.Dat
     p = {"latitude": lat, "longitude": lon, "hourly": var,
          "temperature_unit": "fahrenheit", "wind_speed_unit": "ms", "timezone": "GMT"}
     p.update(params)
-    j = http_json(url, params=p)
+    j = http_json(url, params=p, tries=3, timeout=60)
     h = j["hourly"]
     df = pd.DataFrame({"ts": pd.to_datetime(h["time"], format="%Y-%m-%dT%H:%M")})
     df["v"] = pd.to_numeric(pd.Series(h[var]), errors="coerce")
@@ -265,13 +265,42 @@ def build_weather(temp: pd.DataFrame, wind: pd.DataFrame, solar: pd.DataFrame) -
     return out
 
 
+def _om_frame(h: dict, var: str) -> pd.DataFrame:
+    df = pd.DataFrame({"ts": pd.to_datetime(h["time"], format="%Y-%m-%dT%H:%M")})
+    df["v"] = pd.to_numeric(pd.Series(h[var]), errors="coerce")
+    df["ts"] = df["ts"].dt.tz_localize("UTC").dt.tz_convert(CT)
+    return df
+
+
+def _om_sites(url: str, sites: list, var: str, params: dict) -> list[pd.DataFrame]:
+    """All sites for one variable in ONE request (Open-Meteo accepts coordinate lists).
+
+    34 separate calls timed out from GitHub's runners on the first live run; three
+    batched calls with a generous timeout are far kinder to a free API. If the batched
+    call fails, fall back to one call per site so a single bad batch is not fatal.
+    """
+    p = {"latitude": ",".join(f"{la:.4f}" for _, la, _, _ in sites),
+         "longitude": ",".join(f"{lo:.4f}" for _, _, lo, _ in sites),
+         "hourly": var, "temperature_unit": "fahrenheit", "wind_speed_unit": "ms",
+         "timezone": "GMT"}
+    p.update(params)
+    try:
+        j = http_json(url, params=p, tries=4, timeout=90)
+        items = j if isinstance(j, list) else [j]
+        if len(items) != len(sites):
+            raise RuntimeError(f"expected {len(sites)} locations, got {len(items)}")
+        return [_om_frame(it["hourly"], var) for it in items]
+    except Exception:  # noqa: BLE001
+        return [_om_site(url, la, lo, var, params) for _, la, lo, _ in sites]
+
+
 def _fetch_all_sites(url: str, params: dict, suffix: str = "") -> pd.DataFrame:
-    temp = _weighted([(n, w, _om_site(url, la, lo, "temperature_2m" + suffix, params))
-                      for n, la, lo, w in LOAD_CITIES])
-    wind = _weighted([(n, w, _om_site(url, la, lo, "wind_speed_100m" + suffix, params))
-                      for n, la, lo, w in WIND_SITES])
-    solar = _weighted([(n, w, _om_site(url, la, lo, "shortwave_radiation" + suffix, params))
-                       for n, la, lo, w in SOLAR_SITES])
+    def grp(sites, var):
+        frames = _om_sites(url, sites, var + suffix, params)
+        return _weighted([(n, w, f) for (n, _, _, w), f in zip(sites, frames)])
+    temp = grp(LOAD_CITIES, "temperature_2m")
+    wind = grp(WIND_SITES, "wind_speed_100m")
+    solar = grp(SOLAR_SITES, "shortwave_radiation")
     return build_weather(temp, wind, solar)
 
 
