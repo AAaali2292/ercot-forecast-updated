@@ -11,7 +11,7 @@ The forecast is generated at about 06:00 CT by a scheduled GitHub Action and com
 ## Live track record
 
 <!-- SCORECARD:START -->
-_No live day scored yet (0 forecast file(s) committed). A forecast is scored once ERCOT publishes that day's official DAM prices (~13:30 CT the day before delivery)._
+_No live day scored yet (1 forecast file(s) committed). A forecast is scored once ERCOT publishes that day's official DAM prices (~13:30 CT the day before delivery)._
 <!-- SCORECARD:END -->
 
 *Updated automatically. Only calls stamped before the 10:00 CT market close are counted. Error = forecast − actual, $/MWh.*
