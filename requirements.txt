@@ -1,0 +1,6 @@
+# Pinned so a library release cannot silently change a parse mid-track-record.
+pandas==2.3.3
+numpy==2.3.4
+requests==2.33.0
+gridstatus==0.36.0
+openpyxl==3.1.5
