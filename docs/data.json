@@ -1,5 +1,5 @@
 {
- "generated_at_ct": "2026-10-21T12:27:35-05:00",
+ "generated_at_ct": "2026-10-21T17:49:13-05:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": {
   "target_date": "2026-10-22",
@@ -391,10 +391,339 @@
   "n": 0
  },
  "summary_all": {
-  "n": 0
+  "n": 1,
+  "first_date": "2026-10-22",
+  "last_date": "2026-10-22",
+  "n_fallback": 0,
+  "n_training_weather_fallback": 0,
+  "n_provisional": 0,
+  "n_unscorable": 0,
+  "hybrid_mae_atc": 6.13,
+  "hybrid_mae_peak": 15.57,
+  "hybrid_mae_hourly": 8.27,
+  "hybrid_n": 1,
+  "stack_mae_atc": 7.45,
+  "stack_mae_peak": 13.91,
+  "stack_mae_hourly": 9.93,
+  "stack_n": 1,
+  "persistence_mae_atc": 7.78,
+  "persistence_mae_peak": 20.04,
+  "persistence_mae_hourly": 9.66,
+  "persistence_n": 1,
+  "seasonal_mae_atc": 9.51,
+  "seasonal_mae_peak": 20.38,
+  "seasonal_mae_hourly": 11.25,
+  "seasonal_n": 1,
+  "primary_mae_atc": 6.13,
+  "paired_primary_mae_atc": 6.13,
+  "paired_persistence_mae_atc": 7.78,
+  "primary_mae_hourly": 8.27,
+  "primary_bias_atc": 6.13,
+  "primary_rmse_atc": 6.13,
+  "skill_vs_persistence_atc_pct": 21.2,
+  "skill_vs_persistence_hourly_pct": 14.4,
+  "days_beat_persistence": 1,
+  "paired_days": 1,
+  "interval_coverage_pct": 100.0,
+  "direction_hit_pct": 100.0,
+  "direction_n": 1
  },
- "scorecard": [],
- "detail": {},
+ "scorecard": [
+  {
+   "target_date": "2026-10-22",
+   "generated_at_ct": "2026-10-21T12:22:59-05:00",
+   "saved_at_ct": "2026-10-21T12:23:29-05:00",
+   "dam_close_ct": "2026-10-21T10:00:00-05:00",
+   "live": false,
+   "git_sha": 9219271,
+   "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/39643226549",
+   "primary_model": "hybrid",
+   "primary_is_fallback": false,
+   "training_weather_fallback": false,
+   "actual_source": "ercot-mis-daily",
+   "actual_official": true,
+   "n_hours": 24,
+   "n_filled": 0,
+   "status": "scored",
+   "act_atc": 34.44,
+   "act_peak": 41.01,
+   "act_onpeak": 35.36,
+   "act_max": 64.6,
+   "fc_atc": 40.57,
+   "fc_peak": 56.58,
+   "fc_onpeak": 43.84,
+   "fc_atc_p10": 33.54,
+   "fc_atc_p90": 52.62,
+   "err_atc": 6.13,
+   "err_peak": 15.57,
+   "mae_hourly": 8.27,
+   "in_interval": 1,
+   "direction_hit": 1,
+   "hybrid_atc": 40.57,
+   "hybrid_err_atc": 6.13,
+   "hybrid_err_peak": 15.57,
+   "hybrid_mae_hourly": 8.27,
+   "stack_atc": 26.98,
+   "stack_err_atc": -7.45,
+   "stack_err_peak": -13.91,
+   "stack_mae_hourly": 9.93,
+   "persistence_atc": 42.21,
+   "persistence_err_atc": 7.78,
+   "persistence_err_peak": 20.04,
+   "persistence_mae_hourly": 9.66,
+   "seasonal_atc": 43.95,
+   "seasonal_err_atc": 9.51,
+   "seasonal_err_peak": 20.38,
+   "seasonal_mae_hourly": 11.25,
+   "rt_atc": null,
+   "da_minus_rt": null,
+   "rt_coverage_pct": null
+  }
+ ],
+ "detail": {
+  "2026-10-22": [
+   {
+    "he": 1,
+    "actual": 31.02,
+    "hybrid": 35.91,
+    "stack": 27.02,
+    "persistence": 28.86,
+    "seasonal": 40.52,
+    "p10": 28.03,
+    "p90": 44.87
+   },
+   {
+    "he": 2,
+    "actual": 31.91,
+    "hybrid": 32.96,
+    "stack": 26.98,
+    "persistence": 29.79,
+    "seasonal": 35.07,
+    "p10": 25.08,
+    "p90": 41.92
+   },
+   {
+    "he": 3,
+    "actual": 31.42,
+    "hybrid": 32.05,
+    "stack": 26.93,
+    "persistence": 29.98,
+    "seasonal": 35.18,
+    "p10": 24.17,
+    "p90": 41.01
+   },
+   {
+    "he": 4,
+    "actual": 31.32,
+    "hybrid": 32.19,
+    "stack": 26.98,
+    "persistence": 31.21,
+    "seasonal": 36.06,
+    "p10": 24.31,
+    "p90": 41.15
+   },
+   {
+    "he": 5,
+    "actual": 35.7,
+    "hybrid": 32.28,
+    "stack": 27.02,
+    "persistence": 31.82,
+    "seasonal": 36.39,
+    "p10": 24.4,
+    "p90": 41.24
+   },
+   {
+    "he": 6,
+    "actual": 41.38,
+    "hybrid": 35.84,
+    "stack": 27.18,
+    "persistence": 38.15,
+    "seasonal": 40.38,
+    "p10": 27.96,
+    "p90": 44.8
+   },
+   {
+    "he": 7,
+    "actual": 49.16,
+    "hybrid": 41.92,
+    "stack": 27.28,
+    "persistence": 44.61,
+    "seasonal": 46.56,
+    "p10": 36.06,
+    "p90": 50.38
+   },
+   {
+    "he": 8,
+    "actual": 47.71,
+    "hybrid": 42.46,
+    "stack": 27.38,
+    "persistence": 47.12,
+    "seasonal": 46.51,
+    "p10": 36.6,
+    "p90": 50.92
+   },
+   {
+    "he": 9,
+    "actual": 34.83,
+    "hybrid": 30.7,
+    "stack": 27.08,
+    "persistence": 31.92,
+    "seasonal": 42.27,
+    "p10": 24.84,
+    "p90": 39.16
+   },
+   {
+    "he": 10,
+    "actual": 20.39,
+    "hybrid": 24.12,
+    "stack": 26.8,
+    "persistence": 19.72,
+    "seasonal": 35.13,
+    "p10": 18.26,
+    "p90": 32.58
+   },
+   {
+    "he": 11,
+    "actual": 20.2,
+    "hybrid": 24.6,
+    "stack": 26.7,
+    "persistence": 20.13,
+    "seasonal": 35.57,
+    "p10": 18.74,
+    "p90": 33.06
+   },
+   {
+    "he": 12,
+    "actual": 20.98,
+    "hybrid": 24.03,
+    "stack": 26.67,
+    "persistence": 20.15,
+    "seasonal": 38.08,
+    "p10": 18.17,
+    "p90": 32.49
+   },
+   {
+    "he": 13,
+    "actual": 21.47,
+    "hybrid": 26.07,
+    "stack": 26.57,
+    "persistence": 22.0,
+    "seasonal": 44.29,
+    "p10": 20.21,
+    "p90": 34.53
+   },
+   {
+    "he": 14,
+    "actual": 23.18,
+    "hybrid": 28.26,
+    "stack": 26.57,
+    "persistence": 25.38,
+    "seasonal": 47.84,
+    "p10": 22.4,
+    "p90": 36.72
+   },
+   {
+    "he": 15,
+    "actual": 24.48,
+    "hybrid": 27.33,
+    "stack": 26.66,
+    "persistence": 26.86,
+    "seasonal": 56.46,
+    "p10": 9.21,
+    "p90": 49.47
+   },
+   {
+    "he": 16,
+    "actual": 26.4,
+    "hybrid": 32.67,
+    "stack": 26.78,
+    "persistence": 31.11,
+    "seasonal": 62.5,
+    "p10": 14.55,
+    "p90": 54.81
+   },
+   {
+    "he": 17,
+    "actual": 29.86,
+    "hybrid": 39.24,
+    "stack": 26.88,
+    "persistence": 37.01,
+    "seasonal": 64.64,
+    "p10": 21.12,
+    "p90": 61.38
+   },
+   {
+    "he": 18,
+    "actual": 47.52,
+    "hybrid": 69.01,
+    "stack": 27.08,
+    "persistence": 74.1,
+    "seasonal": 69.8,
+    "p10": 50.89,
+    "p90": 91.15
+   },
+   {
+    "he": 19,
+    "actual": 64.6,
+    "hybrid": 91.39,
+    "stack": 27.79,
+    "persistence": 103.81,
+    "seasonal": 63.4,
+    "p10": 73.27,
+    "p90": 113.53
+   },
+   {
+    "he": 20,
+    "actual": 53.18,
+    "hybrid": 79.83,
+    "stack": 27.38,
+    "persistence": 93.39,
+    "seasonal": 51.49,
+    "p10": 61.71,
+    "p90": 101.97
+   },
+   {
+    "he": 21,
+    "actual": 44.25,
+    "hybrid": 64.43,
+    "stack": 27.13,
+    "persistence": 75.23,
+    "seasonal": 41.2,
+    "p10": 47.4,
+    "p90": 89.68
+   },
+   {
+    "he": 22,
+    "actual": 37.51,
+    "hybrid": 55.4,
+    "stack": 27.02,
+    "persistence": 63.14,
+    "seasonal": 33.91,
+    "p10": 38.37,
+    "p90": 80.65
+   },
+   {
+    "he": 23,
+    "actual": 31.28,
+    "hybrid": 42.09,
+    "stack": 26.92,
+    "persistence": 48.17,
+    "seasonal": 27.56,
+    "p10": 25.06,
+    "p90": 67.34
+   },
+   {
+    "he": 24,
+    "actual": 26.71,
+    "hybrid": 28.89,
+    "stack": 26.78,
+    "persistence": 39.48,
+    "seasonal": 23.97,
+    "p10": 11.86,
+    "p90": 54.14
+   }
+  ]
+ },
  "backtest": {
   "summary": {
    "generated_at_ct": "2026-10-21T12:26:47-05:00",
@@ -1331,5 +1660,5 @@
    }
   ]
  },
- "history_days": 294
+ "history_days": 295
 }
