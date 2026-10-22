@@ -1,6 +1,12 @@
 name: ERCOT daily forecast
 
 # ---------------------------------------------------------------------------
+# WHY SO MANY SLOTS: on 22 Oct 2026 GitHub started every scheduled job 4-5 hours
+# late, so the 06:07 CT forecast ran after the 10:00 CT close and was (correctly)
+# not counted. A call for day T is valid any time between ERCOT publishing DAM for
+# T-1 (~13:30 CT on T-2) and T's close (10:00 CT on T-1), about 20 hours. EVERY job
+# below therefore also runs `forecast --if-missing`, so a long delay cannot miss it.
+#
 # Schedule (GitHub cron is UTC and ignores daylight saving; ERCOT runs on CT)
 #
 #   11:07 UTC  daily     06:07 CDT / 05:07 CST  score, forecast tomorrow, publish
@@ -25,6 +31,9 @@ on:
     - cron: "47 5 * * *"
     - cron: "47 6 * * *"
     - cron: "17 9 * * 0"
+    - cron: "17 1 * * *"
+    - cron: "17 8 * * *"
+    - cron: "17 16 * * *"
   workflow_dispatch:
     inputs:
       command:
@@ -62,7 +71,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             CMD="${{ github.event.inputs.command }}"
           elif [ "$S" = "7 11 * * *" ]; then CMD="daily"
-          elif [ "$S" = "37 12 * * *" ]; then CMD="backup"
+          elif [ "$S" = "37 12 * * *" ] || [ "$S" = "17 1 * * *" ] || [ "$S" = "17 8 * * *" ] || [ "$S" = "17 16 * * *" ]; then CMD="backup"
           elif [ "$S" = "53 19 * * *" ] || [ "$S" = "23 22 * * *" ]; then CMD="dam"
           elif [ "$S" = "17 9 * * 0" ]; then CMD="weekly"
           else CMD="capture"
@@ -77,11 +86,17 @@ jobs:
           PYTHONUNBUFFERED: "1"
           PYTHONDONTWRITEBYTECODE: "1"
         run: |
+          rc=0
           case "${{ steps.pick.outputs.cmd }}" in
-            backup)  python -m src.run forecast --if-missing ;;
-            weekly)  python -m src.run backfill && python -m src.run backtest --days 60 ;;
-            *)       python -m src.run ${{ steps.pick.outputs.cmd }} ;;
+            backup)  python -m src.run forecast --if-missing || rc=$? ;;
+            weekly)  { python -m src.run backfill && python -m src.run backtest --days 60; } || rc=$? ;;
+            *)       python -m src.run ${{ steps.pick.outputs.cmd }} || rc=$? ;;
           esac
+          # Every job also makes the next call if it is missing (see note at top).
+          case "${{ steps.pick.outputs.cmd }}" in
+            capture|dam|weekly) python -m src.run forecast --if-missing || rc=$? ;;
+          esac
+          exit $rc
 
       # Commit whatever was produced, even if a step above failed, so a partial run
       # (e.g. capture worked, forecast failed) still keeps its evidence.
