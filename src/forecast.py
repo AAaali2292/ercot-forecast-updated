@@ -162,7 +162,9 @@ def hybrid_forecast(target: dt.date, today: dt.date, dam: pd.DataFrame,
     start = today - dt.timedelta(days=cfg.hybrid_train_days + cfg.hybrid_cv_days + 10)
     # +1 day: the archive is in UTC days, and today's Central evening ends after
     # midnight UTC. Without it the last training day silently loses HE19-HE24.
-    wx_train = sources.fetch_weather_previous_day1(start, today + dt.timedelta(days=1))
+    # Never ask the archive for dates beyond tomorrow (real time).
+    real_today = dt.datetime.now(CT).date()
+    wx_train = sources.fetch_weather_previous_day1(start, min(today, real_today) + dt.timedelta(days=1))
     train_src = "Open-Meteo previous-day forecasts (no look-ahead)"
     fallback = False
     if not len(wx_train):
@@ -243,22 +245,47 @@ def hybrid_forecast(target: dt.date, today: dt.date, dam: pd.DataFrame,
 
 
 # --------------------------------------------------------------------- assemble
+class NotReady(Exception):
+    """No delivery day can be forecast honestly right now (e.g. waiting for ERCOT)."""
+
+
+def next_target(now: dt.datetime, dam_days: set) -> tuple[Optional[dt.date], str]:
+    """The next delivery day whose day-ahead market is still open.
+
+    A call for day T is valid from the moment ERCOT publishes DAM prices for T-1
+    (~13:30 CT on T-2) until T's market closes (10:00 CT on T-1): a ~20-hour window.
+    GitHub's scheduler has started jobs 4-5 hours late, so the system no longer relies
+    on one morning slot; every scheduled job tries to make the next call if missing.
+    """
+    today = now.date()
+    for t in (today + dt.timedelta(days=1), today + dt.timedelta(days=2)):
+        if now >= dam_close(t):
+            continue
+        if (t - dt.timedelta(days=1)) not in dam_days:
+            return None, f"waiting for ERCOT to publish DAM prices for {t - dt.timedelta(days=1)}"
+        return t, "ok"
+    return None, "no open day-ahead market"
+
+
 def make_forecast(target_date: Optional[dt.date] = None, cfg: Config = CFG) -> dict:
     now = dt.datetime.now(CT)
     today = now.date()
-    target = target_date or (today + dt.timedelta(days=1))
-    if target != today + dt.timedelta(days=1):
-        # Anything other than "tomorrow, as of now" is not a live forecast. It is built
-        # as of target-1 so that a past date is at least out-of-sample.
-        sources.log("Target date", "WARN", f"{target} is not tomorrow; marked non-live")
-    as_of = target - dt.timedelta(days=1)
 
     # 1. What the market has already told us: official DAM history + today's dashboard.
-    history.refresh(days_back=10, include_tomorrow=False)
+    history.refresh(days_back=10, include_tomorrow=True)
     px = sources.fetch_prices()
     history.ingest_dashboard(px.get("dam"))
     dam = history.hub_hourly()
-    known = dam[dam["op_date"] <= min(today, as_of)]   # nothing dated after the as-of day
+
+    if target_date is None:
+        target_date, why = next_target(now, history.complete_days(dam))
+        if target_date is None:
+            raise NotReady(why)
+    target = target_date
+    as_of = target - dt.timedelta(days=1)
+    known = dam[dam["op_date"] <= as_of]      # only prices for days up to T-1 (all public)
+    if as_of not in history.complete_days(known):
+        sources.log("Target date", "WARN", f"DAM for {as_of} incomplete; call cannot be live")
 
     # 2. Weather.
     wx = sources.fetch_weather_forecast()
@@ -302,7 +329,8 @@ def make_forecast(target_date: Optional[dt.date] = None, cfg: Config = CFG) -> d
         "generated_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "dam_close_ct": close.isoformat(),
         "pre_close": bool(now < close),
-        "live": bool(target == today + dt.timedelta(days=1) and now < close),
+        "live": bool(now < close and as_of in history.complete_days(known)
+                     and target <= today + dt.timedelta(days=2)),
         "code_version": _git_sha(),
         "run_url": os.environ.get("GITHUB_RUN_URL"),
         "primary_model": primary,
