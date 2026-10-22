@@ -107,7 +107,9 @@ class FakeResp:
 
 @pytest.fixture
 def world(monkeypatch):
-    state = {"tomorrow_published": False}
+    _now = dt.datetime.now(CT)
+    # ERCOT publishes tomorrow's DAM ~13:30 CT; mirror that in the simulated world.
+    state = {"published_through": _now.date() + dt.timedelta(days=1)}   # as if after ~13:30 CT
 
     def http_json(url, params=None, **kw):
         now = dt.datetime.now(CT)
@@ -118,8 +120,7 @@ def world(monkeypatch):
         raise RuntimeError(f"unexpected URL in test: {url}")
 
     def mis_daily(day):
-        today = dt.datetime.now(CT).date()
-        if day > today and not state["tomorrow_published"]:
+        if day > state["published_through"]:
             raise RuntimeError("not published yet")
         return dam_long(day, "ercot-mis-daily")
 
@@ -146,8 +147,10 @@ def world(monkeypatch):
 
 
 def test_full_cycle(world):
+    from src import forecast as fx
     assert cli.main(["daily"]) == 0
-    tomorrow = dt.datetime.now(CT).date() + dt.timedelta(days=1)
+    tomorrow, why = fx.next_target(dt.datetime.now(CT), history.complete_days(history.hub_hourly()))
+    assert tomorrow is not None, why
     fc = json.loads((config.FORECASTS / f"{tomorrow}.json").read_text())
     assert fc["primary_model"] == "hybrid" and not fc["primary_is_fallback"]
     assert len(fc["hourly"]) == 24
@@ -165,7 +168,8 @@ def test_full_cycle(world):
     assert np.mean(np.abs(hyb - truth)) < np.mean(np.abs(pers - truth)) + 1.0
 
     # Afternoon: ERCOT publishes tomorrow's DAM -> the call is scored.
-    world["tomorrow_published"] = True
+    world["published_through"] = tomorrow
+    history.upsert(dam_long(tomorrow, "ercot-mis-daily"))   # ERCOT publishes the target day
     assert cli.main(["dam"]) == 0
     sc = pd.read_csv(config.SCORECARD)
     row = sc[sc["target_date"] == str(tomorrow)].iloc[0]
@@ -233,3 +237,30 @@ def test_merge_after_push_collision_keeps_existing_live_call(tmp_path):
     assert cli.main(["merge", "--src", str(tmp_path)]) == 0
     assert json.loads((config.FORECASTS / f"{t}.json").read_text())["x"] == "theirs"
     assert json.loads((config.FORECASTS / "2030-01-03.json").read_text())["x"] == "new"
+
+
+def test_next_target_window():
+    from src.forecast import next_target
+    d = dt.date(2026, 10, 22)
+    at = lambda h, m=0: dt.datetime.combine(d, dt.time(h, m), CT)
+    have = {d - dt.timedelta(days=1), d}
+    # 06:00 on the 22nd: the 23rd's market is open and the 22nd's DAM is known
+    assert next_target(at(6), have) == (d + dt.timedelta(days=1), "ok")
+    # 11:00: the 23rd has closed; the 24th needs the 23rd's DAM, not yet published
+    t, why = next_target(at(11), have)
+    assert t is None and "waiting" in why
+    # 14:00, after ERCOT publishes the 23rd: the 24th is callable, ~20h before its close
+    assert next_target(at(14), have | {d + dt.timedelta(days=1)})[0] == d + dt.timedelta(days=2)
+
+
+def test_call_made_day_before_yesterday_afternoon_counts_as_live():
+    from src.score import is_live
+    t = dt.date(2026, 10, 24)
+    close = dt.datetime.combine(t - dt.timedelta(days=1), dt.time(10), CT)
+    ok = {"live": True, "dam_close_ct": close.isoformat(),
+          "generated_at_ct": (close - dt.timedelta(hours=19)).isoformat()}
+    assert is_live(ok, t)
+    too_early = dict(ok, generated_at_ct=(close - dt.timedelta(hours=30)).isoformat())
+    assert not is_live(too_early, t)
+    late = dict(ok, generated_at_ct=(close + dt.timedelta(minutes=5)).isoformat())
+    assert not is_live(late, t)
