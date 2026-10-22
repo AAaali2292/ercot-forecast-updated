@@ -4,329 +4,582 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ERCOT Day-Ahead Forecast</title>
-<meta name="description" content="A day-ahead ERCOT power price forecast published every morning before the market closes, scored against the official cleared price.">
+<meta name="description" content="Tomorrow's ERCOT day-ahead power price, forecast every morning before the market closes and scored against the official cleared price. Built by Aliyan Nawaz.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ERCOT Day-Ahead Forecast · live track record">
+<meta property="og:description" content="A Texas power price forecast published before the market closes every day, then scored against ERCOT's official price. Public data, timestamped calls, honest benchmarks.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#142033">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23142033'/%3E%3Cpath d='M5 21 L11 19 L15 22 L20 10 L24 14 L27 9' fill='none' stroke='%233987e5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   color-scheme: light;
-  --bg:#fcfcfb; --surface:#ffffff; --surface-2:#f4f3f0; --line:#e3e1db; --grid:#ecebe6;
-  --ink:#0b0b0b; --ink-2:#52514e; --ink-3:#7a7974;
-  --s-actual:#0b0b0b; --s-hybrid:#2a78d6; --s-pers:#eb6834; --s-stack:#1baf7a; --s-seas:#7a7974;
-  --band:rgba(42,120,214,.14);
-  --good:#0ca30c; --bad:#d03b3b; --warn:#b77700;
+  --bg:#f5f7fa; --surface:#ffffff; --sunk:#eef1f6; --line:#dde2ea; --grid:#e9edf2;
+  --ink:#142033; --ink-2:#4a5568; --ink-3:#737d8c;
+  --s-actual:#142033; --s-hybrid:#2a78d6; --s-pers:#eb6834; --s-stack:#1baf7a; --s-seas:#8a93a3;
+  --band:rgba(42,120,214,.13); --range:rgba(42,120,214,.22);
+  --good:#0a8a0a; --warn:#a96c00; --bad:#c43333;
+  --radius-l:14px; --radius-s:8px;
+  --num:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme: dark;
-    --bg:#141413; --surface:#1a1a19; --surface-2:#232321; --line:#34342f; --grid:#2a2a27;
-    --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#8f8e86;
-    --s-actual:#f0efec; --s-hybrid:#3987e5; --s-pers:#d95926; --s-stack:#199e70; --s-seas:#8f8e86;
-    --band:rgba(57,135,229,.20);
+    --bg:#0e1420; --surface:#151d2b; --sunk:#111826; --line:#263042; --grid:#1d2636;
+    --ink:#e8edf4; --ink-2:#b3bccb; --ink-3:#8590a2;
+    --s-actual:#e8edf4; --s-hybrid:#3987e5; --s-pers:#d95926; --s-stack:#199e70; --s-seas:#8590a2;
+    --band:rgba(57,135,229,.18); --range:rgba(57,135,229,.30);
+    --good:#2fbf4a; --warn:#e0a32a; --bad:#e66767;
   }
 }
 :root[data-theme="dark"]{
   color-scheme: dark;
-  --bg:#141413; --surface:#1a1a19; --surface-2:#232321; --line:#34342f; --grid:#2a2a27;
-  --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#8f8e86;
-  --s-actual:#f0efec; --s-hybrid:#3987e5; --s-pers:#d95926; --s-stack:#199e70; --s-seas:#8f8e86;
-  --band:rgba(57,135,229,.20);
+  --bg:#0e1420; --surface:#151d2b; --sunk:#111826; --line:#263042; --grid:#1d2636;
+  --ink:#e8edf4; --ink-2:#b3bccb; --ink-3:#8590a2;
+  --s-actual:#e8edf4; --s-hybrid:#3987e5; --s-pers:#d95926; --s-stack:#199e70; --s-seas:#8590a2;
+  --band:rgba(57,135,229,.18); --range:rgba(57,135,229,.30);
+  --good:#2fbf4a; --warn:#e0a32a; --bad:#e66767;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 64px}
-header h1{font-size:26px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
-header p{margin:0;color:var(--ink-2);max-width:760px}
-.meta{font-size:13px;color:var(--ink-3);margin-top:10px}
-h2{font-size:18px;margin:40px 0 4px;letter-spacing:-.005em}
-.sub{color:var(--ink-2);margin:0 0 14px;font-size:14px;max-width:780px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:14px}
-.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.tile .k{font-size:12px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
-.tile .v{font-size:26px;font-weight:650;margin-top:4px;font-variant-numeric:tabular-nums}
-.tile .n{font-size:12.5px;color:var(--ink-3);margin-top:2px}
-.pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--surface-2)}
-.pill.ok::before{content:"✓ ";color:var(--good)} .pill.no::before{content:"✕ ";color:var(--bad)} .pill.wa::before{content:"! ";color:var(--warn)}
-.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--ink-2);margin:2px 0 8px}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{display:inline-block;width:18px;height:0;border-top:2px solid}
-.legend i.band{height:10px;border:0;background:var(--band);width:14px;border-radius:2px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--s-hybrid);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--s-hybrid);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.num{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+/* top bar */
+.bar{border-bottom:1px solid var(--line);background:var(--surface)}
+.bar .wrap{display:flex;align-items:center;gap:14px;min-height:56px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--ink);text-decoration:none}
+.brand svg{flex:none}
+.by{color:var(--ink-3);font-size:14px}
+.bar .spacer{flex:1}
+.health{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ink-3);flex:none}
+.dot.ok{background:var(--good);box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 22%,transparent)}
+.dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+.ghost{font-size:13.5px;color:var(--ink-2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.ghost:hover{color:var(--ink);border-color:var(--ink-3)}
+
+/* hero */
+.hero{padding:40px 0 8px}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+@media(min-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr) 430px;gap:48px}}
+h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;font-weight:600;max-width:15ch}
+.lede{font-size:17px;color:var(--ink-2);margin:0;max-width:56ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:14px;padding:6px 12px;border-radius:999px;background:var(--sunk);color:var(--ink-2);border:1px solid var(--line)}
+.chip strong{color:var(--ink);font-weight:600}
+.chip.live{background:color-mix(in srgb,var(--good) 12%,var(--surface));border-color:color-mix(in srgb,var(--good) 40%,var(--line));color:var(--ink)}
+.chip.notlive{background:color-mix(in srgb,var(--warn) 12%,var(--surface));border-color:color-mix(in srgb,var(--warn) 40%,var(--line));color:var(--ink)}
+
+.call{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:22px 22px 18px}
+.call h2{font-size:15px;font-weight:500;color:var(--ink-2);margin:0}
+.call .big{display:flex;align-items:baseline;gap:8px;margin:6px 0 2px}
+.call .big .v{font-family:var(--num);font-weight:600;font-size:64px;line-height:1;letter-spacing:-.03em}
+.call .big .u{font-size:16px;color:var(--ink-3)}
+.call .what{font-size:14px;color:var(--ink-3);margin:0 0 16px}
+.rangebar{position:relative;height:64px;margin:6px 4px 4px}
+.rangebar .track{position:absolute;left:0;right:0;top:26px;height:6px;border-radius:3px;background:var(--grid)}
+.rangebar .span{position:absolute;top:22px;height:14px;border-radius:7px;background:var(--range)}
+.rangebar .mk{position:absolute;top:16px;width:2px;height:26px;transform:translateX(-1px)}
+.rangebar .mk.fc{background:var(--s-hybrid);width:4px;transform:translateX(-2px);border-radius:2px}
+.rangebar .mk.td{background:var(--s-pers)}
+.rangebar .lab{position:absolute;font-size:12px;color:var(--ink-3);white-space:nowrap;transform:translateX(-50%)}
+.rangebar .lab.top{top:-2px} .rangebar .lab.bot{top:46px}
+.call dl{display:grid;grid-template-columns:1fr auto;gap:6px 12px;margin:14px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px}
+.call dt{color:var(--ink-2)} .call dd{margin:0;text-align:right}
+.call .foot{font-size:12.5px;color:var(--ink-3);margin-top:12px}
+
+/* panels */
+section{margin-top:56px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:6px}
+h2.sec{font-size:24px;letter-spacing:-.01em;margin:0;font-weight:600}
+.sub{color:var(--ink-2);margin:0 0 18px;max-width:72ch;font-size:15.5px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:18px 18px 12px}
+.panel+.panel{margin-top:14px}
+.tag{display:inline-block;font-size:12.5px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--sunk)}
+
+/* stat row: one strip, not a grid of identical cards */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;margin-bottom:14px}
+.stat{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.stat .k{font-size:13px;color:var(--ink-2)}
+.stat .v{font-family:var(--num);font-size:28px;font-weight:600;line-height:1.2;margin-top:2px;font-variant-numeric:tabular-nums}
+.stat .n{font-size:12.5px;color:var(--ink-3)}
+.stat .v.good{color:var(--good)} .stat .v.bad{color:var(--bad)}
+
+.drivers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden}
+.drivers>div{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.drivers .k{font-size:13px;color:var(--ink-2)} .drivers .v{font-family:var(--num);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.25;white-space:nowrap}
+.drivers .v small{font-size:14px;font-weight:500;color:var(--ink-3);margin-left:3px}
+.drivers .n{font-size:12px;color:var(--ink-3)}
+@media(min-width:760px){.drivers{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:420px){.drivers .v{font-size:21px}}
+
+.result{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;background:var(--sunk);border:1px solid var(--line);border-radius:var(--radius-l);padding:14px 18px;margin-top:22px;font-size:15px}
+.result b{font-family:var(--num);font-weight:600;font-size:17px}
+
+/* charts */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:var(--ink-2);margin:2px 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:20px;height:0;border-top:2px solid}
+.legend i.band{height:10px;border:0;background:var(--band);width:16px;border-radius:2px}
+.legend i.bar{height:10px;width:10px;border:0;border-radius:2px}
 .chart{position:relative;width:100%}
 .chart svg{display:block;width:100%;height:auto;overflow:visible}
-.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12.5px;box-shadow:0 4px 16px rgba(0,0,0,.12);min-width:150px;display:none;z-index:2}
-.tip .h{color:var(--ink-2);margin-bottom:4px}
-.tip .r{display:flex;align-items:center;gap:8px;justify-content:space-between}
-.tip .r b{font-variant-numeric:tabular-nums}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-s);padding:9px 11px;font-size:13px;box-shadow:0 8px 24px rgba(10,20,40,.14);min-width:170px;display:none;z-index:3}
+.tip .h{color:var(--ink-2);margin-bottom:5px}
+.tip .r{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.tip .r b{font-family:var(--num);font-variant-numeric:tabular-nums;font-weight:600}
 .tip .r span{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2)}
 .tip .r i{display:inline-block;width:12px;border-top:2px solid}
-.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px;font-size:14px;color:var(--ink-2)}
-select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 8px}
-table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
-th,td{text-align:right;padding:7px 8px;border-bottom:1px solid var(--grid);white-space:nowrap}
+.empty{color:var(--ink-2);font-size:15px;padding:18px 4px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:8px;font-size:14.5px;color:var(--ink-2)}
+select,button.btn{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-s);padding:6px 10px;cursor:pointer}
+button.btn:hover{border-color:var(--ink-3)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius-s);overflow:hidden}
+.seg button{font:inherit;font-size:14px;border:0;background:var(--surface);color:var(--ink-2);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+
+/* table */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:right;padding:8px 10px;border-bottom:1px solid var(--grid);white-space:nowrap}
+td{font-family:var(--num);font-variant-numeric:tabular-nums}
 th:first-child,td:first-child{text-align:left}
-th{font-weight:600;color:var(--ink-2);font-size:12.5px}
-.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+th{font-weight:500;color:var(--ink-2);font-size:13px}
 .pos{color:var(--bad)} .neg{color:var(--s-hybrid)}
-.empty{color:var(--ink-2);font-size:14px;padding:6px 0}
-.note{font-size:13px;color:var(--ink-2);margin-top:10px}
-details{margin-top:10px} summary{cursor:pointer;color:var(--ink-2);font-size:14px}
-.banner{border:1px dashed var(--line);border-radius:12px;padding:12px 14px;color:var(--ink-2);font-size:14px;background:var(--surface-2)}
-a{color:var(--s-hybrid)}
-.grid2{display:grid;grid-template-columns:1fr;gap:12px}
-@media(min-width:860px){.grid2{grid-template-columns:1.6fr 1fr}}
-ul.plain{margin:6px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px}
-ul.plain li{margin:3px 0}
-footer{margin-top:48px;font-size:12.5px;color:var(--ink-3)}
+details>summary{cursor:pointer;color:var(--ink-2);font-size:14.5px;margin-top:10px;list-style:none}
+details>summary::before{content:"+ ";color:var(--ink-3)} details[open]>summary::before{content:"− "}
+.note{font-size:13.5px;color:var(--ink-2);margin-top:10px}
+
+/* method tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+.tabs button{font:inherit;font-size:15px;background:none;border:0;border-bottom:2px solid transparent;color:var(--ink-2);padding:10px 12px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--s-hybrid)}
+.tabpanel{max-width:76ch;color:var(--ink-2);font-size:15.5px}
+.tabpanel p{margin:0 0 12px}
+.tabpanel strong{color:var(--ink)}
+.feeds{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px;align-items:baseline}
+.st{font-size:12px;font-weight:600;padding:1px 8px;border-radius:999px;text-align:center}
+.st.OK{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.st.WARN{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.st.FAIL{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.feeds .d{color:var(--ink-3);font-size:12.5px;display:block}
+
+footer{margin:72px 0 40px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:520px){.call .big .v{font-size:52px}.hero{padding-top:28px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-  <h1>ERCOT day-ahead price forecast</h1>
-  <p>Every morning at about 06:00 Central, before ERCOT's day-ahead market closes at 10:00, this model publishes tomorrow's hourly Hub Average price. Each call is committed to git with a timestamp, then scored against the official cleared price. No data is typed in by hand, and each call links to the GitHub run that made it.</p>
-  <div class="meta" id="meta">Loading…</div>
-</header>
+<div class="bar"><div class="wrap">
+  <a class="brand" href="#top" aria-label="ERCOT Day-Ahead Forecast, top of page">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#142033"/><path d="M5 21 L11 19 L15 22 L20 10 L24 14 L27 9" fill="none" stroke="#3987e5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    ERCOT Day-Ahead Forecast
+  </a>
+  <span class="by">by Aliyan Nawaz</span>
+  <span class="spacer"></span>
+  <span class="health" id="health"><span class="dot"></span><span>Loading</span></span>
+  <a class="ghost" id="repo-link" href="#">Code and history</a>
+</div></div>
 
-<section>
-  <h2 id="call-title">Tomorrow's call</h2>
-  <p class="sub" id="call-sub"></p>
-  <div class="tiles" id="call-tiles"></div>
-  <div class="card">
+<main class="wrap" id="top">
+<div class="hero">
+  <div class="hero-grid">
+    <div>
+      <h1>Tomorrow's Texas power price, called before the market closes.</h1>
+      <p class="lede">Every morning a model forecasts the next day's ERCOT day-ahead price, hour by hour, and publishes it before bids close at 10:00 Central. The next afternoon it is scored against the official cleared price, next to a simple benchmark it has to beat.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <aside class="call" id="call" aria-live="polite">
+      <h2 id="call-title">The call</h2>
+      <div class="big"><span class="v" id="call-v">–</span><span class="u">$/MWh</span></div>
+      <p class="what">24-hour average, ERCOT Hub Average</p>
+      <div class="rangebar" id="rangebar" role="img" aria-label="Forecast, 80% range and today's price on one scale"></div>
+      <dl id="call-dl"></dl>
+      <div class="foot" id="call-foot"></div>
+    </aside>
+  </div>
+
+  <div class="panel" style="margin-top:28px">
     <div class="legend" id="call-legend"></div>
     <div class="chart" id="call-chart"></div>
   </div>
+  <div class="result" id="result" hidden></div>
+</div>
+
+<section aria-labelledby="h-drivers">
+  <div class="sec-head"><h2 class="sec" id="h-drivers">What drives tomorrow</h2></div>
+  <p class="sub">From the fundamental model: weather turned into demand, wind and solar, then cleared against a merit-order supply stack. These explain the price; the call itself comes from the hybrid model.</p>
+  <div class="drivers" id="drivers"></div>
 </section>
 
-<section>
-  <h2>Live track record</h2>
-  <p class="sub">Only calls stamped before the market closed count here. Error = forecast − actual, in $/MWh. To claim any skill, the model has to beat the free benchmark: today's day-ahead price, which is public before the call is made.</p>
-  <div class="tiles" id="rec-tiles"></div>
-  <div class="card">
+<section aria-labelledby="h-rec">
+  <div class="sec-head"><h2 class="sec" id="h-rec">Live track record</h2></div>
+  <p class="sub">Only calls stamped before the market closed count. The benchmark is today's day-ahead price repeated for tomorrow: it's public before the call is made, so beating it is the test of skill.</p>
+  <div class="stats" id="rec-stats"></div>
+  <div class="panel">
+    <div class="controls"><div class="seg" role="group" aria-label="Chart view"><button type="button" id="v-price" aria-pressed="true">Forecast vs actual</button><button type="button" id="v-err" aria-pressed="false">Error by day</button></div></div>
     <div class="legend" id="rec-legend"></div>
     <div class="chart" id="rec-chart"></div>
-    <details><summary>Show every scored day as a table</summary><div class="tablewrap" id="rec-table"></div></details>
+    <details><summary>Every scored day, as a table</summary>
+      <div class="controls" style="margin-top:10px"><button class="btn" type="button" id="csv">Download CSV</button></div>
+      <div class="tablewrap" id="rec-table"></div>
+    </details>
   </div>
 </section>
 
-<section>
-  <h2>Any day, hour by hour</h2>
-  <p class="sub">Pick a scored day to see the forecast against what cleared, hour by hour.</p>
-  <div class="card">
+<section aria-labelledby="h-day">
+  <div class="sec-head"><h2 class="sec" id="h-day">Any day, hour by hour</h2></div>
+  <p class="sub">Pick a scored day to see each hour's forecast against what cleared.</p>
+  <div class="panel">
     <div class="controls"><label for="day-pick">Day</label><select id="day-pick"></select><span id="day-stats"></span></div>
     <div class="legend" id="day-legend"></div>
     <div class="chart" id="day-chart"></div>
   </div>
 </section>
 
-<section>
-  <h2>Backtest <span class="pill wa">simulated, not live</span></h2>
-  <p class="sub">The same model replayed over past days. For each day it uses only prices known the day before and the weather forecast as it stood about 24 hours ahead. It shows how the method behaves, but it is not a track record: only the live section above proves the calls were made in advance.</p>
-  <div class="tiles" id="bt-tiles"></div>
-  <div class="card">
+<section aria-labelledby="h-bt">
+  <div class="sec-head"><h2 class="sec" id="h-bt">Backtest</h2><span class="tag">Replayed on real data, not a live record</span></div>
+  <p class="sub">The same model replayed over recent past days. Each day uses only prices known the day before and the weather forecast as it stood about 24 hours ahead. It shows how the method behaves; only the live record above proves the calls were made in advance.</p>
+  <div class="stats" id="bt-stats"></div>
+  <div class="panel" id="bt-panel">
     <div class="legend" id="bt-legend"></div>
     <div class="chart" id="bt-chart"></div>
   </div>
 </section>
 
-<section>
-  <h2>Market observation: day-ahead vs real-time</h2>
-  <p class="sub">For each scored day: the day-ahead daily average minus the real-time daily average. A positive number means buyers paid a premium to lock in their price a day early.</p>
-  <div class="tiles" id="prem-tiles"></div>
+<section aria-labelledby="h-prem">
+  <div class="sec-head"><h2 class="sec" id="h-prem">Day-ahead vs real-time</h2></div>
+  <p class="sub">For each scored day: the day-ahead average minus the real-time average. A positive number means buyers paid a premium to lock in their price a day early.</p>
+  <div class="stats" id="prem-stats"></div>
 </section>
 
-<section class="grid2">
-  <div>
-    <h2>How it works</h2>
-    <ul class="plain">
-      <li><b>Primary model (hybrid).</b> It starts from today's cleared day-ahead price for each hour, then adjusts for the forecast change in temperature, wind and solar between today and tomorrow. It is a robust regression, fitted on the last 120 days and refitted daily, so price spikes can't dominate it.</li>
-      <li><b>Fundamental stack.</b> Load, wind and solar are modelled from raw weather data, then cleared against a merit-order supply stack (gas heat rates × Henry Hub, batteries, and ERCOT's scarcity adder). It explains the price; the hybrid predicts it.</li>
-      <li><b>Benchmarks.</b> Persistence is today's day-ahead price for the same hour. Seasonal is the same hour, same weekday last week.</li>
-      <li><b>Range.</b> The 80% range comes from the model's own out-of-sample errors over the last 28 days.</li>
-    </ul>
+<section aria-labelledby="h-method">
+  <div class="sec-head"><h2 class="sec" id="h-method">How it works</h2></div>
+  <div class="tabs" role="tablist" aria-label="Method">
+    <button role="tab" aria-selected="true" aria-controls="t-model" id="b-model">The models</button>
+    <button role="tab" aria-selected="false" aria-controls="t-rules" id="b-rules">Integrity rules</button>
+    <button role="tab" aria-selected="false" aria-controls="t-data" id="b-data">Data and feeds</button>
   </div>
-  <div>
-    <h2>Integrity rules</h2>
-    <ul class="plain">
-      <li>A call stamped after 10:00 CT the day before is never scored as live.</li>
-      <li>Once a live call is saved, later runs cannot overwrite it. The only exception: before the close, a fallback call can be upgraded to the main model.</li>
-      <li>Actuals are ERCOT's official settlement files, cross-checked against the public dashboard. A day with only a dashboard actual is held back as provisional.</li>
-      <li>A data feed that fails is logged on every call; nothing is filled in by guesswork.</li>
-    </ul>
-    <div class="note" id="feeds"></div>
+  <div class="tabpanel" role="tabpanel" id="t-model" aria-labelledby="b-model">
+    <p><strong>Hybrid (makes the call).</strong> Starts from today's cleared day-ahead price for each hour, then adjusts for the forecast change in temperature, wind and solar between today and tomorrow. It is a robust regression fitted separately for four parts of the day on the last 120 days and refitted every morning, so one price spike can't take it over. It trains on the weather forecast as it stood the day before, never on what actually happened, and it won't extrapolate beyond the conditions it has seen.</p>
+    <p><strong>Fundamental stack (explains the price).</strong> Weather is turned into demand, wind and solar output. Net demand is cleared against a supply stack built from ERCOT's installed capacity: gas plants priced by heat rate × Henry Hub, batteries, and ERCOT's scarcity adder.</p>
+    <p><strong>Benchmarks.</strong> Today's day-ahead price for the same hour, and the same hour on the same weekday last week.</p>
+    <p><strong>Range.</strong> The 80% range comes from the model's own errors on 28 days it had not seen.</p>
+  </div>
+  <div class="tabpanel" role="tabpanel" id="t-rules" aria-labelledby="b-rules" hidden>
+    <p>A call stamped after 10:00 Central the day before delivery is never counted as live. Whether a call is live is recomputed from its timestamps, not trusted from the file.</p>
+    <p>Once a live call is saved, no later run can overwrite it. The one exception: before the close, a backup call from the simpler model can be upgraded to the main model.</p>
+    <p>Actuals are ERCOT's official settlement files, cross-checked against the public dashboard. A day with only a dashboard figure is held back as provisional.</p>
+    <p>No day is dropped silently. A failed data feed is written into every forecast file, and nothing is filled in by guesswork. Each call links to the GitHub run that produced it.</p>
+  </div>
+  <div class="tabpanel" role="tabpanel" id="t-data" aria-labelledby="b-data" hidden>
+    <p>ERCOT settlement files and dashboards for prices, generation and capacity. Open-Meteo for weather forecasts across 8 load centres, 5 wind regions and 4 solar regions. EIA for demand history and the Henry Hub gas price.</p>
+    <div class="feeds" id="feeds"></div>
   </div>
 </section>
 
-<footer>Public data only: ERCOT (MIS and dashboards), Open-Meteo, EIA. A forecasting exercise, not investment advice. <span id="foot"></span></footer>
-</div>
+<footer>
+  <span>Built by Aliyan Nawaz from public data. A forecasting exercise, not investment advice.</span>
+  <span id="foot-meta"></span>
+</footer>
+</main>
 
 <script>
 "use strict";
 const C = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const SERIES = {
-  actual:{label:"Actual (cleared)", color:"--s-actual", dash:""},
-  hybrid:{label:"Forecast (hybrid, primary)", color:"--s-hybrid", dash:""},
-  persistence:{label:"Benchmark: today's DAM", color:"--s-pers", dash:"6 4"},
-  stack:{label:"Fundamental stack", color:"--s-stack", dash:"2 3"},
-  seasonal:{label:"Benchmark: last week", color:"--s-seas", dash:"1 4"},
+  actual:{label:"Cleared price", color:"--s-actual", dash:"", w:2.4},
+  hybrid:{label:"Forecast", color:"--s-hybrid", dash:"", w:2.4},
+  persistence:{label:"Benchmark: today's price", color:"--s-pers", dash:"6 4", w:1.8},
+  stack:{label:"Fundamental stack", color:"--s-stack", dash:"2 3", w:1.8},
+  seasonal:{label:"Same day last week", color:"--s-seas", dash:"1 4", w:1.6},
 };
 const $ = id => document.getElementById(id);
-const fmt = (v, dp=2) => (v===null || v===undefined || Number.isNaN(v)) ? "–" : Number(v).toLocaleString(undefined,{minimumFractionDigits:dp,maximumFractionDigits:dp});
-const money = (v, dp=2) => (v===null || v===undefined || Number.isNaN(v)) ? "–" : (v<0?"−$":"$") + fmt(Math.abs(v), dp);
+const isNum = v => v!==null && v!==undefined && v!=="" && !Number.isNaN(Number(v));
+const fmt = (v, dp=2) => !isNum(v) ? "–" : Number(v).toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+const money = (v, dp=2) => !isNum(v) ? "–" : (v<0?"−$":"$") + fmt(Math.abs(v), dp);
+const signed = v => !isNum(v) ? "–" : (v>0?"+":v<0?"−":"") + "$" + fmt(Math.abs(v));
 const plural = (n, w) => `${n} ${w}${n===1?"":"s"}`;
 function el(tag, attrs={}, text){ const e=document.createElement(tag); for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v); if(text!==undefined) e.textContent=text; return e; }
 function svgEl(tag, attrs={}){ const e=document.createElementNS("http://www.w3.org/2000/svg",tag); for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v); return e; }
+const DAYFMT = new Intl.DateTimeFormat("en-US",{weekday:"short", day:"numeric", month:"short", timeZone:"UTC"});
+const dayName = iso => DAYFMT.format(new Date(iso+"T12:00:00Z"));
+const CTFMT = new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago", hour:"2-digit", minute:"2-digit", hour12:false, month:"short", day:"numeric"});
+const ct = iso => iso ? CTFMT.format(new Date(iso)) + " CT" : "–";
 
-function tile(parent, k, v, n){
-  const t=el("div",{class:"tile"}); t.append(el("div",{class:"k"},k), el("div",{class:"v"},v));
-  if(n) t.append(el("div",{class:"n"},n)); parent.append(t);
-}
-function legend(parent, keys, band){
+function stat(parent, k, v, n, cls){ const s=el("div",{class:"stat"}); s.append(el("div",{class:"k"},k)); const vv=el("div",{class:"v"+(cls?" "+cls:"")},v); s.append(vv); if(n) s.append(el("div",{class:"n"},n)); parent.append(s); }
+function legend(parent, keys, extra){
   parent.replaceChildren();
   for(const k of keys){ const s=el("span"); const i=el("i"); i.style.borderTopColor=C(SERIES[k].color); if(SERIES[k].dash) i.style.borderTopStyle="dashed"; s.append(i, document.createTextNode(SERIES[k].label)); parent.append(s); }
-  if(band){ const s=el("span"); s.append(el("i",{class:"band"}), document.createTextNode(band)); parent.append(s); }
-}
-
-/* Line chart: x = categories (labels), series = {key: [values|null]}, optional band [lo[],hi[]] */
-function lineChart(host, labels, series, opts={}){
-  host.replaceChildren();
-  const W=Math.max(320, host.clientWidth||700), H=opts.h||300, m={l:52,r:opts.r||14,t:12,b:34};
-  const iw=W-m.l-m.r, ih=H-m.t-m.b;
-  const vals=[]; for(const k in series) for(const v of series[k]) if(v!==null&&v!==undefined&&isFinite(v)) vals.push(v);
-  if(opts.band) for(const arr of opts.band) for(const v of arr) if(v!==null&&isFinite(v)) vals.push(v);
-  if(!vals.length){ host.append(el("div",{class:"empty"},opts.empty||"No data yet.")); return; }
-  let lo=Math.min(...vals), hi=Math.max(...vals); const zero = lo>=0 && lo<hi*0.35;
-  const pad=(hi-lo)*0.08||5; lo = zero? 0 : lo-pad; hi+=pad;
-  const step=niceStep((hi-lo)/5); lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step;
-  const n=labels.length, x=i=> m.l + (n<=1? iw/2 : i*iw/(n-1)), y=v=> m.t + ih - (v-lo)/(hi-lo)*ih;
-  const svg=svgEl("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":opts.aria||"chart"});
-  for(let v=lo; v<=hi+1e-9; v+=step){ svg.append(svgEl("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:C("--grid"),"stroke-width":1}));
-    const t=svgEl("text",{x:m.l-8,y:y(v)+4,"text-anchor":"end","font-size":11,fill:C("--ink-3")}); t.textContent=money(v, step<1?1:0); svg.append(t); }
-  const every=Math.max(1, Math.ceil(n/(W<520?6:12)));
-  labels.forEach((lb,i)=>{ if(i%every && i!==n-1) return; const t=svgEl("text",{x:x(i),y:H-12,"text-anchor":"middle","font-size":11,fill:C("--ink-3")}); t.textContent=lb; svg.append(t); });
-  if(opts.band){ const [blo,bhi]=opts.band; let d="", d2=""; const pts=[];
-    for(let i=0;i<n;i++) if(blo[i]!=null&&bhi[i]!=null) pts.push(i);
-    if(pts.length>1){ d=pts.map((i,j)=>(j?"L":"M")+x(i)+","+y(bhi[i])).join(""); d2=pts.slice().reverse().map(i=>"L"+x(i)+","+y(blo[i])).join("");
-      svg.append(svgEl("path",{d:d+d2+"Z",fill:C("--band"),stroke:"none"})); } }
-  const order=Object.keys(series);
-  for(const k of order){ const vs=series[k]; let d=""; let pen=false;
-    vs.forEach((v,i)=>{ if(v==null||!isFinite(v)){pen=false;return;} d+=(pen?"L":"M")+x(i)+","+y(v); pen=true; });
-    const s=SERIES[k]; svg.append(svgEl("path",{d,fill:"none",stroke:C(s.color),"stroke-width":k==="actual"||k==="hybrid"?2.25:1.75,"stroke-dasharray":s.dash,"stroke-linejoin":"round","stroke-linecap":"round"}));
-    if(n<=40) vs.forEach((v,i)=>{ if(v==null||!isFinite(v)) return; if(k==="actual"||k==="hybrid") svg.append(svgEl("circle",{cx:x(i),cy:y(v),r:n>24?2.2:3,fill:C(s.color),stroke:C("--surface"),"stroke-width":1.5})); });
-  }
-  const hair=svgEl("line",{y1:m.t,y2:m.t+ih,stroke:C("--ink-3"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"}); svg.append(hair);
-  const hit=svgEl("rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent",tabindex:0}); svg.append(hit);
-  host.append(svg);
-  const tip=el("div",{class:"tip"}); host.append(tip);
-  function show(i){ const sx=host.clientWidth/W; hair.setAttribute("x1",x(i)); hair.setAttribute("x2",x(i)); hair.setAttribute("visibility","visible");
-    tip.replaceChildren(el("div",{class:"h"},(opts.tipLabel?opts.tipLabel(i):labels[i])));
-    for(const k of order){ const v=series[k][i]; const r=el("div",{class:"r"}); const sp=el("span"); const ii=el("i"); ii.style.borderTopColor=C(SERIES[k].color); sp.append(ii, document.createTextNode(SERIES[k].label)); r.append(el("b",{},money(v)), sp); tip.append(r); }
-    if(opts.band && opts.band[0][i]!=null){ tip.append(el("div",{class:"h"},"80% range "+money(opts.band[0][i])+" – "+money(opts.band[1][i]))); }
-    tip.style.display="block"; const px=x(i)*sx; const tw=tip.offsetWidth; tip.style.left=Math.min(Math.max(0,px+12), host.clientWidth-tw)+"px"; tip.style.top="8px"; }
-  function idx(evt){ const r=svg.getBoundingClientRect(); const px=(evt.clientX-r.left)*W/r.width; return Math.max(0,Math.min(n-1,Math.round((px-m.l)/(n<=1?1:iw/(n-1))))); }
-  hit.addEventListener("pointermove",e=>show(idx(e)));
-  hit.addEventListener("pointerleave",()=>{tip.style.display="none"; hair.setAttribute("visibility","hidden");});
-  let ki=n-1; hit.addEventListener("focus",()=>show(ki)); hit.addEventListener("blur",()=>{tip.style.display="none";hair.setAttribute("visibility","hidden");});
-  hit.addEventListener("keydown",e=>{ if(e.key==="ArrowLeft"){ki=Math.max(0,ki-1);show(ki);} if(e.key==="ArrowRight"){ki=Math.min(n-1,ki+1);show(ki);} });
+  for(const x of (extra||[])){ const s=el("span"); const i=el("i",{class:x.cls}); if(x.color) i.style.background=C(x.color); s.append(i, document.createTextNode(x.label)); parent.append(s); }
 }
 function niceStep(raw){ const p=Math.pow(10,Math.floor(Math.log10(Math.max(raw,1e-6)))); const f=raw/p; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*p; }
+function scale(vals, zeroFloor){
+  let lo=Math.min(...vals), hi=Math.max(...vals); const zero = zeroFloor && lo>=0 && lo<hi*0.35;
+  const pad=(hi-lo)*0.08||5; lo = zero? 0 : lo-pad; hi+=pad;
+  const step=niceStep((hi-lo)/5); return {lo:Math.floor(lo/step)*step, hi:Math.ceil(hi/step)*step, step};
+}
+
+function tooltip(host){ const t=el("div",{class:"tip",role:"status"}); host.append(t); return t; }
+function placeTip(host, tip, px){ tip.style.display="block"; const tw=tip.offsetWidth; tip.style.left=Math.min(Math.max(0,px+14), host.clientWidth-tw)+"px"; tip.style.top="6px"; }
+function tipRow(tip, value, key, label){ const r=el("div",{class:"r"}); const sp=el("span"); const ii=el("i"); ii.style.borderTopColor=C(SERIES[key]?SERIES[key].color:key); sp.append(ii, document.createTextNode(label||SERIES[key].label)); r.append(el("b",{},value), sp); tip.append(r); }
+
+/* Line chart with crosshair. series: {key:[values]}, band: [lo[],hi[]] */
+function lineChart(host, labels, series, opts={}){
+  host.replaceChildren();
+  const W=Math.max(320, host.clientWidth||700), H=opts.h||(W<560?260:320), m={l:54,r:14,t:14,b:34};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, n=labels.length;
+  const vals=[]; for(const k in series) for(const v of series[k]) if(isNum(v)) vals.push(+v);
+  if(opts.band) for(const a of opts.band) for(const v of a) if(isNum(v)) vals.push(+v);
+  if(!vals.length || !n){ host.append(el("div",{class:"empty"},opts.empty||"No data yet.")); return; }
+  const {lo,hi,step}=scale(vals,true);
+  const x=i=> m.l + (n<=1? iw/2 : i*iw/(n-1)), y=v=> m.t + ih - (v-lo)/(hi-lo)*ih;
+  const svg=svgEl("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":opts.aria||"chart"});
+  for(let v=lo; v<=hi+1e-9; v+=step){ svg.append(svgEl("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:C("--grid"),"stroke-width":1}));
+    const t=svgEl("text",{x:m.l-8,y:y(v)+4,"text-anchor":"end","font-size":12,fill:C("--ink-3"),"font-family":"IBM Plex Sans Condensed, sans-serif"}); t.textContent=money(v, step<0.1?2:step<1?1:0); svg.append(t); }
+  if(opts.shade){ const [a,b]=opts.shade; if(a>=0&&b<n){ const sx0=x(a)-iw/(2*Math.max(n-1,1)); svg.append(svgEl("rect",{x:sx0,y:m.t,width:(x(b)-x(a))+iw/Math.max(n-1,1),height:ih,fill:C("--sunk")}));
+    const t=svgEl("text",{x:sx0+6,y:m.t+14,"font-size":11.5,fill:C("--ink-3")}); t.textContent="evening peak"; svg.append(t); } }
+  const every=Math.max(1, Math.ceil(n/(W<560?6:12)));
+  labels.forEach((lb,i)=>{ if(i%every) return; const t=svgEl("text",{x:x(i),y:H-10,"text-anchor":"middle","font-size":12,fill:C("--ink-3")}); t.textContent=lb; svg.append(t); });
+  if(opts.band){ const [bl,bh]=opts.band; const pts=[]; for(let i=0;i<n;i++) if(isNum(bl[i])&&isNum(bh[i])) pts.push(i);
+    if(pts.length>1){ const d=pts.map((i,j)=>(j?"L":"M")+x(i)+","+y(bh[i])).join("")+pts.slice().reverse().map(i=>"L"+x(i)+","+y(bl[i])).join("")+"Z"; svg.append(svgEl("path",{d,fill:C("--band")})); } }
+  const order=Object.keys(series);
+  for(const k of order){ const vs=series[k]; let d="", pen=false;
+    vs.forEach((v,i)=>{ if(!isNum(v)){pen=false;return;} d+=(pen?"L":"M")+x(i)+","+y(+v); pen=true; });
+    const s=SERIES[k]; svg.append(svgEl("path",{d,fill:"none",stroke:C(s.color),"stroke-width":s.w,"stroke-dasharray":s.dash,"stroke-linejoin":"round","stroke-linecap":"round"}));
+    if(n<=40 && (k==="actual"||k==="hybrid")) vs.forEach((v,i)=>{ if(isNum(v)) svg.append(svgEl("circle",{cx:x(i),cy:y(+v),r:n>24?2.4:3.2,fill:C(s.color),stroke:C("--surface"),"stroke-width":1.5})); });
+  }
+  const hair=svgEl("line",{y1:m.t,y2:m.t+ih,stroke:C("--ink-3"),"stroke-width":1,"stroke-dasharray":"3 3",visibility:"hidden"}); svg.append(hair);
+  const hit=svgEl("rect",{x:m.l,y:m.t,width:iw,height:ih,fill:"transparent",tabindex:0,"aria-label":"Chart values, use arrow keys"}); svg.append(hit);
+  host.append(svg); const tip=tooltip(host);
+  function show(i){ const sx=host.clientWidth/W; hair.setAttribute("x1",x(i)); hair.setAttribute("x2",x(i)); hair.setAttribute("visibility","visible");
+    tip.replaceChildren(el("div",{class:"h"},opts.tipLabel?opts.tipLabel(i):labels[i]));
+    for(const k of order.slice().reverse()) tipRow(tip, money(series[k][i]), k);
+    if(opts.band && isNum(opts.band[0][i])) tip.append(el("div",{class:"h"},"80% range "+money(opts.band[0][i])+" to "+money(opts.band[1][i])));
+    placeTip(host, tip, x(i)*sx); }
+  const idx=e=>{ const r=svg.getBoundingClientRect(); const px=(e.clientX-r.left)*W/r.width; return Math.max(0,Math.min(n-1,Math.round((px-m.l)/(n<=1?1:iw/(n-1))))); };
+  const hide=()=>{ tip.style.display="none"; hair.setAttribute("visibility","hidden"); };
+  hit.addEventListener("pointermove",e=>show(idx(e))); hit.addEventListener("pointerleave",hide);
+  let ki=n-1; hit.addEventListener("focus",()=>show(ki)); hit.addEventListener("blur",hide);
+  hit.addEventListener("keydown",e=>{ if(e.key==="ArrowLeft"){ki=Math.max(0,ki-1);show(ki);e.preventDefault();} if(e.key==="ArrowRight"){ki=Math.min(n-1,ki+1);show(ki);e.preventDefault();} });
+}
+
+/* Grouped bars: absolute error, model vs benchmark, per day */
+function barChart(host, labels, groups, opts={}){
+  host.replaceChildren();
+  const W=Math.max(320, host.clientWidth||700), H=W<560?240:290, m={l:54,r:14,t:14,b:34};
+  const iw=W-m.l-m.r, ih=H-m.t-m.b, n=labels.length;
+  const vals=[0]; groups.forEach(g=>g.values.forEach(v=>{ if(isNum(v)) vals.push(+v); }));
+  if(n===0){ host.append(el("div",{class:"empty"},opts.empty||"No data yet.")); return; }
+  const hi=Math.max(...vals)||1, step=niceStep(hi/4), top=Math.ceil(hi*1.08/step)*step;
+  const y=v=> m.t + ih - v/top*ih;
+  const svg=svgEl("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":opts.aria||"bar chart"});
+  for(let v=0; v<=top+1e-9; v+=step){ svg.append(svgEl("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v),stroke:C("--grid")})); const t=svgEl("text",{x:m.l-8,y:y(v)+4,"text-anchor":"end","font-size":12,fill:C("--ink-3"),"font-family":"IBM Plex Sans Condensed, sans-serif"}); t.textContent="$"+fmt(v, step<0.1?2:step<1?1:0); svg.append(t); }
+  const slot=iw/n, gw=Math.min(slot*0.72, 44), bw=Math.max(2,(gw-2*(groups.length-1))/groups.length);
+  const every=Math.max(1, Math.ceil(n/(W<560?6:12)));
+  labels.forEach((lb,i)=>{ const cx=m.l+slot*(i+.5);
+    groups.forEach((g,j)=>{ const v=g.values[i]; if(!isNum(v)) return; const x0=cx-gw/2+j*(bw+2), h=Math.max(1,ih-(y(+v)-m.t));
+      svg.append(svgEl("rect",{x:x0,y:y(+v),width:bw,height:h,rx:Math.min(3,bw/2),fill:C(g.color)})); });
+    if(!(i%every) || i===n-1){ const t=svgEl("text",{x:cx,y:H-10,"text-anchor":"middle","font-size":12,fill:C("--ink-3")}); t.textContent=lb; svg.append(t); }
+    const hit=svgEl("rect",{x:m.l+slot*i,y:m.t,width:slot,height:ih,fill:"transparent"}); hit.dataset.i=i; svg.append(hit);
+  });
+  host.append(svg); const tip=tooltip(host);
+  svg.addEventListener("pointermove",e=>{ const i=e.target.dataset && e.target.dataset.i; if(i===undefined){ tip.style.display="none"; return; }
+    tip.replaceChildren(el("div",{class:"h"},opts.tipLabel?opts.tipLabel(+i):labels[i]));
+    groups.forEach(g=>{ const r=el("div",{class:"r"}); const sp=el("span"); const ii=el("i"); ii.style.borderTopColor=C(g.color); sp.append(ii,document.createTextNode(g.label)); r.append(el("b",{},money(g.values[i])),sp); tip.append(r); });
+    placeTip(host, tip, (m.l+slot*(+i+.5))*host.clientWidth/W); });
+  svg.addEventListener("pointerleave",()=>tip.style.display="none");
+}
 
 function table(host, cols, rows){
-  const t=el("table"); const tr=el("tr"); cols.forEach(c=>tr.append(el("th",{},c[0]))); const th=el("thead"); th.append(tr); t.append(th);
+  const t=el("table"); const tr=el("tr"); cols.forEach(c=>tr.append(el("th",{scope:"col"},c[0]))); const th=el("thead"); th.append(tr); t.append(th);
   const tb=el("tbody"); rows.forEach(r=>{ const row=el("tr"); cols.forEach(c=>{ const td=el("td"); const v=c[1](r); if(v instanceof Node) td.append(v); else td.textContent=v; if(c[2]) td.className=c[2](r)||""; row.append(td); }); tb.append(row); });
   t.append(tb); host.replaceChildren(t);
 }
-const sign = v => v==null? "" : (v>0? "pos":"neg");
-const sgn = v => v==null? "–" : (v>0?"+":v<0?"−":"")+fmt(Math.abs(v));
+const errCls = v => !isNum(v)? "" : (v>0? "pos":"neg");
 
-let DATA=null;
-function render(){
-  const d=DATA; if(!d) return;
-  const repo=d.repo_url;
-  $("meta").textContent = "Data refreshed " + (d.generated_at_ct||"").replace("T"," ").slice(0,16) + " CT · " + (d.history_days||0) + " days of official day-ahead history on file";
-  if(repo){ const a=el("a",{href:repo},"Source code and full commit history"); $("foot").replaceChildren(document.createTextNode(" "), a); }
-
-  // ---- tomorrow's call
-  const f=d.latest_forecast; const ct=$("call-tiles"); ct.replaceChildren();
-  if(!f){ $("call-sub").textContent="No forecast has been published yet. The first one appears after the first 06:00 CT run."; }
-  else{
-    $("call-title").textContent = "Call for " + f.target_date;
-    const prim=f.primary_model, s=(f.summary||{})[prim]||{}, p=(f.summary||{}).persistence||{}, iv=f.intervals||{};
-    const pub=(f.generated_at_ct||"").replace("T"," ").slice(0,16);
-    $("call-sub").textContent = `Published ${pub} CT. Market ${f.pre_close?"closes":"closed"} ${(f.dam_close_ct||"").replace("T"," ").slice(0,16)} CT. ` +
-      (f.live? "Made before the close, so it counts as a live call." : "Not a live call (made after the close or for a non-next day), so it isn't in the live record.") +
-      (f.primary_is_fallback? " The hybrid model could not run; this uses the fallback stack model." : "") +
-      (f.training_weather_fallback? " Training weather used the fallback source (see feeds)." : "");
-    tile(ct,"Daily average", money(s.atc), iv.atc_p10!=null? `80% range ${money(iv.atc_p10)} – ${money(iv.atc_p90)}`:"");
-    tile(ct,"Peak HE15–20", money(s.peak), iv.peak_p10!=null? `80% range ${money(iv.peak_p10)} – ${money(iv.peak_p90)}`:"");
-    tile(ct,"Today's DAM (benchmark)", money(p.atc), "daily average, already public");
-    const st=(f.stack||{}).summary||{};
-    if(st.peak_net_load_mw!=null) tile(ct,"Peak net load", fmt(st.peak_net_load_mw,0)+" MW", `marginal unit at peak: ${st.marginal_unit_peak||"–"}`);
-    const hr=f.hourly||[]; const lab=hr.map(r=>"HE"+r.he);
-    const ser={}; for(const k of ["persistence","stack","hybrid"]) if(hr.some(r=>r[k]!=null)) ser[k]=hr.map(r=>r[k]);
-    legend($("call-legend"), Object.keys(ser), hr.some(r=>r.hybrid_p10!=null)?"80% range (hybrid)":null);
-    lineChart($("call-chart"), lab, ser, {band: hr.some(r=>r.hybrid_p10!=null)?[hr.map(r=>r.hybrid_p10),hr.map(r=>r.hybrid_p90)]:null, tipLabel:i=>`${f.target_date} · hour ending ${hr[i].he}`, aria:"Hourly forecast for tomorrow"});
-    const fd=$("feeds"); fd.replaceChildren(el("div",{},"Data feeds on the latest call:"));
-    for(const [k,v] of Object.entries(f.feeds||{})){ const cls = v.status==="OK"?"ok":(v.status==="WARN"?"wa":"no"); const line=el("div"); line.append(el("span",{class:"pill "+cls},v.status), document.createTextNode(" "+k)); line.title=v.detail||""; fd.append(line); }
-  }
-
-  // ---- track record
-  const S=d.summary_live||{}; const rt=$("rec-tiles"); rt.replaceChildren();
-  const rows=(d.scorecard||[]).filter(r=>r.live && r.status==="scored");
-  const others=(d.scorecard||[]).filter(r=>!(r.live && r.status==="scored"));
-  if(!S.n){ rt.append(el("div",{class:"banner"},"No live day scored yet. A call is scored once ERCOT publishes that day's cleared prices, around 13:30 CT on the day the call was made. The record starts building from the first run.")); }
-  else{
-    tile(rt,"Live days scored", String(S.n), `${S.first_date} → ${S.last_date}`);
-    tile(rt,"Avg error, daily price", money(S.paired_primary_mae_atc ?? S.primary_mae_atc), `benchmark, same days: ${money(S.paired_persistence_mae_atc)}`);
-    tile(rt,"Skill vs benchmark", S.skill_vs_persistence_atc_pct==null?"–":fmt(S.skill_vs_persistence_atc_pct,1)+"%", `beat it on ${S.days_beat_persistence??"–"} of ${plural(S.paired_days??0,"day")}`);
-    tile(rt,"Direction called", S.direction_hit_pct==null?"–":fmt(S.direction_hit_pct,1)+"%", `up/down vs today, ${plural(S.direction_n,"day")}`);
-    tile(rt,"Inside 80% range", S.interval_coverage_pct==null?"–":fmt(S.interval_coverage_pct,1)+"%", "well calibrated ≈ 80%");
-  }
-  const lab=rows.map(r=>String(r.target_date).slice(5));
-  const ser={actual:rows.map(r=>r.act_atc), hybrid:rows.map(r=>r.fc_atc), persistence:rows.map(r=>r.persistence_atc)};
-  SERIES.hybrid.label = rows.some(r=>r.primary_is_fallback) ? "Forecast (primary; fallback days marked in table)" : "Forecast (hybrid, primary)";
-  legend($("rec-legend"), ["actual","hybrid","persistence"], rows.some(r=>r.fc_atc_p10!=null)?"80% range":null);
-  lineChart($("rec-chart"), lab, ser, {band: rows.some(r=>r.fc_atc_p10!=null)?[rows.map(r=>r.fc_atc_p10),rows.map(r=>r.fc_atc_p90)]:null, empty:"The chart fills in as live days are scored.", tipLabel:i=>`${rows[i].target_date} · daily average`, aria:"Daily average forecast vs actual"});
-  table($("rec-table"), [
-    ["Day", r=>r.target_date], ["Published (CT)", r=>String(r.generated_at_ct||"").replace("T"," ").slice(0,16)],
-    ["Forecast", r=>money(r.fc_atc)], ["Actual", r=>money(r.act_atc)], ["Error", r=>sgn(r.err_atc), r=>sign(r.err_atc)],
-    ["Benchmark", r=>money(r.persistence_atc)], ["Bench. error", r=>sgn(r.persistence_err_atc), r=>sign(r.persistence_err_atc)],
-    ["Hourly MAE", r=>money(r.mae_hourly)], ["Model", r=>r.primary_model + (r.primary_is_fallback?" (fallback)":"") + (r.training_weather_fallback?" *":"") + (r.n_filled?` (${r.n_filled}h filled)`:"")],
-    ["Evidence", r=>{ const s=el("span"); if(r.run_url){ s.append(el("a",{href:r.run_url},"run")); s.append(document.createTextNode(" ")); } if(repo) s.append(el("a",{href:`${repo}/commits/main/forecasts/${r.target_date}.json`},"history")); return s.childNodes.length? s : "–"; }],
-  ], rows.slice().reverse());
-  if(others.length){ const n=el("div",{class:"note"}); n.textContent = "Not in the headline record: " + others.map(r=>`${r.target_date} (${!r.live?"not live":r.status})`).join(", ") + ". * = training weather fallback."; $("rec-table").append(n); }
-
-  // ---- day picker
-  const pick=$("day-pick"); pick.replaceChildren(); const det=d.detail||{}; const days=Object.keys(det).sort().reverse();
-  days.forEach(k=>pick.append(el("option",{value:k},k)));
-  function drawDay(){ const k=pick.value; const hr=det[k]||[]; const lab=hr.map(r=>"HE"+r.he);
-    const ser={}; for(const s of ["actual","persistence","stack","hybrid"]) if(hr.some(r=>r[s]!=null)) ser[s]=hr.map(r=>r[s]);
-    legend($("day-legend"), Object.keys(ser), hr.some(r=>r.p10!=null)?"80% range":null);
-    lineChart($("day-chart"), lab, ser, {band: hr.some(r=>r.p10!=null)?[hr.map(r=>r.p10),hr.map(r=>r.p90)]:null, tipLabel:i=>`${k} · hour ending ${hr[i].he}`, empty:"Scored days appear here.", aria:"Hourly forecast vs actual"});
-    const sr=(d.scorecard||[]).find(r=>r.target_date===k); $("day-stats").textContent = sr? `forecast ${money(sr.fc_atc)} · actual ${money(sr.act_atc)} · hourly MAE ${money(sr.mae_hourly)}${sr.live?"":" · not live"}` : ""; }
-  pick.onchange=drawDay; if(days.length) drawDay(); else { $("day-chart").replaceChildren(el("div",{class:"empty"},"Scored days appear here.")); }
-
-  // ---- backtest
-  const bt=(d.backtest||{}); const bs=bt.summary||{}; const bT=$("bt-tiles"); bT.replaceChildren();
-  if(bs.status!=="ok"){ bT.append(el("div",{class:"banner"}, bs.status? ("Backtest unavailable: "+(bs.reason||"")) : "The backtest has not run yet. It runs every Sunday, or on demand.")); $("bt-chart").replaceChildren(); }
-  else{
-    tile(bT,"Days replayed", String(bs.n_days), `${bs.first_date} → ${bs.last_date}`);
-    tile(bT,"Avg error, daily price", money((bs.mae_atc||{}).hybrid), `benchmark: ${money((bs.mae_atc||{}).persistence)}`);
-    tile(bT,"Skill vs benchmark", fmt(bs.skill_vs_persistence_atc_pct,1)+"%", `hourly: ${fmt(bs.skill_vs_persistence_hourly_pct,1)}%`);
-    tile(bT,"Direction called", bs.direction_hit_pct==null?"–":fmt(bs.direction_hit_pct,1)+"%", "up/down vs previous day");
-    tile(bT,"Inside 80% range", fmt(bs.interval_coverage_pct,1)+"%", "well calibrated ≈ 80%");
-    const br=bt.daily||[]; legend($("bt-legend"), ["actual","hybrid","persistence"], "80% range");
-    lineChart($("bt-chart"), br.map(r=>String(r.op_date).slice(5)), {actual:br.map(r=>r.actual), hybrid:br.map(r=>r.hybrid), persistence:br.map(r=>r.persistence)}, {band:[br.map(r=>r.p10),br.map(r=>r.p90)], tipLabel:i=>`${br[i].op_date} · daily average (simulated)`, aria:"Backtest daily average"});
-  }
-
-  // ---- DA vs RT
-  const pt=$("prem-tiles"); pt.replaceChildren();
-  if(S.da_rt_n){ tile(pt,"Mean DA − RT", money(S.da_rt_mean), plural(S.da_rt_n,"day")); tile(pt,"Median DA − RT", money(S.da_rt_median), "the typical day"); tile(pt,"Days DA > RT", fmt(S.da_rt_days_da_higher_pct,1)+"%", "buyer paid a premium for certainty"); }
-  else pt.append(el("div",{class:"banner"},"Builds up as real-time prices are captured each night."));
+function rangeBar(host, f){
+  host.replaceChildren();
+  const s=(f.summary||{})[f.primary_model]||{}, iv=f.intervals||{}, p=(f.summary||{}).persistence||{};
+  const pts=[s.atc, iv.atc_p10, iv.atc_p90, p.atc].filter(isNum).map(Number);
+  if(pts.length<2){ host.hidden=true; return; } host.hidden=false;
+  let lo=Math.min(...pts), hi=Math.max(...pts); const pad=(hi-lo)*0.18||3; lo-=pad; hi+=pad;
+  const pos=v=> (100*(v-lo)/(hi-lo)).toFixed(2)+"%";
+  host.append(el("div",{class:"track"}));
+  if(isNum(iv.atc_p10)&&isNum(iv.atc_p90)){ const sp=el("div",{class:"span"}); sp.style.left=pos(iv.atc_p10); sp.style.width=`calc(${pos(iv.atc_p90)} - ${pos(iv.atc_p10)})`; host.append(sp);
+    const dp=(iv.atc_p90-iv.atc_p10)<6?2:0;
+    const a=el("div",{class:"lab bot"},money(iv.atc_p10,dp)); a.style.left=pos(iv.atc_p10); host.append(a);
+    const b=el("div",{class:"lab bot"},money(iv.atc_p90,dp)); b.style.left=pos(iv.atc_p90); host.append(b); }
+  if(isNum(p.atc)){ const t=el("div",{class:"mk td"}); t.style.left=pos(p.atc); host.append(t); const l=el("div",{class:"lab top"},"today "+money(p.atc)); l.style.left=pos(p.atc); host.append(l); }
+  if(isNum(s.atc)){ const t=el("div",{class:"mk fc"}); t.style.left=pos(s.atc); host.append(t); }
 }
 
-fetch("data.json?_=" + Date.now()).then(r=>r.json()).then(j=>{DATA=j; render();})
-  .catch(e=>{ $("meta").textContent="Could not load data.json yet. If this repo was just set up, the first run has not finished."; });
+let DATA=null, recView="price";
+function render(){
+  const d=DATA; if(!d) return;
+  const repo=d.repo_url; if(repo) $("repo-link").href=repo; else $("repo-link").hidden=true;
+  const f=d.latest_forecast;
+
+  // health
+  const ageH = d.generated_at_ct ? (Date.now()-Date.parse(d.generated_at_ct))/3.6e6 : 999;
+  const feeds=Object.values((f&&f.feeds)||{}); const nFail=feeds.filter(x=>x.status==="FAIL").length;
+  const h=$("health"); h.replaceChildren(); const dot=el("span",{class:"dot "+(ageH<30&&!nFail?"ok":ageH<54?"warn":"bad")});
+  h.append(dot, el("span",{}, ageH<30 ? `Running. Updated ${ct(d.generated_at_ct)}` : `No update for ${Math.round(ageH)} hours`));
+
+  // chips + call card
+  const chips=$("chips"); chips.replaceChildren();
+  if(!f){ $("call-title").textContent="No call yet"; $("call-foot").textContent="The first call appears after the first 06:00 Central run."; }
+  else{
+    const prim=f.primary_model, s=(f.summary||{})[prim]||{}, p=(f.summary||{}).persistence||{}, iv=f.intervals||{};
+    const close=Date.parse(f.dam_close_ct), now=Date.now();
+    const c1=el("span",{class:"chip "+(f.live?"live":"notlive")}); c1.append(el("strong",{},f.live?"Live call":"Not a live call")); c1.append(document.createTextNode(f.live?" made before the close":" made after the close"));
+    chips.append(c1);
+    if(now<close){ const mins=Math.round((close-now)/6e4); chips.append(el("span",{class:"chip"},`Market closes in ${Math.floor(mins/60)}h ${mins%60}m`)); }
+    else chips.append(el("span",{class:"chip"},`Market closed ${ct(f.dam_close_ct)}`));
+    const nxt=new Date(); nxt.setUTCHours(11,7,0,0); if(nxt.getTime()<=now) nxt.setUTCDate(nxt.getUTCDate()+1);
+    chips.append(el("span",{class:"chip"},`Next call around ${ct(nxt.toISOString())}`));
+
+    $("call-title").textContent = "Day-ahead price for " + dayName(f.target_date);
+    $("call-v").textContent = isNum(s.atc)? fmt(s.atc) : "–";
+    rangeBar($("rangebar"), f);
+    const dl=$("call-dl"); dl.replaceChildren();
+    const row=(k,v)=>{ dl.append(el("dt",{},k)); dl.append(el("dd",{class:"num"},v)); };
+    row("80% range", isNum(iv.atc_p10)? `${money(iv.atc_p10)} to ${money(iv.atc_p90)}` : "–");
+    row("Evening peak, HE15–20", money(s.peak));
+    row("Today's price (benchmark)", money(p.atc));
+    row("Change vs today", isNum(s.atc)&&isNum(p.atc)? signed(s.atc-p.atc) : "–");
+    const foot=$("call-foot"); foot.replaceChildren(document.createTextNode(`Published ${ct(f.generated_at_ct)}. `));
+    if(f.run_url){ foot.append(el("a",{href:f.run_url},"See the run that made it")); foot.append(document.createTextNode(".")); }
+    if(f.primary_is_fallback) foot.append(document.createTextNode(" The main model could not run; this call uses the fundamental stack model."));
+
+    const hr=f.hourly||[]; const lab=hr.map(r=>"HE"+r.he);
+    const ser={}; for(const k of ["persistence","stack","hybrid"]) if(hr.some(r=>isNum(r[k]))) ser[k]=hr.map(r=>r[k]);
+    const hasBand=hr.some(r=>isNum(r.hybrid_p10));
+    legend($("call-legend"), Object.keys(ser).reverse(), hasBand?[{cls:"band",label:"80% range"}]:[]);
+    lineChart($("call-chart"), lab, ser, {band: hasBand?[hr.map(r=>r.hybrid_p10),hr.map(r=>r.hybrid_p90)]:null, shade:[14,19], tipLabel:i=>`${dayName(f.target_date)}, hour ending ${hr[i].he}`, aria:"Hourly forecast for tomorrow against today's prices"});
+
+    // drivers
+    const st=(f.stack||{}).summary||{}, inp=(f.stack||{}).inputs||{}, dv=$("drivers"); dv.replaceChildren();
+    const drv=(k,v,n,u)=>{ const x=el("div"); const vv=el("div",{class:"v"},v); if(u) vv.append(el("small",{},u)); x.append(el("div",{class:"k"},k), vv); if(n) x.append(el("div",{class:"n"},n)); dv.append(x); };
+    if(isNum(st.peak_load_mw)){
+      drv("Peak demand", fmt(st.peak_load_mw,0), isNum(st.max_temp_f)? `high of ${fmt(st.max_temp_f,0)}°F` : "", "MW");
+      drv("Peak net demand", fmt(st.peak_net_load_mw,0), "demand minus wind and solar", "MW");
+      drv("Wind, evening peak", fmt(st.wind_peak_block_mw,0), isNum((inp.installed_mw||{}).wind)? `of ${fmt(inp.installed_mw.wind/1000,1)} GW installed`:"", "MW");
+      drv("Solar, evening peak", fmt(st.solar_peak_block_mw,0), isNum((inp.installed_mw||{}).solar)? `of ${fmt(inp.installed_mw.solar/1000,1)} GW installed`:"", "MW");
+      drv("Henry Hub gas", money(inp.gas_price), inp.gas_as_of? `spot, as of ${dayName(inp.gas_as_of)}`:"", "/MMBtu");
+      const mu={CCGT:"CCGT",CT:"Gas peaker",STEAM_GAS:"Gas steam",COAL:"Coal",NUCLEAR:"Nuclear",STORAGE:"Batteries",SCARCITY:"Scarcity",RENEWABLE_OVERSUPPLY:"Renewables"}[st.marginal_unit_peak]||st.marginal_unit_peak||"–";
+      drv("Price-setting unit", mu, st.marginal_unit_peak==="CCGT"?"combined-cycle gas, at the evening peak":"at the evening peak");
+      drv("Implied heat rate", fmt(st.implied_heat_rate,2), "price ÷ gas price", "MMBtu/MWh");
+    } else dv.append(el("div",{class:"empty"},"The fundamental model did not run for this call."));
+  }
+
+  // latest scored day
+  const sc=(d.scorecard||[]).filter(r=>String(r.status||"").startsWith("scored")||String(r.status||"").startsWith("provisional"));
+  const last=sc[sc.length-1]; const res=$("result");
+  if(last){ res.hidden=false; res.replaceChildren(el("span",{},`Latest result, ${dayName(last.target_date)}:`));
+    const a=el("span"); a.append(document.createTextNode("forecast "), el("b",{},money(last.fc_atc))); res.append(a);
+    const b=el("span"); b.append(document.createTextNode("cleared "), el("b",{},money(last.act_atc))); res.append(b);
+    const c=el("span"); c.append(document.createTextNode("error "), el("b",{},signed(last.err_atc))); res.append(c);
+    const e=el("span"); e.append(document.createTextNode("benchmark error "), el("b",{},signed(last.persistence_err_atc))); res.append(e);
+    res.append(el("span",{class:"tag"}, last.live? "Live call" : "Not live, excluded from the record")); }
+  else res.hidden=true;
+
+  // track record
+  const S=d.summary_live||{}; const rs=$("rec-stats"); rs.replaceChildren();
+  const rows=(d.scorecard||[]).filter(r=>r.live && r.status==="scored");
+  const others=(d.scorecard||[]).filter(r=>!(r.live && r.status==="scored"));
+  if(!S.n){ stat(rs,"Live days scored","0","the record starts with the first live call"); stat(rs,"First live call", f&&f.live? dayName(f.target_date) : "next morning run", "scored the following afternoon"); }
+  else{
+    const skill=S.skill_vs_persistence_atc_pct;
+    stat(rs,"Live days scored", String(S.n), `${dayName(S.first_date)} to ${dayName(S.last_date)}`);
+    stat(rs,"Average error", money(S.paired_primary_mae_atc ?? S.primary_mae_atc), `benchmark ${money(S.paired_persistence_mae_atc)} on the same days`);
+    stat(rs,"Better than benchmark", isNum(skill)? fmt(skill,1)+"%" : "–", `closer on ${S.days_beat_persistence??"–"} of ${plural(S.paired_days??0,"day")}`, isNum(skill)?(skill>0?"good":"bad"):"");
+    stat(rs,"Direction called", isNum(S.direction_hit_pct)? fmt(S.direction_hit_pct,0)+"%" : "–", `up or down vs today, ${plural(S.direction_n||0,"day")}`);
+    stat(rs,"Inside 80% range", isNum(S.interval_coverage_pct)? fmt(S.interval_coverage_pct,0)+"%" : "–", "about 80% means well calibrated");
+  }
+  const lab=rows.map(r=>String(r.target_date).slice(5));
+  document.querySelector("#rec-chart").closest(".panel").querySelector(".controls").hidden = !rows.length;
+  if(!rows.length){ $("rec-legend").replaceChildren(); $("rec-chart").replaceChildren(el("div",{class:"empty"},"The chart fills in from the first live call, one day at a time.")); }
+  else if(recView==="price"){
+    legend($("rec-legend"), ["actual","hybrid","persistence"], rows.some(r=>isNum(r.fc_atc_p10))?[{cls:"band",label:"80% range"}]:[]);
+    lineChart($("rec-chart"), lab, {persistence:rows.map(r=>r.persistence_atc), hybrid:rows.map(r=>r.fc_atc), actual:rows.map(r=>r.act_atc)}, {band: rows.some(r=>isNum(r.fc_atc_p10))?[rows.map(r=>r.fc_atc_p10),rows.map(r=>r.fc_atc_p90)]:null, empty:"This fills in from the first live call, one day at a time.", tipLabel:i=>`${dayName(rows[i].target_date)}, 24-hour average`, aria:"Daily forecast against the cleared price"});
+  } else {
+    legend($("rec-legend"), [], [{cls:"bar",color:"--s-hybrid",label:"Forecast error"},{cls:"bar",color:"--s-pers",label:"Benchmark error"}]);
+    barChart($("rec-chart"), lab, [{label:"Forecast error",color:"--s-hybrid",values:rows.map(r=>isNum(r.err_atc)?Math.abs(r.err_atc):null)},{label:"Benchmark error",color:"--s-pers",values:rows.map(r=>isNum(r.persistence_err_atc)?Math.abs(r.persistence_err_atc):null)}], {empty:"This fills in from the first live call, one day at a time.", tipLabel:i=>`${dayName(rows[i].target_date)}, size of error`, aria:"Size of daily error, forecast and benchmark"});
+  }
+  table($("rec-table"), [
+    ["Day", r=>r.target_date], ["Published", r=>ct(r.generated_at_ct)],
+    ["Forecast", r=>money(r.fc_atc)], ["Cleared", r=>money(r.act_atc)], ["Error", r=>signed(r.err_atc), r=>errCls(r.err_atc)],
+    ["Benchmark", r=>money(r.persistence_atc)], ["Benchmark error", r=>signed(r.persistence_err_atc), r=>errCls(r.persistence_err_atc)],
+    ["Hourly error", r=>money(r.mae_hourly)], ["Status", r=>(r.live?"live":"not live")+(r.status&&r.status!=="scored"?", "+String(r.status).split(":")[0]:"")+(r.primary_is_fallback?", backup model":"")],
+    ["Evidence", r=>{ const s=el("span"); if(r.run_url){ s.append(el("a",{href:r.run_url},"run")); s.append(document.createTextNode(" ")); } if(repo) s.append(el("a",{href:`${repo}/commits/main/forecasts/${r.target_date}.json`},"file history")); return s.childNodes.length? s : "–"; }],
+  ], (d.scorecard||[]).slice().reverse());
+  if(others.length){ const n=el("p",{class:"note"}); n.textContent="Not counted in the record: "+others.map(r=>`${r.target_date} (${!r.live?"not live":r.status})`).join(", ")+"."; $("rec-table").append(n); }
+
+  // day explorer
+  const pick=$("day-pick"), det=d.detail||{}, days=Object.keys(det).sort().reverse(), keep=pick.value;
+  pick.replaceChildren(); days.forEach(k=>pick.append(el("option",{value:k},`${k} (${dayName(k)})`)));
+  if(keep && days.includes(keep)) pick.value=keep;
+  function drawDay(){ const k=pick.value, hr=det[k]||[], lab=hr.map(r=>"HE"+r.he);
+    const ser={}; for(const s of ["persistence","stack","hybrid","actual"]) if(hr.some(r=>isNum(r[s]))) ser[s]=hr.map(r=>r[s]);
+    legend($("day-legend"), Object.keys(ser).reverse(), hr.some(r=>isNum(r.p10))?[{cls:"band",label:"80% range"}]:[]);
+    lineChart($("day-chart"), lab, ser, {band: hr.some(r=>isNum(r.p10))?[hr.map(r=>r.p10),hr.map(r=>r.p90)]:null, shade:[14,19], tipLabel:i=>`${dayName(k)}, hour ending ${hr[i].he}`, empty:"Scored days appear here.", aria:"Hourly forecast against the cleared price"});
+    const sr=(d.scorecard||[]).find(r=>r.target_date===k);
+    $("day-stats").textContent = sr? `Forecast ${money(sr.fc_atc)}, cleared ${money(sr.act_atc)}, average hourly error ${money(sr.mae_hourly)}${sr.live?"":" (not live)"}` : ""; }
+  pick.closest(".controls").hidden = !days.length;
+  pick.onchange=drawDay; if(days.length) drawDay(); else { $("day-chart").replaceChildren(el("div",{class:"empty"},"Scored days appear here, the afternoon after each call.")); $("day-legend").replaceChildren(); }
+
+  // backtest
+  const bt=d.backtest||{}, bs=bt.summary||{}, bst=$("bt-stats"); bst.replaceChildren();
+  $("bt-panel").hidden = bs.status!=="ok";
+  if(bs.status!=="ok"){ stat(bst,"Backtest", "not run yet", bs.reason||"it runs every Sunday"); }
+  else{
+    const skill=bs.skill_vs_persistence_atc_pct;
+    stat(bst,"Days replayed", String(bs.n_days), `${dayName(bs.first_date)} to ${dayName(bs.last_date)}`);
+    stat(bst,"Average error", money((bs.mae_atc||{}).hybrid), `benchmark ${money((bs.mae_atc||{}).persistence)}`);
+    stat(bst,"Better than benchmark", fmt(skill,1)+"%", `closer on ${bs.days_beat_persistence} of ${plural(bs.n_days,"day")}`, skill>0?"good":"bad");
+    stat(bst,"Direction called", isNum(bs.direction_hit_pct)? fmt(bs.direction_hit_pct,0)+"%" : "–", "up or down vs the day before");
+    stat(bst,"Inside 80% range", fmt(bs.interval_coverage_pct,0)+"%", bs.interval_coverage_pct<75? "a little narrow; target is 80%" : "about 80% means well calibrated");
+    const br=bt.daily||[];
+    legend($("bt-legend"), ["actual","hybrid","persistence"], [{cls:"band",label:"80% range"}]);
+    lineChart($("bt-chart"), br.map(r=>String(r.op_date).slice(5)), {persistence:br.map(r=>r.persistence), hybrid:br.map(r=>r.hybrid), actual:br.map(r=>r.actual)}, {band:[br.map(r=>r.p10),br.map(r=>r.p90)], tipLabel:i=>`${dayName(br[i].op_date)}, 24-hour average, replayed`, aria:"Backtest daily forecast against cleared price"});
+  }
+
+  // DA vs RT
+  const ps=$("prem-stats"); ps.replaceChildren();
+  if(S.da_rt_n){ stat(ps,"Average premium", signed(S.da_rt_mean), plural(S.da_rt_n,"day")); stat(ps,"Typical day", signed(S.da_rt_median), "median premium"); stat(ps,"Day-ahead above real-time", fmt(S.da_rt_days_da_higher_pct,0)+"%", "share of days"); }
+  else stat(ps,"Premium", "–", "builds up as real-time prices are captured each night");
+
+  // feeds
+  const fd=$("feeds"); fd.replaceChildren();
+  for(const [k,v] of Object.entries((f&&f.feeds)||{})){ fd.append(el("span",{class:"st "+v.status},v.status)); const t=el("span",{},k); t.append(el("span",{class:"d"},v.detail||"")); fd.append(t); }
+  $("foot-meta").textContent = `${d.history_days||0} days of official ERCOT price history on file. Data updated ${ct(d.generated_at_ct)}.`;
+}
+
+// view toggle, tabs, CSV
+function setView(v){ recView=v; $("v-price").setAttribute("aria-pressed",v==="price"); $("v-err").setAttribute("aria-pressed",v==="err"); render(); }
+$("v-price").onclick=()=>setView("price"); $("v-err").onclick=()=>setView("err");
+document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll('[role="tab"]').forEach(x=>{ x.setAttribute("aria-selected", x===b); $(x.getAttribute("aria-controls")).hidden = x!==b; }); }));
+$("csv").onclick=()=>{
+  const rows=(DATA&&DATA.scorecard)||[]; if(!rows.length) return;
+  const cols=Object.keys(rows[0]); const q=v=>{ const s=v===null||v===undefined?"":String(v); return /[",\n]/.test(s)? '"'+s.replace(/"/g,'""')+'"' : s; };
+  const csv=[cols.join(","), ...rows.map(r=>cols.map(c=>q(r[c])).join(","))].join("\n");
+  const a=el("a",{href:URL.createObjectURL(new Blob([csv],{type:"text/csv"})),download:"ercot-forecast-scorecard.csv"}); document.body.append(a); a.click(); a.remove();
+};
+
+fetch("data.json?_=" + Date.now()).then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); }).then(j=>{DATA=j; render();})
+  .catch(()=>{ const h=$("health"); h.replaceChildren(el("span",{class:"dot bad"}), el("span",{},"Data file not found. The first scheduled run creates it.")); });
 let rz; addEventListener("resize",()=>{clearTimeout(rz); rz=setTimeout(render,150);});
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+setInterval(()=>{ if(DATA) render(); }, 60000);
 </script>
 </body>
 </html>
