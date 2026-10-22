@@ -1,15 +1,15 @@
 {
- "generated_at_ct": "2026-10-22T10:52:02-05:00",
+ "generated_at_ct": "2026-10-22T12:36:48-05:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": {
   "target_date": "2026-10-23",
-  "generated_at_ct": "2026-10-22T10:51:46-05:00",
-  "saved_at_ct": "2026-10-22T10:52:02-05:00",
+  "generated_at_ct": "2026-10-22T12:36:19-05:00",
+  "saved_at_ct": "2026-10-22T12:36:48-05:00",
   "dam_close_ct": "2026-10-22T10:00:00-05:00",
   "pre_close": false,
   "live": false,
-  "code_version": "e1ebcd6",
-  "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/39808718744",
+  "code_version": "29119c5",
+  "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/39824108255",
   "training_weather_fallback": false,
   "primary_model": "hybrid",
   "primary_is_fallback": false,
@@ -21,10 +21,10 @@
     "max": 51.4
    },
    "stack": {
-    "atc": 13.06,
-    "peak": 1.62,
-    "onpeak": 6.73,
-    "max": 26.25
+    "atc": 14.46,
+    "peak": 7.04,
+    "onpeak": 8.8,
+    "max": 26.34
    },
    "persistence": {
     "atc": 34.44,
@@ -42,39 +42,39 @@
   "hourly": [
    {
     "he": 1,
-    "hybrid": 26.84,
+    "hybrid": 26.94,
     "stack": 25.66,
     "persistence": 31.02,
     "seasonal": 26.41,
-    "hybrid_p10": 18.96,
-    "hybrid_p90": 35.8
+    "hybrid_p10": 19.06,
+    "hybrid_p90": 35.9
    },
    {
     "he": 2,
-    "hybrid": 26.25,
-    "stack": 25.66,
+    "hybrid": 26.28,
+    "stack": 25.76,
     "persistence": 31.91,
     "seasonal": 23.4,
-    "hybrid_p10": 18.37,
-    "hybrid_p90": 35.21
+    "hybrid_p10": 18.4,
+    "hybrid_p90": 35.24
    },
    {
     "he": 3,
-    "hybrid": 26.93,
+    "hybrid": 26.88,
     "stack": 25.86,
     "persistence": 31.42,
     "seasonal": 20.93,
-    "hybrid_p10": 19.05,
-    "hybrid_p90": 35.89
+    "hybrid_p10": 19.0,
+    "hybrid_p90": 35.84
    },
    {
     "he": 4,
-    "hybrid": 26.72,
+    "hybrid": 26.81,
     "stack": 25.95,
     "persistence": 31.32,
     "seasonal": 19.09,
-    "hybrid_p10": 18.84,
-    "hybrid_p90": 35.68
+    "hybrid_p10": 18.93,
+    "hybrid_p90": 35.77
    },
    {
     "he": 5,
@@ -88,7 +88,7 @@
    {
     "he": 6,
     "hybrid": 31.06,
-    "stack": 25.95,
+    "stack": 26.05,
     "persistence": 41.38,
     "seasonal": 18.78,
     "hybrid_p10": 23.18,
@@ -97,7 +97,7 @@
    {
     "he": 7,
     "hybrid": 36.99,
-    "stack": 26.15,
+    "stack": 26.25,
     "persistence": 49.16,
     "seasonal": 20.51,
     "hybrid_p10": 31.13,
@@ -106,7 +106,7 @@
    {
     "he": 8,
     "hybrid": 35.57,
-    "stack": 26.25,
+    "stack": 26.34,
     "persistence": 47.71,
     "seasonal": 19.18,
     "hybrid_p10": 29.71,
@@ -115,7 +115,7 @@
    {
     "he": 9,
     "hybrid": 24.23,
-    "stack": 25.86,
+    "stack": 25.95,
     "persistence": 34.83,
     "seasonal": 17.12,
     "hybrid_p10": 18.37,
@@ -124,7 +124,7 @@
    {
     "he": 10,
     "hybrid": 12.38,
-    "stack": 24.39,
+    "stack": 24.59,
     "persistence": 20.39,
     "seasonal": 14.55,
     "hybrid_p10": 6.52,
@@ -187,7 +187,7 @@
    {
     "he": 17,
     "hybrid": 19.36,
-    "stack": -22.0,
+    "stack": 10.04,
     "persistence": 29.86,
     "seasonal": 3.6,
     "hybrid_p10": -4.4,
@@ -196,7 +196,7 @@
    {
     "he": 18,
     "hybrid": 35.63,
-    "stack": 24.3,
+    "stack": 24.59,
     "persistence": 47.52,
     "seasonal": 13.32,
     "hybrid_p10": 11.87,
@@ -205,7 +205,7 @@
    {
     "he": 19,
     "hybrid": 51.4,
-    "stack": 25.66,
+    "stack": 25.76,
     "persistence": 64.6,
     "seasonal": 22.28,
     "hybrid_p10": 27.64,
@@ -214,7 +214,7 @@
    {
     "he": 20,
     "hybrid": 45.62,
-    "stack": 25.76,
+    "stack": 25.86,
     "persistence": 53.18,
     "seasonal": 26.14,
     "hybrid_p10": 21.86,
@@ -223,7 +223,7 @@
    {
     "he": 21,
     "hybrid": 37.93,
-    "stack": 25.66,
+    "stack": 25.76,
     "persistence": 44.25,
     "seasonal": 27.22,
     "hybrid_p10": 20.65,
@@ -241,7 +241,7 @@
    {
     "he": 23,
     "hybrid": 23.57,
-    "stack": 25.47,
+    "stack": 25.66,
     "persistence": 31.28,
     "seasonal": 27.29,
     "hybrid_p10": 6.29,
@@ -250,7 +250,7 @@
    {
     "he": 24,
     "hybrid": 17.48,
-    "stack": 25.27,
+    "stack": 25.37,
     "persistence": 26.71,
     "seasonal": 25.46,
     "hybrid_p10": 0.2,
@@ -268,16 +268,16 @@
   "market": "ERCOT day-ahead market, Hub Average (HB_HUBAVG) settlement point price",
   "stack": {
    "summary": {
-    "peak_p10": -6.26,
-    "peak_p90": 20.19,
+    "peak_p10": -6.11,
+    "peak_p90": 22.76,
     "p_scarcity": 0.0,
-    "peak_load_mw": 63668.0,
-    "peak_net_load_mw": 28925.0,
-    "wind_peak_block_mw": 41018.0,
-    "solar_peak_block_mw": 15042.0,
-    "gas_burn_bcfd": 1.81,
-    "implied_heat_rate": 1.5,
-    "spark_spread_7": -19.28,
+    "peak_load_mw": 63685.0,
+    "peak_net_load_mw": 29561.0,
+    "wind_peak_block_mw": 39570.0,
+    "solar_peak_block_mw": 14737.0,
+    "gas_burn_bcfd": 1.94,
+    "implied_heat_rate": 2.34,
+    "spark_spread_7": -16.72,
     "marginal_unit_peak": "CCGT",
     "max_temp_f": 83.4
    },
@@ -296,10 +296,10 @@
      "nuclear": 5268.0
     },
     "load_model_source": "EIA-930",
-    "load_model_hours": 1583,
+    "load_model_hours": 1584,
     "load_model_mape_pct": 1.635,
-    "wind_bias_k": 1.734,
-    "solar_bias_k": 1.291,
+    "wind_bias_k": 1.661,
+    "solar_bias_k": 1.26,
     "n_sims": 400
    }
   },
@@ -336,7 +336,7 @@
    },
    "ERCOT prices (dashboard)": {
     "status": "OK",
-    "detail": "RT 43 intervals [2026-10-22]; DAM 24 hours [2026-10-22]"
+    "detail": "RT 50 intervals [2026-10-22]; DAM 24 hours [2026-10-22]"
    },
    "DAM cross-check dashboard vs MIS": {
     "status": "OK",
@@ -360,11 +360,11 @@
    },
    "ERCOT fuel mix": {
     "status": "OK",
-    "detail": "418 intervals 10-21 00:00-10-22 10:45; installed gas 69,569 / wind 40,405 / solar 40,226 / storage 20,948 MW"
+    "detail": "439 intervals 10-21 00:00-10-22 12:30; installed gas 69,569 / wind 40,405 / solar 40,226 / storage 20,948 MW"
    },
    "EIA-930 ERCOT demand": {
     "status": "OK",
-    "detail": "2896 hours, 2026-06-23 to 2026-10-22"
+    "detail": "2897 hours, 2026-06-23 to 2026-10-22"
    },
    "Gas price": {
     "status": "OK",
@@ -372,11 +372,11 @@
    },
    "Load model": {
     "status": "OK",
-    "detail": "fit on 1583 hours from EIA-930; in-sample MAPE 1.64%"
+    "detail": "fit on 1584 hours from EIA-930; in-sample MAPE 1.63%"
    },
    "Renewable model": {
     "status": "OK",
-    "detail": "wind k=1.73, solar k=1.29; installed 40,405 MW wind / 40,226 MW solar"
+    "detail": "wind k=1.66, solar k=1.26; installed 40,405 MW wind / 40,226 MW solar"
    }
   }
  },
