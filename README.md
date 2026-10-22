@@ -11,7 +11,7 @@ A call for delivery day T can be made from the moment ERCOT publishes day-ahead 
 ## Live track record
 
 <!-- SCORECARD:START -->
-_No live day scored yet (2 forecast file(s) committed). A forecast is scored once ERCOT publishes that day's official DAM prices (~13:30 CT the day before delivery)._
+_No live day scored yet (3 forecast file(s) committed). A forecast is scored once ERCOT publishes that day's official DAM prices (~13:30 CT the day before delivery)._
 <!-- SCORECARD:END -->
 
 *Updated automatically. Only calls stamped before the 10:00 CT market close are counted. Error = forecast − actual, $/MWh.*
