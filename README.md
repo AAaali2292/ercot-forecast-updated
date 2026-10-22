@@ -2,7 +2,7 @@
 
 **Every morning, before ERCOT's day-ahead market closes, this repo publishes tomorrow's hourly Hub Average price — then scores itself against the price that actually cleared.**
 
-The forecast is generated at about 06:00 CT by a scheduled GitHub Action and committed to this repo. The market closes at 10:00 CT. ERCOT publishes the cleared prices at about 13:30 CT, and an afternoon run scores the call against ERCOT's official settlement file. The evidence sits outside the code. Each forecast is produced inside a GitHub Actions run, and GitHub records that run's start time and logs (the run link is saved in every forecast file). The file is pushed to this public repo minutes later. Commit dates alone could be faked; GitHub writes the run records and push times, and the author cannot edit them. A repo admin could delete a run, and GitHub keeps run logs for 90 days by default, so the run link is also copied into each forecast file.
+A call for delivery day T can be made from the moment ERCOT publishes day-ahead prices for T-1 (about 13:30 CT on T-2) until T's market closes (10:00 CT on T-1). Every scheduled GitHub Action, about 11 a day, makes the next call if it is missing, so a late-starting job cannot miss the window. On 22 Oct 2026 GitHub started jobs 4-5 hours late, which is why the design changed. Once T's price clears, the call is scored against ERCOT's official settlement file. The evidence sits outside the code. Each forecast is produced inside a GitHub Actions run, and GitHub records that run's start time and logs (the run link is saved in every forecast file). The file is pushed to this public repo minutes later. Commit dates alone could be faked; GitHub writes the run records and push times, and the author cannot edit them. A repo admin could delete a run, and GitHub keeps run logs for 90 days by default, so the run link is also copied into each forecast file.
 
 **[Live dashboard →](https://aaaali2292.github.io/ercot-forecast-updated/)**
 
@@ -66,13 +66,14 @@ ERCOT blocks requests from outside the USA. GitHub's runners are US-based, so th
 
 ## Schedule
 
-| UTC | Central | Job |
-|---|---|---|
-| 11:07 | 06:07 CDT / 05:07 CST | `daily` — refresh prices, forecast tomorrow, score, publish |
-| 12:37 | 07:37 CDT / 06:37 CST | backup forecast, runs only if the first one is missing |
-| 19:53, 22:23 | afternoon | `dam` — fetch tomorrow's cleared prices, score, publish |
-| 04:47, 05:47, 06:47 | around midnight | `capture` — real-time prices and generation |
-| Sun 09:17 | | `weekly` — refresh annual history file, re-run backtest |
+About 11 scheduled runs a day (UTC times in `.github/workflows/daily.yml`). Each does its own job, then makes the next call if it is missing:
+
+| Job | What it does |
+|---|---|
+| `daily`, `backup` (several slots) | make the next live call |
+| `dam` (afternoon CT) | fetch the newly cleared DAM prices, score, publish, then make the next call |
+| `capture` (around CT midnight) | snapshot real-time prices and generation, then make the next call if missing |
+| `weekly` (Sunday) | refresh the annual price file and re-run the backtest |
 
 ## Repo layout
 
