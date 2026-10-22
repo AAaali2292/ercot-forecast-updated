@@ -95,16 +95,23 @@ def cmd_backfill(args) -> int:
 
 
 def _do_forecast(date: str | None, if_missing: bool) -> int:
+    _ensure_history()
     target = dt.date.fromisoformat(date) if date else None
-    tgt = target or (dt.datetime.now(CT).date() + dt.timedelta(days=1))
+    if target is None:
+        history.refresh(days_back=3, include_tomorrow=True)
+        target, why = fx.next_target(dt.datetime.now(CT),
+                                     history.complete_days(history.hub_hourly()))
+        if target is None:
+            print(f"no call to make right now: {why}")
+            return 0
+    tgt = target
     if if_missing:
         p = FORECASTS / f"{tgt.isoformat()}.json"
         if p.exists():
             old = json.loads(p.read_text())
-            if old.get("pre_close") and not old.get("primary_is_fallback"):
-                print(f"forecast for {tgt} already committed pre-close; nothing to do")
+            if old.get("live") and not old.get("primary_is_fallback"):
+                print(f"live forecast for {tgt} already committed; nothing to do")
                 return 0
-    _ensure_history()
     f = fx.make_forecast(target)
     path, written = fx.save_forecast(f)
     if not written:
@@ -135,7 +142,7 @@ def cmd_forecast(args) -> int:
 def cmd_daily(args) -> int:
     rc = 0
     try:
-        rc = _do_forecast(None, if_missing=False)
+        rc = _do_forecast(None, if_missing=True)
     except Exception as e:  # noqa: BLE001
         print(f"FORECAST FAILED: {e}", file=sys.stderr)
         traceback.print_exc()
