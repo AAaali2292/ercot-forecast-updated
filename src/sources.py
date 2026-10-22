@@ -304,7 +304,7 @@ def _fetch_all_sites(url: str, params: dict, suffix: str = "") -> pd.DataFrame:
     return build_weather(temp, wind, solar)
 
 
-def fetch_weather_forecast(past_days: int = 92, forecast_days: int = 3) -> pd.DataFrame:
+def fetch_weather_forecast(past_days: int = 92, forecast_days: int = 4) -> pd.DataFrame:
     """Live NWP for the forecast, plus recent history for the stack model's load fit.
 
     92 is Open-Meteo's maximum past window; the load model can only train on the
