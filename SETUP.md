@@ -41,7 +41,7 @@ The site appears at `https://AAaali2292.github.io/ercot-forecast/` within a few 
 After that, everything runs by itself.
 
 ## What happens each day
-- **~06:07 CT (16:07 PKT):** tomorrow's forecast is committed.
+- **Any time after ~14:00 CT (00:00 PKT):** the next day's call is committed by whichever scheduled job runs first. It must be stamped before 10:00 CT (20:00 PKT) the next morning to count.
 - **~14:00 CT (00:00 PKT):** ERCOT publishes the cleared prices, and the call is scored.
 - The site and the README table update themselves.
 
