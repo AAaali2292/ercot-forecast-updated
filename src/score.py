@@ -59,9 +59,10 @@ def is_live(fc: dict, target: dt.date) -> bool:
         saved = dt.datetime.fromisoformat(fc.get("saved_at_ct") or fc["generated_at_ct"])
     except Exception:  # noqa: BLE001
         return False
+    # Valid window: after DAM for T-1 is out (~13:30 CT on T-2) and before T's close.
     return bool(fc.get("live") and gen < close and saved < close
                 and close.date() == target - dt.timedelta(days=1)
-                and gen.date() == target - dt.timedelta(days=1))
+                and close - gen <= dt.timedelta(hours=24))
 
 
 def score_one(target: str, dam: pd.DataFrame, sources_by_day: dict) -> dict | None:
