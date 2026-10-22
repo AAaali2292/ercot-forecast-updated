@@ -193,7 +193,7 @@ footer{margin:72px 0 40px;padding-top:20px;border-top:1px solid var(--line);font
   <div class="hero-grid">
     <div>
       <h1>Tomorrow's Texas power price, called before the market closes.</h1>
-      <p class="lede">Every morning a model forecasts the next day's ERCOT day-ahead price, hour by hour, and publishes it before bids close at 10:00 Central. The next afternoon it is scored against the official cleared price, next to a simple benchmark it has to beat.</p>
+      <p class="lede">Each day, as soon as ERCOT publishes the latest prices, a model forecasts the next open day-ahead market hour by hour and publishes the call before bids close at 10:00 Central. Once that day's price clears, the call is scored against it, next to a simple benchmark it has to beat.</p>
       <div class="chips" id="chips"></div>
     </div>
     <aside class="call" id="call" aria-live="polite">
@@ -435,7 +435,7 @@ function render(){
 
   // chips + call card
   const chips=$("chips"); chips.replaceChildren();
-  if(!f){ $("call-title").textContent="No call yet"; $("call-foot").textContent="The first call appears after the first 06:00 Central run."; }
+  if(!f){ $("call-title").textContent="No call yet"; $("call-foot").textContent="The first call appears after the first scheduled run."; }
   else{
     const prim=f.primary_model, s=(f.summary||{})[prim]||{}, p=(f.summary||{}).persistence||{}, iv=f.intervals||{};
     const close=Date.parse(f.dam_close_ct), now=Date.now();
@@ -443,8 +443,7 @@ function render(){
     chips.append(c1);
     if(now<close){ const mins=Math.round((close-now)/6e4); chips.append(el("span",{class:"chip"},`Market closes in ${Math.floor(mins/60)}h ${mins%60}m`)); }
     else chips.append(el("span",{class:"chip"},`Market closed ${ct(f.dam_close_ct)}`));
-    const nxt=new Date(); nxt.setUTCHours(11,7,0,0); if(nxt.getTime()<=now) nxt.setUTCDate(nxt.getUTCDate()+1);
-    chips.append(el("span",{class:"chip"},`Next call around ${ct(nxt.toISOString())}`));
+    if(now>=close) chips.append(el("span",{class:"chip"},"Next call after ERCOT publishes prices, around 14:00 CT"));
 
     $("call-title").textContent = "Day-ahead price for " + dayName(f.target_date);
     $("call-v").textContent = isNum(s.atc)? fmt(s.atc) : "–";
