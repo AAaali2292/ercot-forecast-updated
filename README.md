@@ -11,19 +11,20 @@ A call for delivery day T can be made from the moment ERCOT publishes day-ahead 
 ## Live track record
 
 <!-- SCORECARD:START -->
-**2 live days scored** (2026-10-24 → 2026-10-25). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
+**3 live days scored** (2026-10-24 → 2026-10-26). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
 
 | Model | MAE daily avg | MAE peak HE15-20 | MAE hourly |
 |---|---|---|---|
-| **Hybrid (primary)** | $2.30 | $2.55 | $4.62 |
-| Fundamental stack | $5.13 | $7.48 | $8.70 |
-| Benchmark: today's DAM | $0.42 | $2.06 | $2.38 |
-| Benchmark: same day last week | $6.04 | $3.31 | $11.57 |
+| **Hybrid (primary)** | $2.13 | $5.03 | $4.55 |
+| Fundamental stack | $6.07 | $13.21 | $9.88 |
+| Benchmark: today's DAM | $4.28 | $9.02 | $5.64 |
+| Benchmark: same day last week | $6.74 | $9.42 | $11.06 |
 
-Skill vs persistence (daily avg): **-454.2%** · beat persistence on 0/2 days · direction of change called 100.0% (1 days) · 80% interval coverage 100.0%
+Skill vs persistence (daily avg): **50.3%** · beat persistence on 1/3 days · direction of change called 100.0% (2 days) · 80% interval coverage 100.0%
 
 | Day | Published (CT) | Forecast | Actual | Error | Today's DAM (benchmark) |
 |---|---|---|---|---|---|
+| 2026-10-26 | 2026-10-24 13:49 | $32.49 | $34.27 | -1.78 | $22.27 |
 | 2026-10-25 | 2026-10-23 14:58 | $23.59 | $22.27 | 1.32 | $21.60 |
 | 2026-10-24 | 2026-10-22 17:48 | $18.33 | $21.60 | -3.28 | $21.78 |
 <!-- SCORECARD:END -->
