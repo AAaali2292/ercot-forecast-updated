@@ -1,38 +1,38 @@
 {
-  "generated_at_ct": "2026-10-21T12:26:47-05:00",
+  "generated_at_ct": "2026-10-25T08:43:47-05:00",
   "label": "SIMULATED BACKTEST",
   "requested_days": 60,
   "method": "Walk-forward backtest of the hybrid model. SIMULATED - never mixed with the live record.",
   "status": "ok",
   "n_days": 60,
-  "first_date": "2026-08-22",
-  "last_date": "2026-10-20",
+  "first_date": "2026-08-26",
+  "last_date": "2026-10-24",
   "training_weather": "Open-Meteo previous-day forecasts",
   "mae_atc": {
-    "hybrid": 5.1,
-    "persistence": 7.19,
-    "seasonal": 10.6
+    "hybrid": 5.21,
+    "persistence": 7.5,
+    "seasonal": 10.72
   },
   "mae_peak": {
-    "hybrid": 8.53,
-    "persistence": 11.03,
-    "seasonal": 16.52
+    "hybrid": 8.88,
+    "persistence": 11.56,
+    "seasonal": 16.46
   },
   "mae_hourly": {
-    "hybrid": 6.82,
-    "persistence": 8.74,
-    "seasonal": 12.85
+    "hybrid": 6.9,
+    "persistence": 9.06,
+    "seasonal": 13.02
   },
-  "bias_atc_hybrid": -1.84,
-  "interval_coverage_pct": 70.0,
-  "direction_hit_pct": 75.9,
-  "days_beat_persistence": 41,
-  "skill_vs_persistence_atc_pct": 29.1,
-  "skill_vs_persistence_hourly_pct": 22.0,
+  "bias_atc_hybrid": -1.77,
+  "interval_coverage_pct": 71.7,
+  "direction_hit_pct": 77.2,
+  "days_beat_persistence": 42,
+  "skill_vs_persistence_atc_pct": 30.5,
+  "skill_vs_persistence_hourly_pct": 23.8,
   "feeds": {
     "Open-Meteo previous-day forecasts": {
       "status": "OK",
-      "detail": "5256 hours, 2026-03-16 to 2026-10-21",
+      "detail": "5256 hours, 2026-03-20 to 2026-10-25",
       "rows": 5256
     }
   }

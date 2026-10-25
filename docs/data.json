@@ -1,5 +1,5 @@
 {
- "generated_at_ct": "2026-10-25T08:14:11-05:00",
+ "generated_at_ct": "2026-10-25T08:44:14-05:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": {
   "target_date": "2026-10-26",
@@ -1627,98 +1627,38 @@
  },
  "backtest": {
   "summary": {
-   "generated_at_ct": "2026-10-21T12:26:47-05:00",
+   "generated_at_ct": "2026-10-25T08:43:47-05:00",
    "label": "SIMULATED BACKTEST",
    "requested_days": 60,
    "method": "Walk-forward backtest of the hybrid model. SIMULATED - never mixed with the live record.",
    "status": "ok",
    "n_days": 60,
-   "first_date": "2026-08-22",
-   "last_date": "2026-10-20",
+   "first_date": "2026-08-26",
+   "last_date": "2026-10-24",
    "training_weather": "Open-Meteo previous-day forecasts",
    "mae_atc": {
-    "hybrid": 5.1,
-    "persistence": 7.19,
-    "seasonal": 10.6
+    "hybrid": 5.21,
+    "persistence": 7.5,
+    "seasonal": 10.72
    },
    "mae_peak": {
-    "hybrid": 8.53,
-    "persistence": 11.03,
-    "seasonal": 16.52
+    "hybrid": 8.88,
+    "persistence": 11.56,
+    "seasonal": 16.46
    },
    "mae_hourly": {
-    "hybrid": 6.82,
-    "persistence": 8.74,
-    "seasonal": 12.85
+    "hybrid": 6.9,
+    "persistence": 9.06,
+    "seasonal": 13.02
    },
-   "bias_atc_hybrid": -1.84,
-   "interval_coverage_pct": 70.0,
-   "direction_hit_pct": 75.9,
-   "days_beat_persistence": 41,
-   "skill_vs_persistence_atc_pct": 29.1,
-   "skill_vs_persistence_hourly_pct": 22.0
+   "bias_atc_hybrid": -1.77,
+   "interval_coverage_pct": 71.7,
+   "direction_hit_pct": 77.2,
+   "days_beat_persistence": 42,
+   "skill_vs_persistence_atc_pct": 30.5,
+   "skill_vs_persistence_hourly_pct": 23.8
   },
   "daily": [
-   {
-    "op_date": "2026-08-22",
-    "actual": 38.53,
-    "hybrid": 37.18,
-    "persistence": 42.82,
-    "seasonal": 26.0,
-    "actual_peak": 59.97,
-    "hybrid_peak": 57.22,
-    "persistence_peak": 70.02,
-    "seasonal_peak": 29.22,
-    "p10": 33.87,
-    "p90": 41.08,
-    "in_interval": 1,
-    "direction_hit": 1.0
-   },
-   {
-    "op_date": "2026-08-23",
-    "actual": 33.15,
-    "hybrid": 37.14,
-    "persistence": 38.53,
-    "seasonal": 30.43,
-    "actual_peak": 46.15,
-    "hybrid_peak": 54.22,
-    "persistence_peak": 59.97,
-    "seasonal_peak": 39.34,
-    "p10": 33.83,
-    "p90": 41.04,
-    "in_interval": 0,
-    "direction_hit": 1.0
-   },
-   {
-    "op_date": "2026-08-24",
-    "actual": 33.83,
-    "hybrid": 34.84,
-    "persistence": 33.15,
-    "seasonal": 44.71,
-    "actual_peak": 48.09,
-    "hybrid_peak": 48.23,
-    "persistence_peak": 46.15,
-    "seasonal_peak": 57.13,
-    "p10": 30.91,
-    "p90": 38.73,
-    "in_interval": 1,
-    "direction_hit": 1.0
-   },
-   {
-    "op_date": "2026-08-25",
-    "actual": 36.62,
-    "hybrid": 33.74,
-    "persistence": 33.83,
-    "seasonal": 33.67,
-    "actual_peak": 52.37,
-    "hybrid_peak": 47.42,
-    "persistence_peak": 48.09,
-    "seasonal_peak": 44.02,
-    "p10": 29.81,
-    "p90": 37.64,
-    "in_interval": 1,
-    "direction_hit": 0.0
-   },
    {
     "op_date": "2026-08-26",
     "actual": 55.14,
@@ -2558,6 +2498,66 @@
     "p90": 41.32,
     "in_interval": 1,
     "direction_hit": 1.0
+   },
+   {
+    "op_date": "2026-10-21",
+    "actual": 42.21,
+    "hybrid": 37.97,
+    "persistence": 30.98,
+    "seasonal": 56.44,
+    "actual_peak": 61.05,
+    "hybrid_peak": 49.62,
+    "persistence_peak": 37.21,
+    "seasonal_peak": 77.82,
+    "p10": 30.94,
+    "p90": 50.02,
+    "in_interval": 1,
+    "direction_hit": 1.0
+   },
+   {
+    "op_date": "2026-10-22",
+    "actual": 34.44,
+    "hybrid": 40.93,
+    "persistence": 42.21,
+    "seasonal": 43.95,
+    "actual_peak": 41.01,
+    "hybrid_peak": 57.33,
+    "persistence_peak": 61.05,
+    "seasonal_peak": 61.38,
+    "p10": 33.9,
+    "p90": 52.98,
+    "in_interval": 1,
+    "direction_hit": 1.0
+   },
+   {
+    "op_date": "2026-10-23",
+    "actual": 21.78,
+    "hybrid": 25.56,
+    "persistence": 34.44,
+    "seasonal": 16.44,
+    "actual_peak": 24.26,
+    "hybrid_peak": 30.42,
+    "persistence_peak": 41.01,
+    "seasonal_peak": 11.69,
+    "p10": 18.53,
+    "p90": 37.62,
+    "in_interval": 1,
+    "direction_hit": 1.0
+   },
+   {
+    "op_date": "2026-10-24",
+    "actual": 21.6,
+    "hybrid": 20.32,
+    "persistence": 21.78,
+    "seasonal": 28.83,
+    "actual_peak": 25.53,
+    "hybrid_peak": 22.95,
+    "persistence_peak": 24.26,
+    "seasonal_peak": 27.5,
+    "p10": 13.29,
+    "p90": 32.37,
+    "in_interval": 1,
+    "direction_hit": null
    }
   ]
  },
