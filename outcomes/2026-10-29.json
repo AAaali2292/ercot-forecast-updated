@@ -1,13 +1,13 @@
 {
   "target_date": "2026-10-29",
-  "captured_at_ct": "2026-10-29T06:07:38-05:00",
-  "intervals": 24,
+  "captured_at_ct": "2026-10-29T06:49:18-05:00",
+  "intervals": 26,
   "expected_intervals": 96,
-  "coverage_pct": 25.0,
+  "coverage_pct": 27.1,
   "rt": {
-    "atc": 31.09,
+    "atc": 32.04,
     "peak": null,
-    "max": 39.42,
+    "max": 45.83,
     "min": 25.66,
     "n_intervals_over_200": 0,
     "n_intervals_negative": 0
@@ -18,13 +18,14 @@
     "3": 31.83,
     "4": 30.13,
     "5": 27.96,
-    "6": 37.76
+    "6": 37.76,
+    "7": 43.54
   },
   "fundamentals": {
-    "intervals": 72,
-    "coverage_pct": 25.0,
-    "peak_load_mw": 51154.0,
-    "peak_net_load_mw": 38056.0,
+    "intervals": 81,
+    "coverage_pct": 28.1,
+    "peak_load_mw": 51388.0,
+    "peak_net_load_mw": 41437.0,
     "min_net_load_mw": 28732.0,
     "wind_peak_block_mw": null,
     "solar_peak_block_mw": null
