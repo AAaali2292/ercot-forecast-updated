@@ -1,0 +1,1171 @@
+{
+  "schema": 2,
+  "target_date": "2026-11-02",
+  "market": "ERCOT day-ahead market, Hub Average (HB_HUBAVG) settlement point price",
+  "generated_at_ct": "2026-10-31T15:01:18-05:00",
+  "generated_at_utc": "2026-10-31T20:01:46+00:00",
+  "dam_close_ct": "2026-11-01T10:00:00-06:00",
+  "pre_close": true,
+  "live": true,
+  "code_version": "3b047e7",
+  "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/41236826210",
+  "primary_model": "hybrid",
+  "primary_is_fallback": false,
+  "training_weather_fallback": false,
+  "summary": {
+    "hybrid": {
+      "atc": 28.6,
+      "peak": 37.83,
+      "onpeak": 29.87,
+      "max": 46.01
+    },
+    "stack": {
+      "atc": 23.44,
+      "peak": 23.67,
+      "onpeak": 23.42,
+      "max": 24.38
+    },
+    "persistence": {
+      "atc": 31.75,
+      "peak": 35.36,
+      "onpeak": 28.92,
+      "max": 55.55
+    },
+    "seasonal": {
+      "atc": 34.27,
+      "peak": 51.31,
+      "onpeak": 38.07,
+      "max": 69.07
+    }
+  },
+  "hourly": [
+    {
+      "he": 1,
+      "hybrid": 26.57,
+      "stack": 23.08,
+      "persistence": 55.55,
+      "seasonal": 20.66,
+      "hybrid_p10": 18.65,
+      "hybrid_p90": 33.79
+    },
+    {
+      "he": 2,
+      "hybrid": 24.33,
+      "stack": 23.08,
+      "persistence": 45.96,
+      "seasonal": 20.56,
+      "hybrid_p10": 16.41,
+      "hybrid_p90": 31.55
+    },
+    {
+      "he": 3,
+      "hybrid": 25.53,
+      "stack": 23.25,
+      "persistence": 41.48,
+      "seasonal": 20.17,
+      "hybrid_p10": 17.61,
+      "hybrid_p90": 32.75
+    },
+    {
+      "he": 4,
+      "hybrid": 23.82,
+      "stack": 23.21,
+      "persistence": 40.06,
+      "seasonal": 20.43,
+      "hybrid_p10": 15.9,
+      "hybrid_p90": 31.04
+    },
+    {
+      "he": 5,
+      "hybrid": 23.57,
+      "stack": 23.25,
+      "persistence": 38.2,
+      "seasonal": 22.4,
+      "hybrid_p10": 15.65,
+      "hybrid_p90": 30.79
+    },
+    {
+      "he": 6,
+      "hybrid": 28.74,
+      "stack": 23.6,
+      "persistence": 39.89,
+      "seasonal": 26.31,
+      "hybrid_p10": 20.82,
+      "hybrid_p90": 35.96
+    },
+    {
+      "he": 7,
+      "hybrid": 32.46,
+      "stack": 23.86,
+      "persistence": 35.44,
+      "seasonal": 28.26,
+      "hybrid_p10": 26.74,
+      "hybrid_p90": 43.17
+    },
+    {
+      "he": 8,
+      "hybrid": 28.86,
+      "stack": 23.77,
+      "persistence": 29.78,
+      "seasonal": 30.78,
+      "hybrid_p10": 23.14,
+      "hybrid_p90": 39.57
+    },
+    {
+      "he": 9,
+      "hybrid": 21.28,
+      "stack": 23.34,
+      "persistence": 23.3,
+      "seasonal": 25.83,
+      "hybrid_p10": 15.56,
+      "hybrid_p90": 31.99
+    },
+    {
+      "he": 10,
+      "hybrid": 20.26,
+      "stack": 22.99,
+      "persistence": 22.04,
+      "seasonal": 22.04,
+      "hybrid_p10": 14.54,
+      "hybrid_p90": 30.97
+    },
+    {
+      "he": 11,
+      "hybrid": 18.25,
+      "stack": 22.47,
+      "persistence": 22.13,
+      "seasonal": 20.41,
+      "hybrid_p10": 12.53,
+      "hybrid_p90": 28.96
+    },
+    {
+      "he": 12,
+      "hybrid": 20.31,
+      "stack": 22.47,
+      "persistence": 21.66,
+      "seasonal": 19.16,
+      "hybrid_p10": 14.59,
+      "hybrid_p90": 31.02
+    },
+    {
+      "he": 13,
+      "hybrid": 22.28,
+      "stack": 22.39,
+      "persistence": 23.87,
+      "seasonal": 19.33,
+      "hybrid_p10": 16.56,
+      "hybrid_p90": 32.99
+    },
+    {
+      "he": 14,
+      "hybrid": 26.56,
+      "stack": 22.99,
+      "persistence": 24.81,
+      "seasonal": 22.48,
+      "hybrid_p10": 20.84,
+      "hybrid_p90": 37.27
+    },
+    {
+      "he": 15,
+      "hybrid": 28.49,
+      "stack": 23.25,
+      "persistence": 27.76,
+      "seasonal": 27.69,
+      "hybrid_p10": 10.35,
+      "hybrid_p90": 48.44
+    },
+    {
+      "he": 16,
+      "hybrid": 32.39,
+      "stack": 23.34,
+      "persistence": 31.37,
+      "seasonal": 36.34,
+      "hybrid_p10": 14.25,
+      "hybrid_p90": 52.34
+    },
+    {
+      "he": 17,
+      "hybrid": 40.21,
+      "stack": 23.6,
+      "persistence": 40.24,
+      "seasonal": 46.55,
+      "hybrid_p10": 22.07,
+      "hybrid_p90": 60.16
+    },
+    {
+      "he": 18,
+      "hybrid": 46.01,
+      "stack": 23.95,
+      "persistence": 43.68,
+      "seasonal": 69.07,
+      "hybrid_p10": 27.87,
+      "hybrid_p90": 65.96
+    },
+    {
+      "he": 19,
+      "hybrid": 40.99,
+      "stack": 23.95,
+      "persistence": 36.52,
+      "seasonal": 66.67,
+      "hybrid_p10": 22.85,
+      "hybrid_p90": 60.94
+    },
+    {
+      "he": 20,
+      "hybrid": 38.87,
+      "stack": 23.95,
+      "persistence": 32.57,
+      "seasonal": 61.54,
+      "hybrid_p10": 20.73,
+      "hybrid_p90": 58.82
+    },
+    {
+      "he": 21,
+      "hybrid": 28.98,
+      "stack": 23.95,
+      "persistence": 25.48,
+      "seasonal": 58.82,
+      "hybrid_p10": 12.39,
+      "hybrid_p90": 50.34
+    },
+    {
+      "he": 22,
+      "hybrid": 31.68,
+      "stack": 24.38,
+      "persistence": 22.14,
+      "seasonal": 54.21,
+      "hybrid_p10": 15.09,
+      "hybrid_p90": 53.04
+    },
+    {
+      "he": 23,
+      "hybrid": 30.67,
+      "stack": 24.29,
+      "persistence": 20.76,
+      "seasonal": 45.69,
+      "hybrid_p10": 14.08,
+      "hybrid_p90": 52.03
+    },
+    {
+      "he": 24,
+      "hybrid": 25.35,
+      "stack": 24.03,
+      "persistence": 17.42,
+      "seasonal": 36.97,
+      "hybrid_p10": 8.76,
+      "hybrid_p90": 46.71
+    }
+  ],
+  "intervals": {
+    "atc_p10": 21.98,
+    "atc_p90": 37.96,
+    "peak_p10": 23.08,
+    "peak_p90": 55.79
+  },
+  "hybrid": {
+    "atc_p10": 21.98,
+    "atc_p90": 37.96,
+    "peak_p10": 23.08,
+    "peak_p90": 55.79,
+    "train_days": 120,
+    "training_weather": "Open-Meteo previous-day forecasts (no look-ahead)",
+    "training_weather_fallback": false,
+    "change_basis": "tomorrow and today: live NWP (archive unavailable)",
+    "hours_filled_from_persistence": [],
+    "rolling_cv": {
+      "days": 28,
+      "hourly_mae": 8.02,
+      "daily_avg_mae": 5.62
+    },
+    "coefficients": {
+      "night": {
+        "n_rows": 720,
+        "robust_scale": 4.478,
+        "intercept": 30.3788,
+        "coef": {
+          "lag1": 0.1546,
+          "lag1_mean": 0.42,
+          "lag7": -0.0326,
+          "dd": -0.1149,
+          "d_dd": 0.4224,
+          "wind_cf": -9.1399,
+          "solar_cf": 0.0,
+          "d_wind_cf": -18.0601,
+          "d_solar_cf": 0.0,
+          "wknd_t": -0.7623,
+          "wknd_d": 2.5501,
+          "he2": -1.9885,
+          "he3": -2.7327,
+          "he4": -3.1531,
+          "he5": -2.8447,
+          "he6": -0.5143
+        }
+      },
+      "morning": {
+        "n_rows": 960,
+        "robust_scale": 3.589,
+        "intercept": 26.2709,
+        "coef": {
+          "lag1": 0.5166,
+          "lag1_mean": 0.0498,
+          "lag7": 0.0837,
+          "dd": 0.2046,
+          "d_dd": 0.2041,
+          "wind_cf": -8.896,
+          "solar_cf": -18.4281,
+          "d_wind_cf": -13.6327,
+          "d_solar_cf": -7.1416,
+          "wknd_t": -3.651,
+          "wknd_d": 1.5015,
+          "he8": -0.6101,
+          "he9": -1.6192,
+          "he10": -0.1551,
+          "he11": 2.0566,
+          "he12": 4.0622,
+          "he13": 5.9527,
+          "he14": 7.0017
+        }
+      },
+      "peak": {
+        "n_rows": 717,
+        "robust_scale": 7.855,
+        "intercept": 44.6398,
+        "coef": {
+          "lag1": 0.5694,
+          "lag1_mean": -0.1368,
+          "lag7": 0.0226,
+          "dd": 0.6065,
+          "d_dd": 0.665,
+          "wind_cf": -28.3724,
+          "solar_cf": -38.3597,
+          "d_wind_cf": -10.85,
+          "d_solar_cf": -2.9075,
+          "wknd_t": -3.7098,
+          "wknd_d": 2.3303,
+          "he16": -1.1959,
+          "he17": -3.1725,
+          "he18": -3.5012,
+          "he19": -4.3235,
+          "he20": -4.2306
+        }
+      },
+      "evening": {
+        "n_rows": 476,
+        "robust_scale": 9.905,
+        "intercept": 47.5,
+        "coef": {
+          "lag1": 0.4755,
+          "lag1_mean": -0.4074,
+          "lag7": 0.0192,
+          "dd": 0.6309,
+          "d_dd": 0.5186,
+          "wind_cf": -53.339,
+          "solar_cf": 0.0,
+          "d_wind_cf": 2.516,
+          "d_solar_cf": 0.0,
+          "wknd_t": -4.1249,
+          "wknd_d": 0.2636,
+          "he22": -2.128,
+          "he23": -5.7286,
+          "he24": -9.5174
+        }
+      }
+    },
+    "clamped_inputs": [
+      {
+        "block": "evening",
+        "feature": "lag1",
+        "hours": 1,
+        "train_min": 19.74,
+        "train_max": 225.17,
+        "live_values": [
+          17.42
+        ]
+      },
+      {
+        "block": "evening",
+        "feature": "d_dd",
+        "hours": 3,
+        "train_min": -5.732,
+        "train_max": 4.561,
+        "live_values": [
+          5.696,
+          5.26,
+          4.737
+        ]
+      }
+    ],
+    "features_live": [
+      {
+        "op_date": "2026-11-02",
+        "he": 1,
+        "block": "night",
+        "lag1": 55.55,
+        "lag1_mean": 31.7546,
+        "lag7": 20.66,
+        "dd": 3.758,
+        "d_dd": 0.625,
+        "wind_cf": 0.6422,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.4305,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 26.5672
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 2,
+        "block": "night",
+        "lag1": 45.96,
+        "lag1_mean": 31.7546,
+        "lag7": 20.56,
+        "dd": 3.1,
+        "d_dd": 0.665,
+        "wind_cf": 0.5959,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.391,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 24.3285
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 3,
+        "block": "night",
+        "lag1": 41.48,
+        "lag1_mean": 31.7546,
+        "lag7": 20.17,
+        "dd": 2.528,
+        "d_dd": 0.302,
+        "wind_cf": 0.4947,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.2922,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 25.527
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 4,
+        "block": "night",
+        "lag1": 40.06,
+        "lag1_mean": 31.7546,
+        "lag7": 20.43,
+        "dd": 3.251,
+        "d_dd": 1.289,
+        "wind_cf": 0.5555,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.3382,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 23.8242
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 5,
+        "block": "night",
+        "lag1": 38.2,
+        "lag1_mean": 31.7546,
+        "lag7": 22.4,
+        "dd": 4.102,
+        "d_dd": 2.331,
+        "wind_cf": 0.5575,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.3679,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 23.5692
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 6,
+        "block": "night",
+        "lag1": 39.89,
+        "lag1_mean": 31.7546,
+        "lag7": 26.31,
+        "dd": 4.982,
+        "d_dd": 3.797,
+        "wind_cf": 0.4798,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.2862,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 28.7381
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 7,
+        "block": "morning",
+        "lag1": 35.44,
+        "lag1_mean": 31.7546,
+        "lag7": 28.26,
+        "dd": 5.995,
+        "d_dd": 5.162,
+        "wind_cf": 0.4185,
+        "solar_cf": 0.0002,
+        "d_wind_cf": 0.2091,
+        "d_solar_cf": 0.0002,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 32.4634
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 8,
+        "block": "morning",
+        "lag1": 29.78,
+        "lag1_mean": 31.7546,
+        "lag7": 30.78,
+        "dd": 7.464,
+        "d_dd": 4.624,
+        "wind_cf": 0.4038,
+        "solar_cf": 0.0629,
+        "d_wind_cf": 0.1583,
+        "d_solar_cf": 0.0189,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 28.864
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 9,
+        "block": "morning",
+        "lag1": 23.3,
+        "lag1_mean": 31.7546,
+        "lag7": 25.83,
+        "dd": 10.315,
+        "d_dd": 5.389,
+        "wind_cf": 0.4398,
+        "solar_cf": 0.2467,
+        "d_wind_cf": 0.0967,
+        "d_solar_cf": 0.1154,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 21.277
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 10,
+        "block": "morning",
+        "lag1": 22.04,
+        "lag1_mean": 31.7546,
+        "lag7": 22.04,
+        "dd": 13.212,
+        "d_dd": 5.807,
+        "wind_cf": 0.4765,
+        "solar_cf": 0.4273,
+        "d_wind_cf": -0.0609,
+        "d_solar_cf": 0.2106,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 20.2634
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 11,
+        "block": "morning",
+        "lag1": 22.13,
+        "lag1_mean": 31.7546,
+        "lag7": 20.41,
+        "dd": 16.143,
+        "d_dd": 6.735,
+        "wind_cf": 0.5761,
+        "solar_cf": 0.5609,
+        "d_wind_cf": 0.0344,
+        "d_solar_cf": 0.2495,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 18.2495
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 12,
+        "block": "morning",
+        "lag1": 21.66,
+        "lag1_mean": 31.7546,
+        "lag7": 19.16,
+        "dd": 18.007,
+        "d_dd": 6.848,
+        "wind_cf": 0.5819,
+        "solar_cf": 0.6363,
+        "d_wind_cf": -0.0042,
+        "d_solar_cf": 0.1214,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 20.3134
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 13,
+        "block": "morning",
+        "lag1": 23.87,
+        "lag1_mean": 31.7546,
+        "lag7": 19.33,
+        "dd": 18.74,
+        "d_dd": 6.285,
+        "wind_cf": 0.5924,
+        "solar_cf": 0.6568,
+        "d_wind_cf": -0.0083,
+        "d_solar_cf": 0.2201,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 22.2752
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 14,
+        "block": "morning",
+        "lag1": 24.81,
+        "lag1_mean": 31.7546,
+        "lag7": 22.48,
+        "dd": 20.138,
+        "d_dd": 6.786,
+        "wind_cf": 0.6107,
+        "solar_cf": 0.5745,
+        "d_wind_cf": -0.0088,
+        "d_solar_cf": 0.1171,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 26.5555
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 15,
+        "block": "peak",
+        "lag1": 27.76,
+        "lag1_mean": 31.7546,
+        "lag7": 27.69,
+        "dd": 20.488,
+        "d_dd": 7.212,
+        "wind_cf": 0.6618,
+        "solar_cf": 0.4815,
+        "d_wind_cf": 0.0733,
+        "d_solar_cf": 0.0642,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 28.4907
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 16,
+        "block": "peak",
+        "lag1": 31.37,
+        "lag1_mean": 31.7546,
+        "lag7": 36.34,
+        "dd": 19.447,
+        "d_dd": 6.855,
+        "wind_cf": 0.7069,
+        "solar_cf": 0.3428,
+        "d_wind_cf": 0.0813,
+        "d_solar_cf": 0.1452,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 32.392
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 17,
+        "block": "peak",
+        "lag1": 40.24,
+        "lag1_mean": 31.7546,
+        "lag7": 46.55,
+        "dd": 17.552,
+        "d_dd": 6.197,
+        "wind_cf": 0.719,
+        "solar_cf": 0.1877,
+        "d_wind_cf": 0.0651,
+        "d_solar_cf": 0.0361,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 40.2115
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 18,
+        "block": "peak",
+        "lag1": 43.68,
+        "lag1_mean": 31.7546,
+        "lag7": 69.07,
+        "dd": 15.057,
+        "d_dd": 5.755,
+        "wind_cf": 0.731,
+        "solar_cf": 0.0352,
+        "d_wind_cf": 0.0691,
+        "d_solar_cf": 0.0352,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 46.0139
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 19,
+        "block": "peak",
+        "lag1": 36.52,
+        "lag1_mean": 31.7546,
+        "lag7": 66.67,
+        "dd": 13.6,
+        "d_dd": 5.844,
+        "wind_cf": 0.7479,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.0889,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 40.994
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 20,
+        "block": "peak",
+        "lag1": 32.57,
+        "lag1_mean": 31.7546,
+        "lag7": 61.54,
+        "dd": 12.38,
+        "d_dd": 5.856,
+        "wind_cf": 0.7247,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.0687,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 38.8661
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 21,
+        "block": "evening",
+        "lag1": 25.48,
+        "lag1_mean": 31.7546,
+        "lag7": 58.82,
+        "dd": 11.279,
+        "d_dd": 5.696,
+        "wind_cf": 0.6793,
+        "solar_cf": 0.0,
+        "d_wind_cf": 0.0239,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 28.9771
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 22,
+        "block": "evening",
+        "lag1": 22.14,
+        "lag1_mean": 31.7546,
+        "lag7": 54.21,
+        "dd": 10.31,
+        "d_dd": 5.26,
+        "wind_cf": 0.5394,
+        "solar_cf": 0.0,
+        "d_wind_cf": -0.1112,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 31.6823
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 23,
+        "block": "evening",
+        "lag1": 20.76,
+        "lag1_mean": 31.7546,
+        "lag7": 45.69,
+        "dd": 9.18,
+        "d_dd": 4.737,
+        "wind_cf": 0.4585,
+        "solar_cf": 0.0,
+        "d_wind_cf": -0.1892,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 30.6701
+      },
+      {
+        "op_date": "2026-11-02",
+        "he": 24,
+        "block": "evening",
+        "lag1": 17.42,
+        "lag1_mean": 31.7546,
+        "lag7": 36.97,
+        "dd": 8.416,
+        "d_dd": 4.301,
+        "wind_cf": 0.4636,
+        "solar_cf": 0.0,
+        "d_wind_cf": -0.1852,
+        "d_solar_cf": 0.0,
+        "wknd_t": 0.0,
+        "wknd_d": 1.0,
+        "pred": 25.3509
+      }
+    ]
+  },
+  "stack": {
+    "drivers": [
+      {
+        "he": 1,
+        "price": 23.1,
+        "load": 48637.7,
+        "wind": 30388.6,
+        "solar": 0.0,
+        "net_load": 18249.1,
+        "temp_f": 68.8
+      },
+      {
+        "he": 2,
+        "price": 23.1,
+        "load": 46520.2,
+        "wind": 28193.9,
+        "solar": 0.0,
+        "net_load": 18326.3,
+        "temp_f": 68.1
+      },
+      {
+        "he": 3,
+        "price": 23.3,
+        "load": 45259.0,
+        "wind": 23310.2,
+        "solar": 0.0,
+        "net_load": 21948.7,
+        "temp_f": 67.5
+      },
+      {
+        "he": 4,
+        "price": 23.2,
+        "load": 45421.7,
+        "wind": 24173.9,
+        "solar": 0.0,
+        "net_load": 21247.7,
+        "temp_f": 68.3
+      },
+      {
+        "he": 5,
+        "price": 23.3,
+        "load": 46266.1,
+        "wind": 23798.9,
+        "solar": 0.0,
+        "net_load": 22467.2,
+        "temp_f": 69.1
+      },
+      {
+        "he": 6,
+        "price": 23.6,
+        "load": 47482.7,
+        "wind": 19104.5,
+        "solar": 0.0,
+        "net_load": 28378.2,
+        "temp_f": 70.0
+      },
+      {
+        "he": 7,
+        "price": 23.9,
+        "load": 48742.9,
+        "wind": 16302.2,
+        "solar": 6.9,
+        "net_load": 32433.8,
+        "temp_f": 71.0
+      },
+      {
+        "he": 8,
+        "price": 23.8,
+        "load": 49959.4,
+        "wind": 16013.5,
+        "solar": 2705.3,
+        "net_load": 31240.5,
+        "temp_f": 72.5
+      },
+      {
+        "he": 9,
+        "price": 23.3,
+        "load": 51312.7,
+        "wind": 17209.3,
+        "solar": 10894.0,
+        "net_load": 23209.4,
+        "temp_f": 75.3
+      },
+      {
+        "he": 10,
+        "price": 23.0,
+        "load": 53342.1,
+        "wind": 18151.8,
+        "solar": 19383.4,
+        "net_load": 15806.9,
+        "temp_f": 78.2
+      },
+      {
+        "he": 11,
+        "price": 22.5,
+        "load": 56483.9,
+        "wind": 22513.1,
+        "solar": 23015.4,
+        "net_load": 10955.4,
+        "temp_f": 81.1
+      },
+      {
+        "he": 12,
+        "price": 22.5,
+        "load": 59542.3,
+        "wind": 22885.4,
+        "solar": 26136.2,
+        "net_load": 10520.7,
+        "temp_f": 83.0
+      },
+      {
+        "he": 13,
+        "price": 22.4,
+        "load": 62163.4,
+        "wind": 23311.6,
+        "solar": 29685.2,
+        "net_load": 9166.6,
+        "temp_f": 83.7
+      },
+      {
+        "he": 14,
+        "price": 23.0,
+        "load": 65269.4,
+        "wind": 23507.9,
+        "solar": 26466.4,
+        "net_load": 15295.1,
+        "temp_f": 85.1
+      },
+      {
+        "he": 15,
+        "price": 23.3,
+        "load": 66965.0,
+        "wind": 25102.2,
+        "solar": 20770.7,
+        "net_load": 21092.1,
+        "temp_f": 85.5
+      },
+      {
+        "he": 16,
+        "price": 23.3,
+        "load": 66783.6,
+        "wind": 28263.6,
+        "solar": 14121.8,
+        "net_load": 24398.3,
+        "temp_f": 84.4
+      },
+      {
+        "he": 17,
+        "price": 23.6,
+        "load": 65617.3,
+        "wind": 29401.0,
+        "solar": 7867.3,
+        "net_load": 28348.9,
+        "temp_f": 82.6
+      },
+      {
+        "he": 18,
+        "price": 23.9,
+        "load": 64375.7,
+        "wind": 30141.5,
+        "solar": 1666.6,
+        "net_load": 32567.5,
+        "temp_f": 80.1
+      },
+      {
+        "he": 19,
+        "price": 23.9,
+        "load": 64025.3,
+        "wind": 30422.9,
+        "solar": 0.0,
+        "net_load": 33602.4,
+        "temp_f": 78.6
+      },
+      {
+        "he": 20,
+        "price": 23.9,
+        "load": 63519.1,
+        "wind": 30034.0,
+        "solar": 0.0,
+        "net_load": 33485.0,
+        "temp_f": 77.4
+      },
+      {
+        "he": 21,
+        "price": 23.9,
+        "load": 62630.7,
+        "wind": 29493.9,
+        "solar": 0.0,
+        "net_load": 33136.8,
+        "temp_f": 76.3
+      },
+      {
+        "he": 22,
+        "price": 24.4,
+        "load": 61039.3,
+        "wind": 24091.4,
+        "solar": 0.0,
+        "net_load": 36947.9,
+        "temp_f": 75.3
+      },
+      {
+        "he": 23,
+        "price": 24.3,
+        "load": 58608.6,
+        "wind": 21650.8,
+        "solar": 0.0,
+        "net_load": 36957.8,
+        "temp_f": 74.2
+      },
+      {
+        "he": 24,
+        "price": 24.0,
+        "load": 55974.5,
+        "wind": 21640.5,
+        "solar": 0.0,
+        "net_load": 34333.9,
+        "temp_f": 73.4
+      }
+    ],
+    "summary": {
+      "peak_p10": 23.22,
+      "peak_p90": 24.74,
+      "p_scarcity": 0.0,
+      "peak_load_mw": 66965.0,
+      "peak_net_load_mw": 36958.0,
+      "wind_peak_block_mw": 28894.0,
+      "solar_peak_block_mw": 7404.0,
+      "gas_burn_bcfd": 3.56,
+      "implied_heat_rate": 8.75,
+      "spark_spread_7": 2.25,
+      "marginal_unit_peak": "CCGT",
+      "max_temp_f": 85.5
+    },
+    "inputs": {
+      "gas_price": 2.76,
+      "gas_source": "EIA Henry Hub spot",
+      "gas_as_of": "2026-10-27",
+      "installed_mw": {
+        "storage": 20948.0,
+        "solar": 40226.0,
+        "wind": 40405.0,
+        "hydro": 579.0,
+        "other": 0.0,
+        "gas": 69569.0,
+        "coal": 13705.0,
+        "nuclear": 5268.0
+      },
+      "load_model_source": "EIA-930",
+      "load_model_hours": 2229,
+      "load_model_mape_pct": 1.544,
+      "wind_bias_k": 1.022,
+      "solar_bias_k": 1.069,
+      "n_sims": 400
+    }
+  },
+  "model_errors": {},
+  "dam_known_through": "2026-11-01",
+  "assumptions": {
+    "henry_hub": 3.2,
+    "hsc_basis": -0.05,
+    "coal_prb": 2.1,
+    "nuclear_fuel": 0.75,
+    "vom_ccgt": 2.5,
+    "vom_ct": 5.0,
+    "vom_steam": 4.0,
+    "vom_coal": 4.5,
+    "vom_nuclear": 2.2,
+    "vom_ice": 6.0,
+    "wind_offer": -22.0,
+    "solar_offer": -5.0,
+    "voll": 5000.0,
+    "price_floor": -251.0,
+    "ordc_min_contingency": 3000.0,
+    "ordc_sigma": 1100.0,
+    "forced_outage_rate": 0.05,
+    "planned_outage_rate": 0.06,
+    "ambient_derate_gas": 0.06,
+    "include_storage": true,
+    "storage_offer": 75.0,
+    "storage_peak_availability": 0.7,
+    "n_sims": 400,
+    "load_sigma_frac": 0.035,
+    "wind_sigma_frac": 0.22,
+    "solar_sigma_frac": 0.1,
+    "outage_sigma": 0.035,
+    "hybrid_train_days": 120,
+    "hybrid_min_train_days": 21,
+    "hybrid_halflife_days": 30.0,
+    "hybrid_ridge": 1.0,
+    "hybrid_huber_k": 1.345,
+    "hybrid_cv_days": 28,
+    "scarcity_threshold": 200.0,
+    "min_coverage_pct": 80.0
+  },
+  "feeds": {
+    "MIS duplicate files disagree": {
+      "status": "WARN",
+      "detail": "7 hub-hours differ by up to $8.31; averaged - check ERCOT notices",
+      "rows": null
+    },
+    "ERCOT MIS DAM prices": {
+      "status": "OK",
+      "detail": "fetched 4 file(s), +0 rows",
+      "rows": 0
+    },
+    "ERCOT prices (dashboard)": {
+      "status": "OK",
+      "detail": "RT 59 intervals [2026-10-31]; DAM 24 hours [2026-10-31]",
+      "rows": 59
+    },
+    "DAM cross-check dashboard vs MIS": {
+      "status": "OK",
+      "detail": "168 hub-hours compared, max |diff| $0.0000",
+      "rows": null
+    },
+    "Open-Meteo NWP (live)": {
+      "status": "OK",
+      "detail": "2304 hours, 07-30 to 11-03",
+      "rows": 2304
+    },
+    "Open-Meteo previous-day forecasts": {
+      "status": "OK",
+      "detail": "3816 hours, 2026-05-26 to 2026-11-01",
+      "rows": 3816
+    },
+    "Hybrid inputs outside training range": {
+      "status": "WARN",
+      "detail": "evening:lag1 x1; evening:d_dd x3",
+      "rows": null
+    },
+    "Hybrid model": {
+      "status": "OK",
+      "detail": "trained on 120 days through 2026-11-01; training weather: Open-Meteo previous-day forecasts (no look-ahead); rolling CV {'days': 28, 'hourly_mae': 8.02, 'daily_avg_mae': 5.62}",
+      "rows": null
+    },
+    "ERCOT fuel mix": {
+      "status": "OK",
+      "detail": "468 intervals 10-30 00:00-10-31 14:55; installed gas 69,569 / wind 40,405 / solar 40,226 / storage 20,948 MW",
+      "rows": 468
+    },
+    "EIA-930 ERCOT demand": {
+      "status": "OK",
+      "detail": "2900 hours, 2026-07-02 to 2026-10-31",
+      "rows": 2900
+    },
+    "Gas price": {
+      "status": "OK",
+      "detail": "EIA Henry Hub spot $2.760/MMBtu (2026-10-27)",
+      "rows": null
+    },
+    "Load model": {
+      "status": "OK",
+      "detail": "fit on 2229 hours from EIA-930; in-sample MAPE 1.54%",
+      "rows": 2229
+    },
+    "Renewable model": {
+      "status": "OK",
+      "detail": "wind k=1.02, solar k=1.07; installed 40,405 MW wind / 40,226 MW solar",
+      "rows": null
+    }
+  },
+  "saved_at_ct": "2026-10-31T15:01:46-05:00"
+}
