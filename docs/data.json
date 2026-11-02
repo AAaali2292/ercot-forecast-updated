@@ -1,5 +1,5 @@
 {
- "generated_at_ct": "2026-11-02T01:42:10-06:00",
+ "generated_at_ct": "2026-11-02T06:53:35-06:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": {
   "target_date": "2026-11-03",
@@ -1071,7 +1071,7 @@
    "seasonal_mae_hourly": 7.45,
    "rt_atc": null,
    "da_minus_rt": null,
-   "rt_coverage_pct": null
+   "rt_coverage_pct": 28.1
   }
  ],
  "detail": {
