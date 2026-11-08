@@ -1,285 +1,285 @@
 {
- "generated_at_ct": "2026-11-08T12:04:15-06:00",
+ "generated_at_ct": "2026-11-08T14:31:29-06:00",
  "repo_url": "https://github.com/AAaali2292/ercot-forecast-updated",
  "latest_forecast": {
-  "target_date": "2026-11-09",
-  "generated_at_ct": "2026-11-07T14:16:23-06:00",
-  "saved_at_ct": "2026-11-07T14:16:47-06:00",
-  "dam_close_ct": "2026-11-08T10:00:00-06:00",
+  "target_date": "2026-11-10",
+  "generated_at_ct": "2026-11-08T14:31:04-06:00",
+  "saved_at_ct": "2026-11-08T14:31:28-06:00",
+  "dam_close_ct": "2026-11-09T10:00:00-06:00",
   "pre_close": true,
   "live": true,
-  "code_version": "a232816",
-  "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/42410191382",
+  "code_version": "3e8d026",
+  "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/42520433820",
   "training_weather_fallback": false,
   "primary_model": "hybrid",
   "primary_is_fallback": false,
   "summary": {
    "hybrid": {
-    "atc": 40.39,
-    "peak": 49.33,
-    "onpeak": 42.43,
-    "max": 58.86
+    "atc": 42.76,
+    "peak": 53.04,
+    "onpeak": 45.03,
+    "max": 63.54
    },
    "stack": {
-    "atc": 22.92,
-    "peak": 23.21,
-    "onpeak": 23.09,
-    "max": 23.99
+    "atc": 23.48,
+    "peak": 24.99,
+    "onpeak": 23.84,
+    "max": 26.78
    },
    "persistence": {
-    "atc": 40.3,
-    "peak": 46.58,
-    "onpeak": 39.69,
-    "max": 54.79
+    "atc": 46.04,
+    "peak": 51.8,
+    "onpeak": 46.8,
+    "max": 62.79
    },
    "seasonal": {
-    "atc": 27.11,
-    "peak": 34.8,
-    "onpeak": 29.05,
-    "max": 46.98
+    "atc": 58.98,
+    "peak": 72.69,
+    "onpeak": 59.2,
+    "max": 161.48
    }
   },
   "hourly": [
    {
     "he": 1,
-    "hybrid": 35.67,
-    "stack": 22.51,
-    "persistence": 46.22,
-    "seasonal": 18.88,
-    "hybrid_p10": 29.02,
-    "hybrid_p90": 47.54
+    "hybrid": 39.08,
+    "stack": 22.67,
+    "persistence": 44.08,
+    "seasonal": 29.75,
+    "hybrid_p10": 32.43,
+    "hybrid_p90": 52.37
    },
    {
     "he": 2,
-    "hybrid": 33.26,
-    "stack": 22.42,
-    "persistence": 44.74,
-    "seasonal": 16.5,
-    "hybrid_p10": 26.61,
-    "hybrid_p90": 45.13
+    "hybrid": 35.99,
+    "stack": 22.51,
+    "persistence": 45.45,
+    "seasonal": 30.28,
+    "hybrid_p10": 29.34,
+    "hybrid_p90": 49.28
    },
    {
     "he": 3,
-    "hybrid": 32.13,
-    "stack": 22.34,
-    "persistence": 40.42,
-    "seasonal": 16.87,
-    "hybrid_p10": 25.48,
-    "hybrid_p90": 44.0
+    "hybrid": 36.08,
+    "stack": 22.59,
+    "persistence": 41.82,
+    "seasonal": 27.97,
+    "hybrid_p10": 29.43,
+    "hybrid_p90": 49.37
    },
    {
     "he": 4,
-    "hybrid": 31.88,
-    "stack": 22.42,
-    "persistence": 38.98,
-    "seasonal": 17.71,
-    "hybrid_p10": 25.23,
-    "hybrid_p90": 43.75
+    "hybrid": 35.39,
+    "stack": 22.67,
+    "persistence": 46.44,
+    "seasonal": 27.91,
+    "hybrid_p10": 28.74,
+    "hybrid_p90": 48.68
    },
    {
     "he": 5,
-    "hybrid": 32.54,
-    "stack": 22.59,
-    "persistence": 37.9,
-    "seasonal": 19.26,
-    "hybrid_p10": 25.89,
-    "hybrid_p90": 44.41
+    "hybrid": 34.98,
+    "stack": 22.84,
+    "persistence": 50.46,
+    "seasonal": 28.65,
+    "hybrid_p10": 28.33,
+    "hybrid_p90": 48.27
    },
    {
     "he": 6,
-    "hybrid": 36.72,
-    "stack": 22.92,
-    "persistence": 38.16,
-    "seasonal": 21.94,
-    "hybrid_p10": 30.07,
-    "hybrid_p90": 48.59
+    "hybrid": 37.77,
+    "stack": 23.08,
+    "persistence": 53.54,
+    "seasonal": 32.6,
+    "hybrid_p10": 31.12,
+    "hybrid_p90": 51.06
    },
    {
     "he": 7,
-    "hybrid": 34.9,
-    "stack": 23.08,
-    "persistence": 36.32,
-    "seasonal": 24.82,
-    "hybrid_p10": 29.37,
-    "hybrid_p90": 46.53
+    "hybrid": 45.78,
+    "stack": 23.33,
+    "persistence": 54.5,
+    "seasonal": 38.85,
+    "hybrid_p10": 40.25,
+    "hybrid_p90": 57.7
    },
    {
     "he": 8,
-    "hybrid": 33.72,
-    "stack": 23.41,
-    "persistence": 33.87,
-    "seasonal": 23.69,
-    "hybrid_p10": 28.19,
-    "hybrid_p90": 45.35
+    "hybrid": 43.76,
+    "stack": 23.33,
+    "persistence": 54.41,
+    "seasonal": 33.58,
+    "hybrid_p10": 38.23,
+    "hybrid_p90": 55.68
    },
    {
     "he": 9,
-    "hybrid": 31.49,
-    "stack": 23.41,
-    "persistence": 34.04,
-    "seasonal": 20.54,
-    "hybrid_p10": 25.96,
-    "hybrid_p90": 43.12
+    "hybrid": 36.71,
+    "stack": 23.17,
+    "persistence": 49.06,
+    "seasonal": 24.41,
+    "hybrid_p10": 31.18,
+    "hybrid_p90": 48.63
    },
    {
     "he": 10,
-    "hybrid": 30.09,
-    "stack": 23.0,
-    "persistence": 30.69,
-    "seasonal": 17.56,
-    "hybrid_p10": 24.56,
-    "hybrid_p90": 41.72
+    "hybrid": 30.86,
+    "stack": 22.59,
+    "persistence": 42.04,
+    "seasonal": 23.65,
+    "hybrid_p10": 25.33,
+    "hybrid_p90": 42.78
    },
    {
     "he": 11,
-    "hybrid": 34.67,
-    "stack": 23.08,
-    "persistence": 31.51,
-    "seasonal": 19.08,
-    "hybrid_p10": 29.14,
-    "hybrid_p90": 46.3
+    "hybrid": 31.65,
+    "stack": 22.42,
+    "persistence": 37.16,
+    "seasonal": 25.5,
+    "hybrid_p10": 26.12,
+    "hybrid_p90": 43.57
    },
    {
     "he": 12,
-    "hybrid": 36.83,
-    "stack": 22.75,
-    "persistence": 31.15,
-    "seasonal": 20.65,
-    "hybrid_p10": 31.3,
-    "hybrid_p90": 48.46
+    "hybrid": 30.69,
+    "stack": 22.18,
+    "persistence": 36.11,
+    "seasonal": 25.55,
+    "hybrid_p10": 25.16,
+    "hybrid_p90": 42.61
    },
    {
     "he": 13,
-    "hybrid": 32.79,
-    "stack": 22.26,
-    "persistence": 29.8,
-    "seasonal": 21.31,
-    "hybrid_p10": 27.26,
-    "hybrid_p90": 44.42
+    "hybrid": 32.68,
+    "stack": 22.09,
+    "persistence": 36.08,
+    "seasonal": 25.3,
+    "hybrid_p10": 27.15,
+    "hybrid_p90": 44.6
    },
    {
     "he": 14,
-    "hybrid": 35.69,
+    "hybrid": 34.47,
     "stack": 22.34,
-    "persistence": 29.43,
-    "seasonal": 22.44,
-    "hybrid_p10": 30.16,
-    "hybrid_p90": 47.32
+    "persistence": 34.13,
+    "seasonal": 22.91,
+    "hybrid_p10": 28.94,
+    "hybrid_p90": 46.39
    },
    {
     "he": 15,
-    "hybrid": 36.74,
-    "stack": 22.26,
-    "persistence": 32.54,
-    "seasonal": 22.01,
-    "hybrid_p10": 19.84,
-    "hybrid_p90": 55.74
+    "hybrid": 37.91,
+    "stack": 22.67,
+    "persistence": 35.66,
+    "seasonal": 24.95,
+    "hybrid_p10": 21.01,
+    "hybrid_p90": 56.27
    },
    {
     "he": 16,
-    "hybrid": 42.13,
-    "stack": 22.42,
-    "persistence": 38.8,
-    "seasonal": 22.94,
-    "hybrid_p10": 25.23,
-    "hybrid_p90": 61.13
+    "hybrid": 43.42,
+    "stack": 23.0,
+    "persistence": 43.14,
+    "seasonal": 23.2,
+    "hybrid_p10": 26.52,
+    "hybrid_p90": 61.78
    },
    {
     "he": 17,
-    "hybrid": 49.45,
-    "stack": 23.0,
-    "persistence": 45.79,
-    "seasonal": 32.51,
-    "hybrid_p10": 32.55,
-    "hybrid_p90": 68.45
+    "hybrid": 54.49,
+    "stack": 23.99,
+    "persistence": 57.54,
+    "seasonal": 41.14,
+    "hybrid_p10": 37.59,
+    "hybrid_p90": 72.85
    },
    {
     "he": 18,
-    "hybrid": 55.91,
-    "stack": 23.74,
-    "persistence": 53.81,
-    "seasonal": 46.98,
-    "hybrid_p10": 39.01,
-    "hybrid_p90": 74.91
+    "hybrid": 63.54,
+    "stack": 26.78,
+    "persistence": 62.79,
+    "seasonal": 110.51,
+    "hybrid_p10": 46.64,
+    "hybrid_p90": 81.9
    },
    {
     "he": 19,
-    "hybrid": 55.14,
-    "stack": 23.87,
-    "persistence": 53.76,
-    "seasonal": 41.37,
-    "hybrid_p10": 38.24,
-    "hybrid_p90": 74.14
+    "hybrid": 60.38,
+    "stack": 26.78,
+    "persistence": 56.29,
+    "seasonal": 117.36,
+    "hybrid_p10": 43.48,
+    "hybrid_p90": 78.74
    },
    {
     "he": 20,
-    "hybrid": 56.62,
-    "stack": 23.99,
-    "persistence": 54.79,
-    "seasonal": 42.99,
-    "hybrid_p10": 39.72,
-    "hybrid_p90": 75.62
+    "hybrid": 58.53,
+    "stack": 26.7,
+    "persistence": 55.41,
+    "seasonal": 118.97,
+    "hybrid_p10": 41.63,
+    "hybrid_p90": 76.89
    },
    {
     "he": 21,
-    "hybrid": 58.86,
-    "stack": 23.58,
-    "persistence": 49.81,
-    "seasonal": 45.22,
-    "hybrid_p10": 41.6,
-    "hybrid_p90": 77.23
+    "hybrid": 60.28,
+    "stack": 26.58,
+    "persistence": 49.82,
+    "seasonal": 129.85,
+    "hybrid_p10": 43.02,
+    "hybrid_p90": 78.65
    },
    {
     "he": 22,
-    "hybrid": 53.8,
-    "stack": 23.17,
-    "persistence": 48.9,
-    "seasonal": 40.69,
-    "hybrid_p10": 36.54,
-    "hybrid_p90": 72.17
+    "hybrid": 55.3,
+    "stack": 23.5,
+    "persistence": 44.74,
+    "seasonal": 161.48,
+    "hybrid_p10": 38.04,
+    "hybrid_p90": 73.67
    },
    {
     "he": 23,
-    "hybrid": 47.83,
+    "hybrid": 46.0,
     "stack": 22.92,
-    "persistence": 45.92,
-    "seasonal": 40.92,
-    "hybrid_p10": 30.57,
-    "hybrid_p90": 66.2
+    "persistence": 38.93,
+    "seasonal": 161.33,
+    "hybrid_p10": 28.74,
+    "hybrid_p90": 64.37
    },
    {
     "he": 24,
-    "hybrid": 40.43,
-    "stack": 22.59,
-    "persistence": 39.8,
-    "seasonal": 33.66,
-    "hybrid_p10": 23.17,
-    "hybrid_p90": 58.8
+    "hybrid": 40.58,
+    "stack": 22.84,
+    "persistence": 35.26,
+    "seasonal": 129.76,
+    "hybrid_p10": 23.32,
+    "hybrid_p90": 58.95
    }
   ],
   "intervals": {
-   "atc_p10": 35.16,
-   "atc_p90": 49.1,
-   "peak_p10": 36.28,
-   "peak_p90": 62.48
+   "atc_p10": 37.53,
+   "atc_p90": 52.71,
+   "peak_p10": 39.99,
+   "peak_p90": 66.19
   },
-  "dam_known_through": "2026-11-08",
+  "dam_known_through": "2026-11-09",
   "model_errors": {},
   "market": "ERCOT day-ahead market, Hub Average (HB_HUBAVG) settlement point price",
   "stack": {
    "summary": {
-    "peak_p10": 22.82,
-    "peak_p90": 24.75,
+    "peak_p10": 24.33,
+    "peak_p90": 25.57,
     "p_scarcity": 0.0,
-    "peak_load_mw": 51897.0,
-    "peak_net_load_mw": 40964.0,
-    "wind_peak_block_mw": 11804.0,
-    "solar_peak_block_mw": 4241.0,
-    "gas_burn_bcfd": 4.91,
-    "implied_heat_rate": 9.07,
-    "spark_spread_7": 2.83,
+    "peak_load_mw": 54326.0,
+    "peak_net_load_mw": 46614.0,
+    "wind_peak_block_mw": 7103.0,
+    "solar_peak_block_mw": 6050.0,
+    "gas_burn_bcfd": 5.06,
+    "implied_heat_rate": 9.68,
+    "spark_spread_7": 4.41,
     "marginal_unit_peak": "CCGT",
-    "max_temp_f": 66.3
+    "max_temp_f": 71.7
    },
    "inputs": {
     "gas_price": 2.63,
@@ -296,10 +296,10 @@
      "nuclear": 5268.0
     },
     "load_model_source": "EIA-930",
-    "load_model_hours": 1483,
-    "load_model_mape_pct": 1.657,
-    "wind_bias_k": 2.0,
-    "solar_bias_k": 1.33,
+    "load_model_hours": 2229,
+    "load_model_mape_pct": 1.589,
+    "wind_bias_k": 1.689,
+    "solar_bias_k": 1.178,
     "n_sims": 400
    }
   },
@@ -308,23 +308,12 @@
    "training_weather": "Open-Meteo previous-day forecasts (no look-ahead)",
    "rolling_cv": {
     "days": 28,
-    "hourly_mae": 8.57,
-    "daily_avg_mae": 5.44
+    "hourly_mae": 8.66,
+    "daily_avg_mae": 5.7
    },
    "change_basis": "tomorrow and today: live NWP (archive unavailable)",
    "hours_filled_from_persistence": [],
-   "clamped_inputs": [
-    {
-     "block": "peak",
-     "feature": "dd",
-     "hours": 1,
-     "train_min": 0.103,
-     "train_max": 39.791,
-     "live_values": [
-      0.086
-     ]
-    }
-   ]
+   "clamped_inputs": []
   },
   "feeds": {
    "ERCOT MIS DAM prices": {
@@ -333,7 +322,7 @@
    },
    "ERCOT prices (dashboard)": {
     "status": "OK",
-    "detail": "RT 56 intervals [2026-11-07]; DAM 24 hours [2026-11-07]"
+    "detail": "RT 57 intervals [2026-11-08]; DAM 24 hours [2026-11-08]"
    },
    "DAM cross-check dashboard vs MIS": {
     "status": "OK",
@@ -341,27 +330,23 @@
    },
    "Open-Meteo NWP (live)": {
     "status": "OK",
-    "detail": "2304 hours, 08-06 to 11-10"
+    "detail": "2304 hours, 08-07 to 11-11"
    },
    "Open-Meteo previous-day forecasts": {
     "status": "OK",
-    "detail": "3816 hours, 2026-06-02 to 2026-11-08"
-   },
-   "Hybrid inputs outside training range": {
-    "status": "WARN",
-    "detail": "peak:dd x1"
+    "detail": "3816 hours, 2026-06-03 to 2026-11-09"
    },
    "Hybrid model": {
     "status": "OK",
-    "detail": "trained on 120 days through 2026-11-08; training weather: Open-Meteo previous-day forecasts (no look-ahead); rolling CV {'days': 28, 'hourly_mae': 8.57, 'daily_avg_mae': 5.44}"
+    "detail": "trained on 120 days through 2026-11-09; training weather: Open-Meteo previous-day forecasts (no look-ahead); rolling CV {'days': 28, 'hourly_mae': 8.66, 'daily_avg_mae': 5.7}"
    },
    "ERCOT fuel mix": {
     "status": "OK",
-    "detail": "459 intervals 11-06 00:00-11-07 14:10; installed gas 69,569 / wind 40,405 / solar 40,226 / storage 20,948 MW"
+    "detail": "462 intervals 11-07 00:00-11-08 14:25; installed gas 69,569 / wind 40,405 / solar 40,226 / storage 20,948 MW"
    },
    "EIA-930 ERCOT demand": {
     "status": "OK",
-    "detail": "2900 hours, 2026-07-09 to 2026-11-07"
+    "detail": "2900 hours, 2026-07-10 to 2026-11-08"
    },
    "Gas price": {
     "status": "OK",
@@ -369,89 +354,89 @@
    },
    "Load model": {
     "status": "OK",
-    "detail": "fit on 1483 hours from EIA-930; in-sample MAPE 1.66%"
+    "detail": "fit on 2229 hours from EIA-930; in-sample MAPE 1.59%"
    },
    "Renewable model": {
     "status": "OK",
-    "detail": "wind k=2.00, solar k=1.33; installed 40,405 MW wind / 40,226 MW solar"
+    "detail": "wind k=1.69, solar k=1.18; installed 40,405 MW wind / 40,226 MW solar"
    }
   }
  },
  "summary_live": {
-  "n": 16,
+  "n": 17,
   "first_date": "2026-10-24",
-  "last_date": "2026-11-08",
+  "last_date": "2026-11-09",
   "n_fallback": 0,
   "n_training_weather_fallback": 0,
   "n_provisional": 0,
   "n_unscorable": 0,
   "hybrid_mae_atc": 5.55,
-  "hybrid_mae_peak": 8.03,
-  "hybrid_mae_hourly": 9.03,
-  "hybrid_n": 16,
-  "stack_mae_atc": 12.07,
-  "stack_mae_peak": 17.84,
-  "stack_mae_hourly": 14.31,
-  "stack_n": 16,
-  "persistence_mae_atc": 9.23,
-  "persistence_mae_peak": 11.34,
-  "persistence_mae_hourly": 13.87,
-  "persistence_n": 16,
-  "seasonal_mae_atc": 10.28,
-  "seasonal_mae_peak": 12.79,
-  "seasonal_mae_hourly": 13.88,
-  "seasonal_n": 16,
+  "hybrid_mae_peak": 7.7,
+  "hybrid_mae_hourly": 9.01,
+  "hybrid_n": 17,
+  "stack_mae_atc": 12.72,
+  "stack_mae_peak": 18.47,
+  "stack_mae_hourly": 14.83,
+  "stack_n": 17,
+  "persistence_mae_atc": 9.02,
+  "persistence_mae_peak": 10.98,
+  "persistence_mae_hourly": 13.48,
+  "persistence_n": 17,
+  "seasonal_mae_atc": 10.78,
+  "seasonal_mae_peak": 13.04,
+  "seasonal_mae_hourly": 14.19,
+  "seasonal_n": 17,
   "primary_mae_atc": 5.55,
   "paired_primary_mae_atc": 5.55,
-  "paired_persistence_mae_atc": 9.23,
-  "primary_mae_hourly": 9.03,
-  "primary_bias_atc": -2.17,
-  "primary_rmse_atc": 7.8,
-  "skill_vs_persistence_atc_pct": 39.9,
-  "skill_vs_persistence_hourly_pct": 34.9,
-  "days_beat_persistence": 10,
-  "paired_days": 16,
-  "interval_coverage_pct": 75.0,
-  "direction_hit_pct": 73.3,
-  "direction_n": 15
+  "paired_persistence_mae_atc": 9.02,
+  "primary_mae_hourly": 9.01,
+  "primary_bias_atc": -2.37,
+  "primary_rmse_atc": 7.69,
+  "skill_vs_persistence_atc_pct": 38.5,
+  "skill_vs_persistence_hourly_pct": 33.1,
+  "days_beat_persistence": 11,
+  "paired_days": 17,
+  "interval_coverage_pct": 76.5,
+  "direction_hit_pct": 75.0,
+  "direction_n": 16
  },
  "summary_all": {
-  "n": 18,
+  "n": 19,
   "first_date": "2026-10-22",
-  "last_date": "2026-11-08",
+  "last_date": "2026-11-09",
   "n_fallback": 0,
   "n_training_weather_fallback": 0,
   "n_provisional": 0,
   "n_unscorable": 0,
-  "hybrid_mae_atc": 5.47,
-  "hybrid_mae_peak": 8.33,
+  "hybrid_mae_atc": 5.48,
+  "hybrid_mae_peak": 8.02,
   "hybrid_mae_hourly": 8.77,
-  "hybrid_n": 18,
-  "stack_mae_atc": 11.55,
-  "stack_mae_peak": 17.59,
-  "stack_mae_hourly": 13.89,
-  "stack_n": 18,
-  "persistence_mae_atc": 9.34,
-  "persistence_mae_peak": 12.12,
-  "persistence_mae_hourly": 13.57,
-  "persistence_n": 18,
-  "seasonal_mae_atc": 9.96,
-  "seasonal_mae_peak": 13.2,
-  "seasonal_mae_hourly": 13.34,
-  "seasonal_n": 18,
-  "primary_mae_atc": 5.47,
-  "paired_primary_mae_atc": 5.47,
-  "paired_persistence_mae_atc": 9.34,
+  "hybrid_n": 19,
+  "stack_mae_atc": 12.16,
+  "stack_mae_peak": 18.17,
+  "stack_mae_hourly": 14.37,
+  "stack_n": 19,
+  "persistence_mae_atc": 9.15,
+  "persistence_mae_peak": 11.76,
+  "persistence_mae_hourly": 13.24,
+  "persistence_n": 19,
+  "seasonal_mae_atc": 10.43,
+  "seasonal_mae_peak": 13.4,
+  "seasonal_mae_hourly": 13.65,
+  "seasonal_n": 19,
+  "primary_mae_atc": 5.48,
+  "paired_primary_mae_atc": 5.48,
+  "paired_persistence_mae_atc": 9.15,
   "primary_mae_hourly": 8.77,
-  "primary_bias_atc": -1.38,
-  "primary_rmse_atc": 7.54,
-  "skill_vs_persistence_atc_pct": 41.4,
-  "skill_vs_persistence_hourly_pct": 35.4,
-  "days_beat_persistence": 12,
-  "paired_days": 18,
-  "interval_coverage_pct": 77.8,
-  "direction_hit_pct": 76.5,
-  "direction_n": 17
+  "primary_bias_atc": -1.61,
+  "primary_rmse_atc": 7.46,
+  "skill_vs_persistence_atc_pct": 40.0,
+  "skill_vs_persistence_hourly_pct": 33.8,
+  "days_beat_persistence": 13,
+  "paired_days": 19,
+  "interval_coverage_pct": 78.9,
+  "direction_hit_pct": 77.8,
+  "direction_n": 18
  },
  "scorecard": [
   {
@@ -1353,6 +1338,56 @@
    "rt_atc": null,
    "da_minus_rt": null,
    "rt_coverage_pct": 32.3
+  },
+  {
+   "target_date": "2026-11-09",
+   "generated_at_ct": "2026-11-07T14:16:23-06:00",
+   "saved_at_ct": "2026-11-07T14:16:47-06:00",
+   "dam_close_ct": "2026-11-08T10:00:00-06:00",
+   "live": true,
+   "git_sha": "a232816",
+   "run_url": "https://github.com/AAaali2292/ercot-forecast-updated/actions/runs/42410191382",
+   "primary_model": "hybrid",
+   "primary_is_fallback": false,
+   "training_weather_fallback": false,
+   "actual_source": "ercot-mis-daily",
+   "actual_official": true,
+   "n_hours": 24,
+   "n_filled": 0,
+   "status": "scored",
+   "act_atc": 46.04,
+   "act_peak": 51.8,
+   "act_onpeak": 46.8,
+   "act_max": 62.79,
+   "fc_atc": 40.39,
+   "fc_peak": 49.33,
+   "fc_onpeak": 42.43,
+   "fc_atc_p10": 35.16,
+   "fc_atc_p90": 49.1,
+   "err_atc": -5.65,
+   "err_peak": -2.47,
+   "mae_hourly": 8.71,
+   "in_interval": 1,
+   "direction_hit": 1.0,
+   "hybrid_atc": 40.39,
+   "hybrid_err_atc": -5.65,
+   "hybrid_err_peak": -2.47,
+   "hybrid_mae_hourly": 8.71,
+   "stack_atc": 22.92,
+   "stack_err_atc": -23.12,
+   "stack_err_peak": -28.59,
+   "stack_mae_hourly": 23.12,
+   "persistence_atc": 40.3,
+   "persistence_err_atc": -5.74,
+   "persistence_err_peak": -5.22,
+   "persistence_mae_hourly": 7.22,
+   "seasonal_atc": 27.11,
+   "seasonal_err_atc": -18.93,
+   "seasonal_err_peak": -17.0,
+   "seasonal_mae_hourly": 19.1,
+   "rt_atc": null,
+   "da_minus_rt": null,
+   "rt_coverage_pct": null
   }
  ],
  "detail": {
@@ -5711,6 +5746,248 @@
     "p10": 22.15,
     "p90": 57.78
    }
+  ],
+  "2026-11-09": [
+   {
+    "he": 1,
+    "actual": 44.08,
+    "hybrid": 35.67,
+    "stack": 22.51,
+    "persistence": 46.22,
+    "seasonal": 18.88,
+    "p10": 29.02,
+    "p90": 47.54
+   },
+   {
+    "he": 2,
+    "actual": 45.45,
+    "hybrid": 33.26,
+    "stack": 22.42,
+    "persistence": 44.74,
+    "seasonal": 16.5,
+    "p10": 26.61,
+    "p90": 45.13
+   },
+   {
+    "he": 3,
+    "actual": 41.82,
+    "hybrid": 32.13,
+    "stack": 22.34,
+    "persistence": 40.42,
+    "seasonal": 16.87,
+    "p10": 25.48,
+    "p90": 44.0
+   },
+   {
+    "he": 4,
+    "actual": 46.44,
+    "hybrid": 31.88,
+    "stack": 22.42,
+    "persistence": 38.98,
+    "seasonal": 17.71,
+    "p10": 25.23,
+    "p90": 43.75
+   },
+   {
+    "he": 5,
+    "actual": 50.46,
+    "hybrid": 32.54,
+    "stack": 22.59,
+    "persistence": 37.9,
+    "seasonal": 19.26,
+    "p10": 25.89,
+    "p90": 44.41
+   },
+   {
+    "he": 6,
+    "actual": 53.54,
+    "hybrid": 36.72,
+    "stack": 22.92,
+    "persistence": 38.16,
+    "seasonal": 21.94,
+    "p10": 30.07,
+    "p90": 48.59
+   },
+   {
+    "he": 7,
+    "actual": 54.5,
+    "hybrid": 34.9,
+    "stack": 23.08,
+    "persistence": 36.32,
+    "seasonal": 24.82,
+    "p10": 29.37,
+    "p90": 46.53
+   },
+   {
+    "he": 8,
+    "actual": 54.41,
+    "hybrid": 33.72,
+    "stack": 23.41,
+    "persistence": 33.87,
+    "seasonal": 23.69,
+    "p10": 28.19,
+    "p90": 45.35
+   },
+   {
+    "he": 9,
+    "actual": 49.06,
+    "hybrid": 31.49,
+    "stack": 23.41,
+    "persistence": 34.04,
+    "seasonal": 20.54,
+    "p10": 25.96,
+    "p90": 43.12
+   },
+   {
+    "he": 10,
+    "actual": 42.04,
+    "hybrid": 30.09,
+    "stack": 23.0,
+    "persistence": 30.69,
+    "seasonal": 17.56,
+    "p10": 24.56,
+    "p90": 41.72
+   },
+   {
+    "he": 11,
+    "actual": 37.16,
+    "hybrid": 34.67,
+    "stack": 23.08,
+    "persistence": 31.51,
+    "seasonal": 19.08,
+    "p10": 29.14,
+    "p90": 46.3
+   },
+   {
+    "he": 12,
+    "actual": 36.11,
+    "hybrid": 36.83,
+    "stack": 22.75,
+    "persistence": 31.15,
+    "seasonal": 20.65,
+    "p10": 31.3,
+    "p90": 48.46
+   },
+   {
+    "he": 13,
+    "actual": 36.08,
+    "hybrid": 32.79,
+    "stack": 22.26,
+    "persistence": 29.8,
+    "seasonal": 21.31,
+    "p10": 27.26,
+    "p90": 44.42
+   },
+   {
+    "he": 14,
+    "actual": 34.13,
+    "hybrid": 35.69,
+    "stack": 22.34,
+    "persistence": 29.43,
+    "seasonal": 22.44,
+    "p10": 30.16,
+    "p90": 47.32
+   },
+   {
+    "he": 15,
+    "actual": 35.66,
+    "hybrid": 36.74,
+    "stack": 22.26,
+    "persistence": 32.54,
+    "seasonal": 22.01,
+    "p10": 19.84,
+    "p90": 55.74
+   },
+   {
+    "he": 16,
+    "actual": 43.14,
+    "hybrid": 42.13,
+    "stack": 22.42,
+    "persistence": 38.8,
+    "seasonal": 22.94,
+    "p10": 25.23,
+    "p90": 61.13
+   },
+   {
+    "he": 17,
+    "actual": 57.54,
+    "hybrid": 49.45,
+    "stack": 23.0,
+    "persistence": 45.79,
+    "seasonal": 32.51,
+    "p10": 32.55,
+    "p90": 68.45
+   },
+   {
+    "he": 18,
+    "actual": 62.79,
+    "hybrid": 55.91,
+    "stack": 23.74,
+    "persistence": 53.81,
+    "seasonal": 46.98,
+    "p10": 39.01,
+    "p90": 74.91
+   },
+   {
+    "he": 19,
+    "actual": 56.29,
+    "hybrid": 55.14,
+    "stack": 23.87,
+    "persistence": 53.76,
+    "seasonal": 41.37,
+    "p10": 38.24,
+    "p90": 74.14
+   },
+   {
+    "he": 20,
+    "actual": 55.41,
+    "hybrid": 56.62,
+    "stack": 23.99,
+    "persistence": 54.79,
+    "seasonal": 42.99,
+    "p10": 39.72,
+    "p90": 75.62
+   },
+   {
+    "he": 21,
+    "actual": 49.82,
+    "hybrid": 58.86,
+    "stack": 23.58,
+    "persistence": 49.81,
+    "seasonal": 45.22,
+    "p10": 41.6,
+    "p90": 77.23
+   },
+   {
+    "he": 22,
+    "actual": 44.74,
+    "hybrid": 53.8,
+    "stack": 23.17,
+    "persistence": 48.9,
+    "seasonal": 40.69,
+    "p10": 36.54,
+    "p90": 72.17
+   },
+   {
+    "he": 23,
+    "actual": 38.93,
+    "hybrid": 47.83,
+    "stack": 22.92,
+    "persistence": 45.92,
+    "seasonal": 40.92,
+    "p10": 30.57,
+    "p90": 66.2
+   },
+   {
+    "he": 24,
+    "actual": 35.26,
+    "hybrid": 40.43,
+    "stack": 22.59,
+    "persistence": 39.8,
+    "seasonal": 33.66,
+    "p10": 23.17,
+    "p90": 58.8
+   }
   ]
  },
  "backtest": {
@@ -6649,5 +6926,5 @@
    }
   ]
  },
- "history_days": 312
+ "history_days": 313
 }
