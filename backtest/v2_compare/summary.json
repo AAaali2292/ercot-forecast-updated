@@ -1,0 +1,470 @@
+{
+  "generated_at_ct": "2026-11-10T13:14:32-06:00",
+  "label": "SIMULATED - model v2 experiment, not part of the live record",
+  "method": "Model v2 experiment: does the hybrid forecast cold days better if it is shown winter?\n\nSIMULATED - this never touches the live record or the production model.\n\nThe problem\n-----------\nThe production hybrid (v1) trains on the last 120 days. In November that window is\nsummer and early autumn, so the model has hardly seen a cold day, and heating and\ncooling share one \"degree-hours\" input, so it cannot learn that a cold morning and a\nhot afternoon move prices differently.\n\nCandidates (all fitted on exactly the same rows, scored on exactly the same hours)\n--------------------------------------------------------------------------------\n  v1   production model, unchanged (src.hybrid.HybridModel)\n  v2a  heating and cooling as separate inputs (hdd, cdd and their day-on-day change)\n  v2b  v2a + a \"winter bank\": cold days from the previous ~14 months that fall outside\n       the 120-day window, added to training at a fixed weight of 0.25\n  v2c  as v2b with bank weight 0.5\n\nInformation set is identical to the live model: a row for day T uses DAM prices up to\nT-1 and the weather forecast for T as it stood ~24h earlier (Open-Meteo previous runs).\n\nDecision rule (written before the results are seen)\n---------------------------------------------------\nPick the candidate with the lowest daily-average MAE on COLD days in the winter-onset\nwindow (1 Nov 2025 - 31 Jan 2026), subject to: its daily MAE over the most recent 60\ndays is no worse than v1's by more than 2%. If no candidate passes, keep v1.",
+  "data": {
+    "dam_first": "2024-01-01",
+    "dam_last": "2026-11-11",
+    "weather_first": "2024-08-17",
+    "weather_last": "2026-11-09",
+    "rows": 19505,
+    "cold_days_total": 180,
+    "test_days": 374
+  },
+  "status": "ok",
+  "windows": {
+    "winter_onset": {
+      "all_days": {
+        "n_days": 92,
+        "persistence": {
+          "mae_atc": 21.87,
+          "mae_hourly": 33.71,
+          "mae_peak": 26.51,
+          "bias_atc": -0.32
+        },
+        "v1": {
+          "mae_atc": 18.91,
+          "mae_hourly": 26.58,
+          "mae_peak": 19.03,
+          "bias_atc": -6.11,
+          "direction_pct": 71.6,
+          "skill_vs_persistence_pct": 13.5
+        },
+        "v2a": {
+          "mae_atc": 18.96,
+          "mae_hourly": 26.64,
+          "mae_peak": 18.95,
+          "bias_atc": -6.31,
+          "direction_pct": 72.7,
+          "skill_vs_persistence_pct": 13.3
+        },
+        "v2b": {
+          "mae_atc": 20.98,
+          "mae_hourly": 24.29,
+          "mae_peak": 16.82,
+          "bias_atc": -10.53,
+          "direction_pct": 75.0,
+          "skill_vs_persistence_pct": 4.1
+        },
+        "v2c": {
+          "mae_atc": 21.19,
+          "mae_hourly": 24.32,
+          "mae_peak": 16.55,
+          "bias_atc": -11.51,
+          "direction_pct": 75.0,
+          "skill_vs_persistence_pct": 3.1
+        }
+      },
+      "cold_days": {
+        "n_days": 56,
+        "persistence": {
+          "mae_atc": 30.85,
+          "mae_hourly": 47.71,
+          "mae_peak": 31.83,
+          "bias_atc": 0.2
+        },
+        "v1": {
+          "mae_atc": 27.32,
+          "mae_hourly": 38.34,
+          "mae_peak": 23.6,
+          "bias_atc": -8.5,
+          "direction_pct": 76.8,
+          "skill_vs_persistence_pct": 11.5
+        },
+        "v2a": {
+          "mae_atc": 27.36,
+          "mae_hourly": 38.34,
+          "mae_peak": 23.09,
+          "bias_atc": -9.29,
+          "direction_pct": 76.8,
+          "skill_vs_persistence_pct": 11.3
+        },
+        "v2b": {
+          "mae_atc": 30.59,
+          "mae_hourly": 34.6,
+          "mae_peak": 19.72,
+          "bias_atc": -15.29,
+          "direction_pct": 80.4,
+          "skill_vs_persistence_pct": 0.9
+        },
+        "v2c": {
+          "mae_atc": 30.88,
+          "mae_hourly": 34.63,
+          "mae_peak": 19.21,
+          "bias_atc": -16.49,
+          "direction_pct": 76.8,
+          "skill_vs_persistence_pct": -0.1
+        }
+      }
+    },
+    "late_winter": {
+      "all_days": {
+        "n_days": 59,
+        "persistence": {
+          "mae_atc": 6.21,
+          "mae_hourly": 9.32,
+          "mae_peak": 9.2,
+          "bias_atc": 0.69
+        },
+        "v1": {
+          "mae_atc": 3.31,
+          "mae_hourly": 5.92,
+          "mae_peak": 5.07,
+          "bias_atc": -0.47,
+          "direction_pct": 81.0,
+          "skill_vs_persistence_pct": 46.6
+        },
+        "v2a": {
+          "mae_atc": 3.23,
+          "mae_hourly": 5.9,
+          "mae_peak": 5.02,
+          "bias_atc": -0.3,
+          "direction_pct": 79.3,
+          "skill_vs_persistence_pct": 48.0
+        },
+        "v2b": {
+          "mae_atc": 3.24,
+          "mae_hourly": 5.88,
+          "mae_peak": 5.22,
+          "bias_atc": 0.14,
+          "direction_pct": 84.5,
+          "skill_vs_persistence_pct": 47.8
+        },
+        "v2c": {
+          "mae_atc": 3.27,
+          "mae_hourly": 5.93,
+          "mae_peak": 5.39,
+          "bias_atc": 0.24,
+          "direction_pct": 84.5,
+          "skill_vs_persistence_pct": 47.3
+        }
+      },
+      "cold_days": {
+        "n_days": 21,
+        "persistence": {
+          "mae_atc": 7.95,
+          "mae_hourly": 11.73,
+          "mae_peak": 12.18,
+          "bias_atc": 2.06
+        },
+        "v1": {
+          "mae_atc": 3.81,
+          "mae_hourly": 6.86,
+          "mae_peak": 4.51,
+          "bias_atc": 1.91,
+          "direction_pct": 85.7,
+          "skill_vs_persistence_pct": 52.1
+        },
+        "v2a": {
+          "mae_atc": 3.74,
+          "mae_hourly": 6.9,
+          "mae_peak": 4.53,
+          "bias_atc": 1.8,
+          "direction_pct": 81.0,
+          "skill_vs_persistence_pct": 53.0
+        },
+        "v2b": {
+          "mae_atc": 4.04,
+          "mae_hourly": 6.95,
+          "mae_peak": 5.16,
+          "bias_atc": 2.44,
+          "direction_pct": 76.2,
+          "skill_vs_persistence_pct": 49.1
+        },
+        "v2c": {
+          "mae_atc": 4.14,
+          "mae_hourly": 7.08,
+          "mae_peak": 5.59,
+          "bias_atc": 2.63,
+          "direction_pct": 76.2,
+          "skill_vs_persistence_pct": 47.9
+        }
+      }
+    },
+    "spring_summer": {
+      "all_days": {
+        "n_days": 183,
+        "persistence": {
+          "mae_atc": 6.15,
+          "mae_hourly": 8.04,
+          "mae_peak": 8.45,
+          "bias_atc": -0.1
+        },
+        "v1": {
+          "mae_atc": 4.43,
+          "mae_hourly": 6.17,
+          "mae_peak": 6.74,
+          "bias_atc": -1.81,
+          "direction_pct": 74.4,
+          "skill_vs_persistence_pct": 27.9
+        },
+        "v2a": {
+          "mae_atc": 4.38,
+          "mae_hourly": 6.18,
+          "mae_peak": 6.76,
+          "bias_atc": -1.5,
+          "direction_pct": 75.2,
+          "skill_vs_persistence_pct": 28.9
+        },
+        "v2b": {
+          "mae_atc": 4.2,
+          "mae_hourly": 6.49,
+          "mae_peak": 6.77,
+          "bias_atc": -1.13,
+          "direction_pct": 75.9,
+          "skill_vs_persistence_pct": 31.6
+        },
+        "v2c": {
+          "mae_atc": 4.21,
+          "mae_hourly": 6.76,
+          "mae_peak": 6.89,
+          "bias_atc": -0.95,
+          "direction_pct": 75.2,
+          "skill_vs_persistence_pct": 31.5
+        }
+      },
+      "cold_days": {
+        "n_days": 3,
+        "persistence": {
+          "mae_atc": 0.98,
+          "mae_hourly": 9.13,
+          "mae_peak": 3.11,
+          "bias_atc": -0.11
+        },
+        "v1": {
+          "mae_atc": 6.15,
+          "mae_hourly": 7.56,
+          "mae_peak": 7.13,
+          "bias_atc": -6.15,
+          "direction_pct": 50.0,
+          "skill_vs_persistence_pct": -527.1
+        },
+        "v2a": {
+          "mae_atc": 5.69,
+          "mae_hourly": 7.42,
+          "mae_peak": 6.81,
+          "bias_atc": -5.69,
+          "direction_pct": 50.0,
+          "skill_vs_persistence_pct": -481.0
+        },
+        "v2b": {
+          "mae_atc": 5.22,
+          "mae_hourly": 7.11,
+          "mae_peak": 5.23,
+          "bias_atc": -5.22,
+          "direction_pct": 50.0,
+          "skill_vs_persistence_pct": -432.5
+        },
+        "v2c": {
+          "mae_atc": 5.03,
+          "mae_hourly": 7.02,
+          "mae_peak": 4.51,
+          "bias_atc": -5.03,
+          "direction_pct": 50.0,
+          "skill_vs_persistence_pct": -413.1
+        }
+      }
+    },
+    "live_period": {
+      "all_days": {
+        "n_days": 16,
+        "persistence": {
+          "mae_atc": 9.23,
+          "mae_hourly": 13.87,
+          "mae_peak": 11.34,
+          "bias_atc": -1.16
+        },
+        "v1": {
+          "mae_atc": 5.03,
+          "mae_hourly": 8.51,
+          "mae_peak": 7.14,
+          "bias_atc": -2.78,
+          "direction_pct": 73.3,
+          "skill_vs_persistence_pct": 45.5
+        },
+        "v2a": {
+          "mae_atc": 5.38,
+          "mae_hourly": 8.71,
+          "mae_peak": 7.79,
+          "bias_atc": -3.12,
+          "direction_pct": 73.3,
+          "skill_vs_persistence_pct": 41.8
+        },
+        "v2b": {
+          "mae_atc": 4.92,
+          "mae_hourly": 8.01,
+          "mae_peak": 6.71,
+          "bias_atc": -3.97,
+          "direction_pct": 73.3,
+          "skill_vs_persistence_pct": 46.7
+        },
+        "v2c": {
+          "mae_atc": 5.08,
+          "mae_hourly": 8.1,
+          "mae_peak": 6.8,
+          "bias_atc": -4.57,
+          "direction_pct": 73.3,
+          "skill_vs_persistence_pct": 44.9
+        }
+      }
+    },
+    "recent_60": {
+      "all_days": {
+        "n_days": 60,
+        "persistence": {
+          "mae_atc": 8.57,
+          "mae_hourly": 10.97,
+          "mae_peak": 12.34,
+          "bias_atc": 0.09
+        },
+        "v1": {
+          "mae_atc": 5.42,
+          "mae_hourly": 7.77,
+          "mae_peak": 8.97,
+          "bias_atc": -1.73,
+          "direction_pct": 77.2,
+          "skill_vs_persistence_pct": 36.8
+        },
+        "v2a": {
+          "mae_atc": 5.59,
+          "mae_hourly": 7.92,
+          "mae_peak": 9.16,
+          "bias_atc": -1.87,
+          "direction_pct": 77.2,
+          "skill_vs_persistence_pct": 34.8
+        },
+        "v2b": {
+          "mae_atc": 5.17,
+          "mae_hourly": 7.57,
+          "mae_peak": 8.85,
+          "bias_atc": -3.52,
+          "direction_pct": 78.9,
+          "skill_vs_persistence_pct": 39.7
+        },
+        "v2c": {
+          "mae_atc": 5.25,
+          "mae_hourly": 7.79,
+          "mae_peak": 8.96,
+          "bias_atc": -3.89,
+          "direction_pct": 78.9,
+          "skill_vs_persistence_pct": 38.8
+        }
+      }
+    },
+    "all_test_days": {
+      "all_days": {
+        "n_days": 373,
+        "persistence": {
+          "mae_atc": 10.45,
+          "mae_hourly": 15.1,
+          "mae_peak": 13.61,
+          "bias_atc": -0.03
+        },
+        "v1": {
+          "mae_atc": 8.0,
+          "mae_hourly": 11.44,
+          "mae_peak": 9.83,
+          "bias_atc": -2.66,
+          "direction_pct": 75.3,
+          "skill_vs_persistence_pct": 23.5
+        },
+        "v2a": {
+          "mae_atc": 7.99,
+          "mae_hourly": 11.49,
+          "mae_peak": 9.84,
+          "bias_atc": -2.56,
+          "direction_pct": 75.6,
+          "skill_vs_persistence_pct": 23.5
+        },
+        "v2b": {
+          "mae_atc": 8.37,
+          "mae_hourly": 10.99,
+          "mae_peak": 9.29,
+          "bias_atc": -3.57,
+          "direction_pct": 77.1,
+          "skill_vs_persistence_pct": 19.9
+        },
+        "v2c": {
+          "mae_atc": 8.44,
+          "mae_hourly": 11.16,
+          "mae_peak": 9.32,
+          "bias_atc": -3.77,
+          "direction_pct": 76.8,
+          "skill_vs_persistence_pct": 19.2
+        }
+      },
+      "cold_days": {
+        "n_days": 82,
+        "persistence": {
+          "mae_atc": 23.32,
+          "mae_hourly": 36.19,
+          "mae_peak": 25.21,
+          "bias_atc": 0.53
+        },
+        "v1": {
+          "mae_atc": 19.89,
+          "mae_hourly": 28.41,
+          "mae_peak": 17.57,
+          "bias_atc": -5.58,
+          "direction_pct": 79.0,
+          "skill_vs_persistence_pct": 14.7
+        },
+        "v2a": {
+          "mae_atc": 19.97,
+          "mae_hourly": 28.5,
+          "mae_peak": 17.25,
+          "bias_atc": -6.21,
+          "direction_pct": 77.8,
+          "skill_vs_persistence_pct": 14.4
+        },
+        "v2b": {
+          "mae_atc": 22.24,
+          "mae_hourly": 25.83,
+          "mae_peak": 15.14,
+          "bias_atc": -10.14,
+          "direction_pct": 79.0,
+          "skill_vs_persistence_pct": 4.6
+        },
+        "v2c": {
+          "mae_atc": 22.48,
+          "mae_hourly": 25.88,
+          "mae_peak": 14.88,
+          "bias_atc": -10.91,
+          "direction_pct": 76.5,
+          "skill_vs_persistence_pct": 3.6
+        }
+      }
+    }
+  },
+  "decision": {
+    "chosen": "v1",
+    "passing_recent_check": [
+      "v2b",
+      "v2c"
+    ],
+    "rule": "lowest winter-onset cold-day ATC MAE among variants whose recent-60-day ATC MAE is within 2% of v1; keep v1 otherwise",
+    "v2b_bank_days_median": 82.0
+  },
+  "feeds": {
+    "MIS duplicate files disagree": {
+      "status": "WARN",
+      "detail": "7 hub-hours differ by up to $2.80; averaged - check ERCOT notices",
+      "rows": null
+    },
+    "ERCOT MIS annual 2024": {
+      "status": "OK",
+      "detail": "8783 hub-hours",
+      "rows": null
+    },
+    "ERCOT MIS annual 2025": {
+      "status": "OK",
+      "detail": "8759 hub-hours",
+      "rows": null
+    },
+    "Open-Meteo previous-day forecasts": {
+      "status": "OK",
+      "detail": "96 hours, 2026-11-05 to 2026-11-09",
+      "rows": 96
+    }
+  }
+}
