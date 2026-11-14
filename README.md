@@ -11,19 +11,20 @@ A call for delivery day T can be made from the moment ERCOT publishes day-ahead 
 ## Live track record
 
 <!-- SCORECARD:START -->
-**22 live days scored** (2026-10-24 → 2026-11-14). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
+**23 live days scored** (2026-10-24 → 2026-11-15). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
 
 | Model | MAE daily avg | MAE peak HE15-20 | MAE hourly |
 |---|---|---|---|
-| **Hybrid (primary)** | $4.99 | $7.26 | $8.58 |
-| Fundamental stack | $14.36 | $20.52 | $16.26 |
-| Benchmark: today's DAM | $8.53 | $10.45 | $12.70 |
-| Benchmark: same day last week | $11.56 | $15.10 | $15.93 |
+| **Hybrid (primary)** | $4.80 | $6.96 | $8.35 |
+| Fundamental stack | $14.26 | $20.30 | $16.07 |
+| Benchmark: today's DAM | $8.77 | $10.72 | $12.76 |
+| Benchmark: same day last week | $11.19 | $14.72 | $15.51 |
 
-Skill vs persistence (daily avg): **41.5%** · beat persistence on 15/22 days · direction of change called 76.2% (21 days) · 80% interval coverage 81.8%
+Skill vs persistence (daily avg): **45.2%** · beat persistence on 16/23 days · direction of change called 77.3% (22 days) · 80% interval coverage 82.6%
 
 | Day | Published (CT) | Forecast | Actual | Error | Today's DAM (benchmark) |
 |---|---|---|---|---|---|
+| 2026-11-15 | 2026-11-13 14:00 | $36.64 | $37.25 | -0.61 | $23.16 |
 | 2026-11-14 | 2026-11-12 12:48 | $18.56 | $23.16 | -4.60 | $33.74 |
 | 2026-11-13 | 2026-11-11 12:35 | $36.71 | $33.74 | 2.97 | $44.26 |
 | 2026-11-12 | 2026-11-10 12:36 | $44.68 | $44.26 | 0.42 | $47.65 |
@@ -37,7 +38,6 @@ Skill vs persistence (daily avg): **41.5%** · beat persistence on 15/22 days ·
 | 2026-11-04 | 2026-11-02 14:43 | $48.06 | $42.51 | 5.55 | $58.98 |
 | 2026-11-03 | 2026-11-01 14:32 | $35.83 | $58.98 | -23.15 | $27.11 |
 | 2026-11-02 | 2026-10-31 15:01 | $28.60 | $27.11 | 1.50 | $31.75 |
-| 2026-11-01 | 2026-10-30 13:11 | $35.82 | $31.75 | 4.06 | $44.74 |
 <!-- SCORECARD:END -->
 
 *Updated automatically. Only calls stamped before the 10:00 CT market close are counted. Error = forecast − actual, $/MWh.*
