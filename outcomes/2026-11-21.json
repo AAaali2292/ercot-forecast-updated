@@ -1,0 +1,33 @@
+{
+  "target_date": "2026-11-21",
+  "captured_at_ct": "2026-11-21T07:03:13-06:00",
+  "intervals": 27,
+  "expected_intervals": 96,
+  "coverage_pct": 28.1,
+  "rt": {
+    "atc": 17.18,
+    "peak": null,
+    "max": 20.84,
+    "min": 15.25,
+    "n_intervals_over_200": 0,
+    "n_intervals_negative": 0
+  },
+  "rt_by_he": {
+    "1": 15.44,
+    "2": 16.54,
+    "3": 17.49,
+    "4": 16.33,
+    "5": 16.85,
+    "6": 18.59,
+    "7": 19.61
+  },
+  "fundamentals": {
+    "intervals": 83,
+    "coverage_pct": 28.8,
+    "peak_load_mw": 47112.0,
+    "peak_net_load_mw": 25667.0,
+    "min_net_load_mw": 21965.0,
+    "wind_peak_block_mw": null,
+    "solar_peak_block_mw": null
+  }
+}
