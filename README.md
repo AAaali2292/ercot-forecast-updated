@@ -11,19 +11,20 @@ A call for delivery day T can be made from the moment ERCOT publishes day-ahead 
 ## Live track record
 
 <!-- SCORECARD:START -->
-**35 live days scored** (2026-10-24 → 2026-11-27). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
+**36 live days scored** (2026-10-24 → 2026-11-28). Target: ERCOT DAM Hub Average, $/MWh. Error = forecast − actual.
 
 | Model | MAE daily avg | MAE peak HE15-20 | MAE hourly |
 |---|---|---|---|
-| **Hybrid (primary)** | $5.01 | $7.07 | $8.15 |
+| **Hybrid (primary)** | $4.87 | $6.94 | $8.00 |
 | Fundamental stack | $12.29 | $16.69 | $14.97 |
-| Benchmark: today's DAM | $8.98 | $11.05 | $12.52 |
-| Benchmark: same day last week | $11.91 | $14.45 | $15.20 |
+| Benchmark: today's DAM | $8.99 | $11.09 | $12.43 |
+| Benchmark: same day last week | $11.76 | $14.53 | $15.07 |
 
-Skill vs persistence (daily avg): **44.3%** · beat persistence on 25/35 days · direction of change called 82.4% (34 days) · 80% interval coverage 71.4%
+Skill vs persistence (daily avg): **45.8%** · beat persistence on 26/36 days · direction of change called 82.9% (35 days) · 80% interval coverage 72.2%
 
 | Day | Published (CT) | Forecast | Actual | Error | Today's DAM (benchmark) |
 |---|---|---|---|---|---|
+| 2026-11-28 | 2026-11-26 14:05 | $12.31 | $12.23 | 0.08 | $21.37 |
 | 2026-11-27 | 2026-11-25 12:41 | $30.27 | $21.37 | 8.89 | $34.21 |
 | 2026-11-26 | 2026-11-24 13:33 | $44.96 | $34.21 | 10.75 | $46.31 |
 | 2026-11-25 | 2026-11-23 12:45 | $41.14 | $46.31 | -5.17 | $41.76 |
@@ -37,7 +38,6 @@ Skill vs persistence (daily avg): **44.3%** · beat persistence on 25/35 days ·
 | 2026-11-17 | 2026-11-15 13:05 | $33.15 | $28.15 | 5.00 | $54.09 |
 | 2026-11-16 | 2026-11-14 14:45 | $46.82 | $54.09 | -7.27 | $37.25 |
 | 2026-11-15 | 2026-11-13 14:00 | $36.64 | $37.25 | -0.61 | $23.16 |
-| 2026-11-14 | 2026-11-12 12:48 | $18.56 | $23.16 | -4.60 | $33.74 |
 <!-- SCORECARD:END -->
 
 *Updated automatically. Only calls stamped before the 10:00 CT market close are counted. Error = forecast − actual, $/MWh.*
